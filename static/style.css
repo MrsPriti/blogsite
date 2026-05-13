@@ -22,16 +22,53 @@
 body {
     background-color: #f8fafc;
     overflow-x: hidden;
+    scroll-behavior: smooth;
+    opacity: 0;
+    animation: fadeInPage 1s ease forwards;
+}
+
+@keyframes fadeInPage {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+/* CUSTOM SCROLLBAR */
+::-webkit-scrollbar {
+    width: 10px;
+}
+::-webkit-scrollbar-track {
+    background: #f1f5f9;
+}
+::-webkit-scrollbar-thumb {
+    background: var(--primary);
+    border-radius: 10px;
+    border: 2px solid #f1f5f9;
+}
+::-webkit-scrollbar-thumb:hover {
+    background: var(--primary-dark);
 }
 
 /* NAVIGATION */
 nav {
     box-shadow: none !important;
-    backdrop-filter: blur(10px);
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-    position: sticky;
+    background: transparent !important;
+    transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    position: fixed;
     top: 0;
+    width: 100%;
     z-index: 1000;
+}
+
+nav.scrolled {
+    background: var(--glass-dark) !important;
+    backdrop-filter: blur(15px);
+    box-shadow: var(--shadow) !important;
+    height: 64px;
+}
+
+nav.scrolled .brand-logo, 
+nav.scrolled ul a {
+    color: white !important;
 }
 
 nav .brand-logo {
@@ -147,6 +184,16 @@ nav ul a:hover {
 .banner .search-wrapper button:hover {
     background: var(--primary-dark);
     transform: scale(1.05);
+}
+
+@keyframes float {
+    0% { transform: translateY(0px); }
+    50% { transform: translateY(-10px); }
+    100% { transform: translateY(0px); }
+}
+
+.banner .content {
+    animation: float 4s ease-in-out infinite;
 }
 
 /* CARDS & CONTAINERS */
