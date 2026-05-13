@@ -15,7 +15,7 @@
             <p>( {{post.cat.title}} )</p>
             
 
-            <img src="{% static post.image %}" class="responsive-img" alt=""><br>
+            <img src="{% static post.image.name %}" class="responsive-img" alt=""><br>
             {% if post.cat.title == 'Food' %}
             <iframe width="200" height="100" src="https://www.youtube.com/embed/opikz5x_1ak?si=MlkTfIwU-qrL_r4g" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
             {% endif %}
@@ -120,7 +120,7 @@
 
                 <div class="img-container">
 
-                    <img src="{% static cat.image %}" class="responsive-img" alt="">
+                    <img src="{% static cat.image.name %}" class="responsive-img" alt="">
 
                 </div>
                 <div class="card-content">
