@@ -1,0 +1,15 @@
+<div>
+    <h2>Comments</h2>
+    <ul>
+        {% for comment in comments %}
+            <li>{{ comment.user }}: {{ comment.content }} ({{ comment.created_at }})</li>
+        {% endfor %}
+    </ul>
+    <hr>
+    <h2>Leave a comment</h2>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Submit</button>
+    </form>
+</div>

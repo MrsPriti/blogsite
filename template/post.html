@@ -1,0 +1,73 @@
+{% extends 'base.html' %}
+
+{% block title %} POST {% endblock %}
+
+{% block content %}
+
+
+<div class="container-custom">
+    <div class="row">
+        <div class="col s12 m10">
+
+
+            <h3>{{post.title}}</h3>
+
+            <p>( {{post.cat.title}} )</p>
+            
+
+            <img src="/media/{{post.image}}" class="responsive-img" alt=""><br>
+            {% if post.cat.title == 'Food' %}
+            <iframe width="200" height="100" src="https://www.youtube.com/embed/opikz5x_1ak?si=MlkTfIwU-qrL_r4g" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+            {% endif %}
+            {% if post.cat.title == 'Travel' %}
+            <iframe width="200" height="100" src="https://www.youtube.com/embed/0yeFjV26uSg?si=0MPI2capgSHhA2fi" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+            {% endif %}
+            {% if post.cat.title == 'Fitness' %}
+            <iframe width="200" height="100" src="https://www.youtube.com/embed/dmif_yP7cZw?si=YRFAFywiIG93rEGb" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+            {% endif %}
+            {% if post.cat.title == 'Photography' %}
+            <iframe width="200" height="100" src="https://www.youtube.com/embed/rzP0BpDpXY4?si=tYulYWuMZ5B0mXPt" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+            {% endif %}
+            <br>
+            <p>
+                {{post.content|safe}}
+            </p>
+
+        </div>
+
+        <div class="col s12 m2">
+
+
+            {% for cat in cats %}
+
+            <div class="card item" style="margin-left:10px;">
+
+                <div class="img-container">
+
+                    <img src="/media/{{cat.image}}" class="responsive-img" alt="">
+
+                </div>
+                <div class="card-content">
+
+                    <b>
+                        {{cat.title}}
+                    </b>
+
+                    <p class="truncate">{{cat.description}}</p>
+                    <div class="container center-align mt20">
+                        <a href="/category/{{ cat.url }}" class="btn bg-primary">VIEW</a>
+                    </div>
+
+                </div>
+
+
+            </div>
+
+            {%endfor%}
+
+
+        </div>
+    </div>
+
+</div>
+{% endblock %}
