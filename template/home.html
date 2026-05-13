@@ -18,9 +18,9 @@
     </div> -->
     <div class="content">
         <h1>EXPLORE THE WORLD</h1>
-        <div>
-            <form action="" method="get">
-                <input style="width: 300px;" type="text" name="q" placeholder="Search..." required><br>
+        <div class="search-container">
+            <form action="{% url 'search' %}" method="get" class="search-wrapper">
+                <input type="text" name="q" placeholder="Search articles, categories..." required>
                 <button type="submit">Search</button>
             </form>
         </div>
@@ -47,27 +47,18 @@
                 </div>
                 
                 <p class="truncate">{{ cat.description }}</p>
-                <div class="container center-align mt20">
-                    <form action="{% url 'travel' %}" method="get">
-                        {% if cat.title == 'Travel' %}
-                        <button type="submit" class="btn bg-primary">VIEW</button>
-                        {% endif %}
-                    </form> 
-                    <form action="{% url 'food' %}" method="get">
-                        {% if cat.title == 'Food' %}
-                        <button type="submit" class="btn bg-primary">VIEW</button>
-                        {% endif %}
-                    </form>
-                    <form action="{% url 'photography' %}" method="get">
-                        {% if cat.title == 'Photography' %}
-                        <button type="submit" class="btn bg-primary">VIEW</button>
-                        {% endif %}
-                    </form>   
-                    <form action="{% url 'fitness' %}" method="get">
-                        {% if cat.title == 'Fitness' %}
-                        <button type="submit" class="btn bg-primary">VIEW</button>
-                        {% endif %}
-                    </form>                           
+                <div class="center-align mt20">
+                    {% if cat.title == 'Travel' %}
+                    <a href="{% url 'travel' %}" class="btn bg-primary">VIEW</a>
+                    {% elif cat.title == 'Food' %}
+                    <a href="{% url 'food' %}" class="btn bg-primary">VIEW</a>
+                    {% elif cat.title == 'Photography' %}
+                    <a href="{% url 'photography' %}" class="btn bg-primary">VIEW</a>
+                    {% elif cat.title == 'Fitness' %}
+                    <a href="{% url 'fitness' %}" class="btn bg-primary">VIEW</a>
+                    {% else %}
+                    <a href="/category/{{ cat.url }}" class="btn bg-primary">VIEW</a>
+                    {% endif %}
                 </div>      
            </div>
 
