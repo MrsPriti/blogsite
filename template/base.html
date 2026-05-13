@@ -8,7 +8,7 @@
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@700;800;900&family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
     <!-- Styles -->
@@ -25,12 +25,19 @@
             --accent: #06b6d4;
             --glass: rgba(255, 255, 255, 0.7);
             --glass-dark: rgba(15, 23, 42, 0.8);
-            --font-main: 'Outfit', sans-serif;
+            --font-main: 'Inter', sans-serif;
+            --font-heading: 'Playfair Display', serif;
+            --font-alt: 'Outfit', sans-serif;
         }
         body {
             font-family: var(--font-main);
             background-color: #f8fafc;
             color: #1e293b;
+            line-height: 1.6;
+        }
+        h1, h2, h3, h4, h5, h6 {
+            font-family: var(--font-heading);
+            font-weight: 800;
         }
         .bg-primary {
             background: var(--primary) !important;
