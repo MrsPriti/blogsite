@@ -37,7 +37,7 @@
 
             <div class="img-container">
                 {% if cat.image %}
-                <img src="{% static cat.image.name %}" class="responsive-img" style="height: 220px; width:100%; object-fit:cover;" alt="">
+                <img src="/static/{{ cat.image.name }}" class="responsive-img" style="height: 220px; width:100%; object-fit:cover;" alt="">
                 {% else %}
                     {% if cat.title == 'Travel' %}
                     <img src="{% static 'images/pic-1.jpg' %}" class="responsive-img" style="height: 220px; width:100%; object-fit:cover;">
@@ -101,7 +101,7 @@
                 </div>
 
                 <div class="col s12 m4">
-                    <img src="{% static p.image.name %}" class="responsive-img" style="margin-top:50px;">
+                    <img src="/static/{{ p.image.name }}" class="responsive-img" style="margin-top:50px;">
 
                 </div>
 
