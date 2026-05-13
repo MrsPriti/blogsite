@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+
+{% block title %} Posts by {{ user.username }} {% endblock %}
+
+{% block content %}
+<h2>Posts by {{ user.username }}</h2>
+
+{% for post in posts %}
+    <div class="row">
+        <div class="col s12 m8">
+            <h4><b><a href="/blog/{{ post.url }}">{{ post.title }}</a></b></h4>
+            {{ post.content|truncatewords:50|safe }}
+            <div class="mt20">
+                <a href="/blog/{{ post.url }}" class="btn bg-primary">Read More..</a>
+                {% if user.is_authenticated %}
+                    <a href="{% url 'edit_post' post.post_id %}" class="btn btn-warning">Edit</a>
+                    <a href="{% url 'delete_post' post.post_id %}" class="btn btn-danger">Delete</a>
+                {% endif %}
+            </div>
+        </div>
+        <div class="col s12 m4">
+            <img src="/media/{{ post.image }}" class="responsive-img" style="margin-top:50px;">
+        </div>
+    </div>
+{% endfor %}
+{% endblock %}

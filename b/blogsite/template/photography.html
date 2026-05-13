@@ -1,0 +1,144 @@
+{% extends 'base.html' %}
+
+{% block title %} Welcome to BLOGS {% endblock %}
+
+{% block content %}
+{% load static %}
+
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Photoweb</title>
+	<link rel="stylesheet" type="text/css" href="{% static 'photography.css' %}">
+	<link rel="stylesheet" type="text/css" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+<link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+</head>
+<body>
+<header>
+
+
+	<section class="h-text">
+		<i class="fa fa-camera" id="camera"></i>
+		<h1 data-aos="zoom-in-down" data-aos-delay="100">Capturing the moments that captivate your heart.</h1>
+		
+	</section>
+</header>
+
+<section class="filter-gallery">
+	<div class="portfolio-menu">
+			<ul>
+				
+				<li data-filter=".web"> Nature</li>
+				<li data-filter=".seo">Faishon</li>
+			</ul>
+		</div>
+		<div class="portfolio-item">
+			
+			<div class="item web" data-aos="flip-left" data-aos-offset="100" data-aos-delay="100">
+				<img src="{% static 'images/p1.jpg' %}" width="100" height="100">
+			</div>
+			<!-- Repeat similar structure for other items -->
+			<div class="item web" data-aos="flip-left" data-aos-offset="100" data-aos-delay="100">
+				<img src="{% static 'images/p2.jpg' %}" width="100" height="100">
+			</div>
+
+			<div class="item web" data-aos="flip-left" data-aos-offset="100" data-aos-delay="100">
+				<img src="{% static 'images/p3.jpg' %}" width="100" height="100">
+			</div>
+
+			<div class="item web" data-aos="flip-left" data-aos-offset="100" data-aos-delay="100">
+				<img src="{% static 'images/p4.jpg' %}" width="100" height="100">
+			</div>
+			
+			<div class="item seo" data-aos="zoom-in" data-aos-offset="100" data-aos-delay="200">
+				<img src="{% static 'images/p5.jpg' %}" width="100" height="100">
+			</div>
+			<div class="item seo" data-aos="zoom-in" data-aos-offset="100" data-aos-delay="300">
+				<img src="{% static 'images/p6.jpg' %}" width="100" height="100">
+			</div>
+			<div class="item graphics" data-aos="zoom-in-up" data-aos-offset="100" data-aos-delay="100">
+				<img src="{% static 'images/p7.jpg' %}" width="100" height="100">
+			</div>
+			<div class="item graphics" data-aos="zoom-in-up" data-aos-offset="100" data-aos-delay="200">
+				<img src="{% static 'images/p8.jpg' %}" width="100" height="100">
+			</div>
+			<div class="item graphics" data-aos="zoom-in-up" data-aos-offset="100" data-aos-delay="300">
+				<img src="{% static 'images/p9.jpg' %}" width="100" height="100">
+			</div>
+			<div class="item graphics" data-aos="zoom-in-up" data-aos-offset="100" data-aos-delay="300">
+				<img src="{% static 'images/pexels-lucasallmann-612891.jpg' %}" width="100" height="100">
+			</div>
+			<div class="item graphics" data-aos="zoom-in-up" data-aos-offset="100" data-aos-delay="300">
+				<img src="{% static 'images/pexels-kelly-1179532-2918152.jpg' %}" width="100" height="100">
+			</div>
+			<div class="item graphics" data-aos="zoom-in-up" data-aos-offset="100" data-aos-delay="300">
+				<img src="{% static 'images/pexels-nandhukumar-450441.jpg' %}" width="100" height="100">
+			</div>
+			<div class="item graphics" data-aos="zoom-in-up" data-aos-offset="100" data-aos-delay="300">
+				<img src="{% static 'images/pexels-jplenio-1110656.jpg' %}" width="100" height="100">
+			</div>
+			<div class="item graphics" data-aos="zoom-in-up" data-aos-offset="100" data-aos-delay="300">
+				<img src="{% static 'images/pexels-pixabay-33101.jpg' %}" width="100" height="100">
+			</div>
+			<div class="item graphics" data-aos="zoom-in-up" data-aos-offset="100" data-aos-delay="300">
+				<img src="{% static 'images/pexels-pixabay-45853.jpg' %}" width="100" height="100">
+			</div>
+		</div>
+	
+</section>
+
+
+<!--- filter gallery end---->
+
+<!-- slider start--->
+
+
+<div class="member-card"  data-aos="zoom-in-down" data-aos-offset="100" data-aos-delay="300">
+	<img src="{% static 'images/icon1.png' %}" width="100">
+	<img src="{% static 'images/icon2.png' %}" width="100">
+	<img src="{% static 'images/icon3.png' %}" width="100">
+	<img src="{% static 'images/icon4.png' %}" width="100">
+</div>
+<div class="m-images"  data-aos="zoom-in" data-aos-offset="100" data-aos-delay="300">
+	<img src="{% static 'images/s1.jpg' %}">
+	<img src="{% static 'images/s2.jpg' %}">
+	<img src="{% static 'images/s3.jpg' %}">
+	<img src="{% static 'images/s4.jpg' %}">
+	<img src="{% static 'images/s5.jpg' %}">
+	<img src="{% static 'images/s6.jpg' %}">
+	
+
+</div>
+</section>
+<div class="back-home">
+    <a href="{% url 'home' %}" class="btn">Back</a>
+  </div>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+
+<script src="https://unpkg.com/isotope-layout@3/dist/isotope.pkgd.min.js"></script>
+<script>
+	$('.portfolio-item').isotope({
+  // options
+  itemSelector: '.item',
+  layoutMode: 'fitRows'
+});
+		$('.portfolio-menu ul li').click(function(){
+		$('.portfolio-menu ul li').removeClass('active');
+		$(this).addClass('active');
+
+			var selector = $(this).attr('data-filter');
+		$('.portfolio-item').isotope({
+			filter:selector
+		});
+		return false;
+	});
+</script>
+
+<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+<script>
+  AOS.init();
+
+</script>
+</body>
+</html>
+{% endblock %}

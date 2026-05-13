@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+
+{% block title %} Welcome to BLOGS {% endblock %}
+
+{% block content %}
+
+{% load static %}
+
+<link rel="stylesheet" type="text/css" href="{% static 'about.css' %}">
+
+<body>
+    <section class="hero">
+        <div class="heading">
+            <h1>About us</h1>
+        </div>
+        <div class="container">
+            <div class="hero-content">
+                <h2>Welcome To Our Website</h2>
+                <p>Welcome to our blogsite! We're passionate about sharing knowledge, insights, and experiences on topics ranging from technology and science to lifestyle and culture.</p>
+                <p>Our mission is to provide valuable content that informs, inspires, and entertains our readers. Whether you're looking for practical advice, thought-provoking analysis, or just a good read, we've got you covered.</p>
+                <a href="{% url 'home' %}" class="btn btn-primary">Back</a>
+            </div>
+            <div class="hero-image">
+                <img src="{% static 'images/about.jpg' %}" alt="Description">
+            </div>
+        </div>
+    </section>
+</body>
+{% endblock %}

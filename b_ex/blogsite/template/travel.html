@@ -1,0 +1,271 @@
+{% extends 'base.html' %}
+
+{% block title %} Welcome to BLOGS {% endblock %}
+
+{% block content %}
+
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- ======== Favicon ======= -->
+    <link rel="shortcut icon" href="{% static './images/favicon.ico' %}" type="image/x-icon" />
+    <!-- ======== Boxicons ======= -->
+    <link
+      href="https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css"
+      rel="stylesheet"
+    />
+    <!-- ======== Slider Js ======= -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/Swiper/6.7.5/swiper-bundle.min.css"
+    />
+
+    <!-- ======== StyleSheet ======= -->
+    <link rel="stylesheet" href="{% static 'travel.css' %}" />
+    
+  </head>
+  <body>
+    <!-- header -->
+    <header class="header" id="header">
+          
+
+          <div class="hamburger">
+            <i class="bx bx-menu-alt-left"></i>
+          </div>
+        </nav>
+      </div>
+
+      <!-- Hero -->
+      <div class="swiper-container slider-1">
+        <div class="swiper-wrapper">
+          <div class="swiper-slide">
+            <img src="{% static './images/pic-1.jpg' %}" alt="" />
+          </div>
+
+          <div class="swiper-slide">
+            <img src="{% static './images/pic-5.jpg' %}" alt="hero image" />
+          </div>
+          <div class="swiper-slide">
+            <video muted loop autoplay>
+              <source src="{% static './images/video-2.mp4' %}" type="video/mp4" />
+              <source src="{% static './images/video-2.webm' %}" type="video/webm" />
+            </video>
+          </div>
+          <div class="swiper-slide">
+            <img src="{% static './images/pic-6.jpg' %}" alt="hero image" />
+          </div>
+
+          <div class="swiper-slide">
+            <video muted loop autoplay>
+              <source src="{% static './images/video-3.mp4' %}" type="video/mp4" />
+              <source src="{% static './images/video-3.webm' %}" type="video/webm" />
+            </video>
+          </div>
+          <div class="swiper-slide">
+            <img src="{% static './images/hero-3.jpg' %}" alt="" />
+          </div>
+
+          <div class="swiper-slide">
+            <video muted loop autoplay>
+              <source src="{% static './images/video-1.mp4' %}" type="video/mp4" />
+              <source src="{% static './images/video-1.webm' %}" type="video/webm" />
+            </video>
+          </div>
+        </div>
+      </div>
+
+      <div class="content">
+        <h1>
+          Travel <br />
+          Lifetime Journey
+        </h1>
+        
+      </div>
+
+      <div class="arrows d-flex">
+        <div class="swiper-prev d-flex">
+          <i class="bx bx-chevron-left swiper-icon"></i>
+        </div>
+        <div class="swiper-next d-flex">
+          <i class="bx bx-chevron-right swiper-icon"></i>
+        </div>
+      </div>
+    </header>
+
+    <main class="main">
+      <!-- About Section -->
+      <section class="section about" id="about">
+        <div class="row container">
+          <div class="col">
+            <div class="title">
+              <h1>About Us</h1>
+            </div>
+            <p>
+            <b>A travel blog is a place where an individual can share thoughts about, 
+              experiences with and tips on travel.A travel blog is a blog that
+              specifically dedicated to travel in some capacity.</b> 
+            </p>
+            
+          </div>
+          <div class="col">
+            <div class="swiper-container slider-2">
+              <div class="swiper-wrapper">
+                <div class="swiper-slide">
+                  <img src="{% static './images/pic-5.jpg' %}" alt="hero image" />
+                </div>
+                <div class="swiper-slide">
+                  <video muted loop autoplay>
+                    <source src="{% static './images/video-3.mp4' %}" type="video/mp4" />
+                    <source src="{% static './images/video-3.webm' %}" type="video/webm" />
+                  </video>
+                </div>
+                <div class="swiper-slide">
+                  <img src="{% static './images/hero-3.jpg' %}" alt="" />
+                </div>
+              </div>
+              <div class="swiper-button-next">
+                <i class="bx bx-chevron-right swiper-icon"></i>
+              </div>
+              <div class="swiper-button-prev">
+                <i class="bx bx-chevron-left swiper-icon"></i>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+      <!--  Service Section -->
+      <section class="section service" id="service">
+        <div class="row container">
+          <img src="{% static './images/pic-1.jpg' %}" alt="" />
+          <div class="col">
+            <div class="title">
+              <h1>How to Spend a Weekend?</h1>
+            </div>
+            <p>
+              <b>Travel blogs often feature posts about how to spend a weekend, offering readers inspiration and detailed itineraries for short trips. These posts typically focus on maximizing a short period, like a weekend, 
+              to explore a new destination or enjoy activities in a specific area.</b>
+            </p>
+          </div>
+        </div>
+      </section>
+      <!-- discount Section -->
+      <section class="section discount">
+        <div class="overlay">
+          <video class="video">
+            <source src="{% static './images/hero-2.m4v' %}" type="video/mp4" />
+            <source src="{% static './images/hero-2.webm' %}" type="video/webm" />
+          </video>
+        </div>
+        <div class="content">
+          </p>
+          
+          <span class="video-control d-flex"><i class="bx bx-play"></i></span>
+        </div>
+      </section>
+
+      <!-- Trip Section -->
+      <section class="section trip" id="trips">
+        <div class="title">
+          <h1>
+            Plan Your <br />
+            Trip With Us
+          </h1>
+          <p>
+            We love connecting with fellow travelers! Follow us on social media, subscribe to our newsletter, and join our forums to share your own travel stories and tips. Together, 
+            we can create a vibrant community of explorers who support and inspire each other.
+          </p>
+        </div>
+
+        <div class="row container">
+          <div class="swiper-container slider-3">
+            <div class="swiper-wrapper">
+              <div class="swiper-slide">
+                <img src="{% static './images/vert-1.jpg' %}" alt="hero image" />
+              </div>
+              <div class="swiper-slide">
+                <img src="{% static './images/vert-2.jpg' %}" alt="" />
+              </div>
+              <div class="swiper-slide">
+                <img src="{% static './images/vert-3.jpg' %}" alt="" />
+              </div>
+              <div class="swiper-slide">
+                <img src="{% static './images/vert-4.jpg' %}" alt="" />
+              </div>
+              <div class="swiper-slide">
+                <img src="{% static './images/vert-5.jpg' %}" alt="" />
+              </div>
+              <div class="swiper-slide">
+                <img src="{% static './images/vert-6.jpg' %}" alt="" />
+              </div>
+              <div class="swiper-slide">
+                <img src="{% static './images/vert-7.jpg' %}" alt="" />
+              </div>
+            </div>
+          </div>
+          <div class="custom-next d-flex">
+            <i class="bx bx-chevron-right swiper-icon"></i>
+          </div>
+          <div class="custom-prev d-flex">
+            <i class="bx bx-chevron-left swiper-icon"></i>
+          </div>
+          <div class="custom-pagination d-flex"></div>
+        </div>
+        <div class="explore">
+          <a href="#" class="btn">Explore All</a>
+        </div>
+      </section>
+
+      <!-- More Section -->
+      <section class="section more">
+        <div class="row container">
+          <div class="col">
+            <div class="title">
+              <h1>
+                More Places for <br />
+                Your Next Travel
+              </h1>
+              
+            </div>
+            <div class="tours">
+              <div class="box">
+                <img src="{% static './images/pic-2.jpg' %}" alt="" />
+                <h3>Visit to Bali</h3>
+                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1010296.3996218523!2d114.41198102686882!3d-8.45356000698596!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2dd141d3e8100fa1%3A0x24910fb14b24e690!2sBali%2C%20Indonesia!5e0!3m2!1sen!2sin!4v1716565187594!5m2!1sen!2sin" width="200" height="30" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                
+              </div>
+              <div class="box">
+                <img src="{% static './images/pic-3.jpg' %}" alt="" />
+                <h3>Visit to Russia</h3>
+                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d37494223.23909491!2d103.00000000000001!3d55.000000000000014!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x453c569a896724fb%3A0x1409fdf86611f613!2sRussia!5e0!3m2!1sen!2sin!4v1716565302925!5m2!1sen!2sin" width="200" height="30" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                
+              </div>
+            </div>
+          </div>
+          <div class="col">
+            <img src="{% static './images/pic-4.jpg' %}" alt="" />
+          </div>
+        </div>
+      </section>
+
+
+      </section>
+    </main>
+    <div class="back-home">
+      <a href="{% url 'home' %}" class="btn">Back</a>
+    </div>
+
+    <!-- ======== SwiperJS ======= -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/6.7.5/swiper-bundle.min.js"></script>
+    <!-- ======== SCROLL REVEAL ======= -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/scrollReveal.js/4.0.9/scrollreveal.min.js"></script>
+    <!-- ======== SliderJS ======= -->
+    <script src="{% static 'slider.js' %}"></script>
+    <!-- ======== IndexJS ======= -->
+    <script src="{% static 'travel.js' %}"></script>
+  </body>
+</html>
+{% endblock %}

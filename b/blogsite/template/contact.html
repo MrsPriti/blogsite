@@ -1,0 +1,78 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Us</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins&family=Roboto+Slab&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'contact.css' %}">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" crossorigin="anonymous">
+    <style>
+        .container {
+            text-align: center; /* Center align all text within the container */
+        }
+
+        .back-button.center {
+            display: inline-block; /* This allows the back button to be centered */
+            margin: 0 auto; /* Centers the back button horizontally */
+        }
+    </style>
+
+</head>
+<body>
+    <div class="container">
+        <header>
+            <a href="{% url 'home' %}" class="back-button"><i class="fa fa-arrow-left"></i> Back</a>
+            <h1>Contact Us</h1>
+            <p>We'd love to hear from you! Whether you have a question, feedback, or just want to say hello, feel free to reach out to us using the information below.</p>
+        </header>
+        <div class="content">
+            <div class="content-form">
+                <section>
+                    <i class="fa fa-phone fa-2x" aria-hidden="true"></i>
+                    <h2>Phone</h2>
+                    <p>+91 9876543210</p>
+                </section>
+                <section>
+                    <i class="fa fa-envelope fa-2x" aria-hidden="true"></i>
+                    <h2>E-mail</h2>
+                    <p>You can email us directly at pritipadmapadhi3@gmail.com</p><br>
+                    <p>for any inquiries or support.</p>
+                </section>
+                <section>
+                    <i class="fa fa-map-marker fa-2x" aria-hidden="true"></i>
+                    <h2>Address</h2>
+                    <p>BHUBANESWAR, ODISHA, INDIA</p>
+                </section>
+            </div>
+        </div>
+        <form method="post" action="{% url 'contact' %}">
+            {% csrf_token %}
+            <div class="form">
+                <div class="right">
+                    <div class="contact-form">
+                        <input type="text" name="name" required>
+                        <span>Full Name</span>
+                    </div>
+                    <div class="contact-form">
+                        <input type="email" name="email" required>
+                        <span>E-mail Id</span>
+                    </div>
+                    <div class="contact-form">
+                        <textarea name="message" required></textarea>
+                        <span>Type your Message....</span>
+                    </div>
+                    <div class="contact-form">
+                        <input type="submit" name="submit" value="Submit">
+                    </div>
+                    <div class="contct-form">
+                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3740.9687670093326!2d85.8046495734101!3d20.342908910984914!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3a1908e285d3747b%3A0x2a1b91dde2df954b!2sInfocity%20Square!5e0!3m2!1sen!2sin!4v1716778960385!5m2!1sen!2sin" width="400" height="110" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                    </div>
+                </div>
+            </div>
+        </form>
+        <div class="empty"></div>
+    </div>
+</body>
+</html>

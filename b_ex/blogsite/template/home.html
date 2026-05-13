@@ -1,0 +1,126 @@
+{% extends 'base.html' %}{% load static %}
+
+{% block title %} Welcome to BLOGS {% endblock %}
+
+{% block content %}
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'style.css' %}">
+{% endblock %}
+
+<div class="banner">
+    <video autoplay loop muted plays-inline>
+        <source src="{% static 'images/video1.mp4' %}" type="video/mp4">
+    </video>
+    <!-- <div class="navbar">
+        <img class="logo" src="logo.png">
+        <ul>
+            <li><a href="#">Home</a></li>
+            <li><a href="#">Travel</a></li>
+            <li><a href="#">Blogs</a></li>
+            <li><a href="#">Support</a></li>
+        </ul>
+    </div> -->
+    <div class="content">
+        <h1>EXPLORE THE WORLD</h1>
+        
+        <div>
+            <form action="{% url 'search' %}" method="get">
+                <input style="width: 300px;" type="text" name="q" placeholder="Search..." required><br>
+                <button type="submit">Search</button>
+            </form>
+        </div>
+    </div>
+</div>
+<div class="container-custom">
+    
+    <!-- Set up your HTML -->
+    <div class="owl-carousel">
+
+        {% for cat in cats %}
+
+        <div class="card item" style="margin-left:5px;">
+
+            <div class="img-container">
+                
+                <img src="/media/{{ cat.image }}" class="responsive-img" style="max-height: 190px; width:100%; object-fit:cover;" alt="">
+
+            </div>
+            <div class="card-content">
+
+                <div class="card-title">
+                    {{ cat.title }}
+                </div>
+                
+                <p class="truncate">{{ cat.description }}</p>
+                <div class="container center-align mt20">
+                    <form action="{% url 'travel' %}" method="get">
+                        {% if cat.title == 'Travel' %}
+                        <button type="submit" class="btn bg-primary">VIEW</button>
+                        {% endif %}
+                    </form> 
+                    <form action="{% url 'food' %}" method="get">
+                        {% if cat.title == 'Food' %}
+                        <button type="submit" class="btn bg-primary">VIEW</button>
+                        {% endif %}
+                    </form>
+                    <form action="{% url 'photography' %}" method="get">
+                        {% if cat.title == 'Photography' %}
+                        <button type="submit" class="btn bg-primary">VIEW</button>
+                        {% endif %}
+                    </form>   
+                    <form action="{% url 'fitness' %}" method="get">
+                        {% if cat.title == 'Fitness' %}
+                        <button type="submit" class="btn bg-primary">VIEW</button>
+                        {% endif %}
+                    </form>
+                    <form action="{% url 'fitness' %}" method="get">
+                        {% if cat.title == 'Sports' %}
+                        <button type="submit" class="btn bg-primary">VIEW</button>
+                        {% endif %}
+                    </form>                         
+                </div>      
+           </div>
+
+        </div>
+
+        {% endfor %}
+
+    </div>
+
+</div>
+{% if user.is_authenticated %}
+    <a href="{% url 'add_post' %}" class="btn btn-success" >Add New Post</a>
+{% endif %}
+
+<div class="container">
+    <div class="row">
+        <div class="col s12 ">
+            {% for p in posts %}
+                <div class="row">
+                    <div class="col s12 m8">
+                       <h4><b><a href="/blog/{{ p.url }}">Posts</a></b> By: <a href="{% url 'user_posts' p.author.username %}">{{ p.author.username }}</a></h4>
+                        {{ p.content|truncatewords:50|safe }}
+                        <div class="mt20">
+                            <a href="/blog/{{ p.url }}" class="btn bg-primary">Read More..</a>
+                            {% if user.is_authenticated and user == p.author %}
+                            <a href="{% url 'edit_post' p.post_id %}" class="btn btn-warning">Edit</a>
+                            <a href="{% url 'delete_post' p.post_id %}" class="btn btn-danger">Delete</a>
+                        {% endif %}
+                        </div>
+                    </div>
+                    <div class="col s12 m4">
+                        <img src="/media/{{ p.image }}" class="responsive-img" style="margin-top:50px;">
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+
+
+
+
+    
+</div>
+
+{% endblock %}
