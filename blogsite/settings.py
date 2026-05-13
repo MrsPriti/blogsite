@@ -28,6 +28,12 @@ DEBUG = True
 
 ALLOWED_HOSTS = ['*']
 
+CSRF_TRUSTED_ORIGINS = [
+    'https://blogsite-priti-padma-padhis-projects.vercel.app',
+    'https://blogsite-coral-beta.vercel.app',
+    'https://*.vercel.app'
+]
+
 
 # Application definition
 
