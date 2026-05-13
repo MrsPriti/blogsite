@@ -25,6 +25,16 @@
         </div>
     </nav>
 
+<!----------------------------- Notifications ------------------------------------->
+    {% if messages %}
+    {% for message in messages %}
+    <div class="notification {{ message.tags }}" id="notification">
+        <span>{{ message }}</span>
+        <button onclick="this.parentElement.remove()" style="background:none;border:none;color:inherit;font-size:18px;cursor:pointer;margin-left:10px;">&times;</button>
+    </div>
+    {% endfor %}
+    {% endif %}
+
 <!----------------------------- Form box ----------------------------------->    
     <div class="form-box">
         

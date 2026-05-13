@@ -7,6 +7,39 @@
     box-sizing: border-box;
     font-family: 'Poppins', sans-serif;
 }
+
+/* Notification styles */
+.notification {
+    position: fixed;
+    top: 110px;
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 12px 24px;
+    border-radius: 10px;
+    color: #fff;
+    font-size: 14px;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    z-index: 200;
+    animation: slideDown 0.4s ease, fadeOut 0.5s ease 3.5s forwards;
+    backdrop-filter: blur(10px);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+}
+.notification.success {
+    background: rgba(34, 197, 94, 0.85);
+}
+.notification.error {
+    background: rgba(239, 68, 68, 0.85);
+}
+@keyframes slideDown {
+    from { top: 60px; opacity: 0; }
+    to { top: 110px; opacity: 1; }
+}
+@keyframes fadeOut {
+    to { opacity: 0; visibility: hidden; }
+}
 body{
     background: url("images/login.jpg");
     background-size: cover;

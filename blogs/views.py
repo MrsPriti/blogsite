@@ -8,6 +8,7 @@ from .forms import CommentForm
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login
 from django.contrib.auth import logout
+from django.contrib import messages
 from django.views.generic import ListView,DetailView
 
 def login_view(request):
@@ -17,9 +18,11 @@ def login_view(request):
         user = authenticate(request, username=username, password=password)
         if user is not None:
             login(request, user)
+            messages.success(request, f'Welcome back, {user.username}!')
             return redirect('home') 
         else:
-            return render(request, 'login.html', {'error_message': 'Invalid login credentials'})
+            messages.error(request, 'Invalid username or password. Please try again.')
+            return render(request, 'login.html')
     else:
         return render(request, 'login.html')
 
@@ -31,6 +34,7 @@ def register(request):
         first_name = request.POST['firstname']
         last_name = request.POST['lastname']
         User.objects.create_user(username=username, email=email, password=password, first_name=first_name, last_name=last_name)
+        messages.success(request, 'Account created successfully! Please login.')
         return redirect('login')  
     else:
         return render(request, 'login.html')
