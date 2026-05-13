@@ -1,34 +1,40 @@
 {% extends 'base.html' %}
+{% load static %}
 
-{% block title %} Welcome to BLOGS {% endblock %}
+{% block title %} {{ cat.title }} - BLOGS {% endblock %}
 
 {% block content %}
-
-
-
-
-<div class="container-custom">
-
-    <h3>{{cat.title}}</h3>
-    <div class="img-container">
-        <img src="/media/{{ cat.image }}" class="responsive-img" style="max-height:450px;width:100%;object-fit:cover;"
-             alt="">
+<div class="category-hero" style="height: 400px; position: relative; display: flex; align-items: center; justify-content: center; overflow: hidden; background: #000;">
+    <img src="/media/{{ cat.image }}" style="position: absolute; width: 100%; height: 100%; object-fit: cover; opacity: 0.6;" alt="{{ cat.title }}">
+    <div class="content" style="position: relative; z-index: 10; text-align: center; color: white;">
+        <h1 style="font-size: 4rem; margin-bottom: 10px;">{{ cat.title }}</h1>
+        <p style="font-size: 1.2rem; max-width: 600px; margin: auto; font-family: var(--font-alt);">{{ cat.description }}</p>
     </div>
-
-    <div class="collection">
-
-        {% for p in posts %}
-        <a href="/blog/{{ p.url }}" class="collection-item">{{ p.title }}</a>
-
-        {% empty %}
-
-        <h3>No posts in this category</h3>
-
-        {% endfor %}
-
-    </div>
-
-
 </div>
 
-{% endblock %} 
+<div class="container" style="padding: 5rem 0;">
+    <div class="row">
+        {% for p in posts %}
+        <div class="col s12 m6 l4">
+            <div class="card" style="margin-bottom: 30px;">
+                <div class="img-container">
+                    <img src="/media/{{ p.image }}" class="responsive-img" style="height: 100%; width: 100%; object-fit: cover;">
+                </div>
+                <div class="card-content">
+                    <span class="card-title">{{ p.title }}</span>
+                    <p class="truncate">{{ p.content|striptags|truncatewords:20 }}</p>
+                    <div class="mt20">
+                        <a href="/blog/{{ p.url }}" class="btn bg-primary">Read More</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% empty %}
+        <div class="col s12 center-align">
+            <h4 style="color: #64748b; font-family: var(--font-alt);">No posts found in this category yet.</h4>
+            <a href="/home" class="btn bg-primary mt20">Back to Home</a>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

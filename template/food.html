@@ -1,85 +1,47 @@
 {% extends 'base.html' %}
+{% load static %}
 
-{% block title %} Welcome to BLOGS {% endblock %}
+{% block title %} Recipes - BLOGS {% endblock %}
 
 {% block content %}
-{% load static %}
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Find Meal For Your Ingredients</title>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" integrity="sha512-+4zCK9k+qNFUR5X+cKL9EIR+ZOhtIloNl9GIKS57V1MyNsYpYcUrUeQc9vNfzsWfV28IaLL3i96P9sdNyeRssA==" crossorigin="anonymous" />
-  <link rel = "stylesheet" href = "{% static 'food.css' %}">
-</head>
-<body>
-  
-  <div class = "container">
-    <div class = "meal-wrapper">
-      <div class = "meal-search">
-        <h2 class = "title">Delicious Recipe</h2>
-        <blockquote>Real food doesn't have ingredients, real food is ingredients.<br>
-          
-        </blockquote>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" />
+<link rel="stylesheet" href="{% static 'food.css' %}" />
 
-        <div class = "meal-search-box">
-          <input type = "text" class = "search-control" placeholder="Enter an ingredient" id = "search-input">
-          <button type = "submit" class = "search-btn btn" id = "search-btn">
-            <i class = "fas fa-search"></i>
+<div class="food-wrapper" style="font-family: var(--font-main); padding: 5rem 0;">
+    <div class="container">
+      <div class="meal-wrapper">
+        <div class="meal-search center-align" style="margin-bottom: 4rem;">
+          <h2 class="title" style="font-family: var(--font-heading); font-size: 4rem; color: #1e293b;">Delicious Recipes</h2>
+          <blockquote style="border-left: 5px solid var(--primary); font-family: var(--font-alt); font-size: 1.2rem; color: #64748b;">
+            "Real food doesn't have ingredients, real food is ingredients."
+          </blockquote>
+
+          <div class="meal-search-box" style="max-width: 600px; margin: 30px auto; display: flex;">
+            <input type="text" class="search-control" placeholder="Enter an ingredient (e.g. Potato, Chicken)" id="search-input" style="height: 50px; border-radius: 25px 0 0 25px; border: 2px solid #e2e8f0; padding: 0 25px;">
+            <button type="submit" class="search-btn btn bg-primary" id="search-btn" style="height: 50px; border-radius: 0 25px 25px 0; padding: 0 30px;">
+              <i class="fas fa-search"></i>
+            </button>
+          </div>
+        </div>
+
+        <div class="meal-result">
+          <h2 class="title" style="font-family: var(--font-heading); margin-bottom: 30px;">Your Search Results:</h2>
+          <div id="meal" class="row">
+            <!-- meal items will be injected here by food.js -->
+          </div>
+        </div>
+
+        <div class="meal-details glass-morphism" style="display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 2000; width: 90%; max-width: 800px; max-height: 90vh; overflow-y: auto; background: white; padding: 40px; border-radius: var(--border-radius); box-shadow: var(--shadow-lg);">
+          <button type="button" class="btn recipe-close-btn" id="recipe-close-btn" style="position: absolute; top: 20px; right: 20px; background: #ef4444; border-radius: 50%; width: 40px; height: 40px; padding: 0;">
+            <i class="fas fa-times"></i>
           </button>
-        </div>
-      </div>
-
-      <div class = "meal-result">
-        <h2 class = "title">Your Search Results:</h2>
-        <div id= "meal">
-          <!-- meal item -->
-          <!-- <div class = "meal-item">
-            <div class = "meal-img">
-              <img src = "food.jpg" alt = "food">
-            </div>
-            <div class = "meal-name">
-              <h3>Potato Chips</h3>
-              <a href = "#" class = "recipe-btn">Get Recipe</a>
-            </div>
-          </div> -->
-          <!-- end of meal item -->
-        </div>
-      </div>
-
-
-      <div class = "meal-details">
-        <!-- recipe close btn -->
-        <button type = "button" class = "btn recipe-close-btn" id = "recipe-close-btn">
-          <i class = "fas fa-times"></i>
-        </button>
-
-        <!-- meal content -->
-        <div class = "meal-details-content">
-          <!-- <h2 class = "recipe-title">Meals Name Here</h2>
-          <p class = "recipe-category">Category Name</p>
-          <div class = "recipe-instruct">
-            <h3>Instructions:</h3>
-            <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Quo blanditiis quis accusantium natus! Porro, reiciendis maiores molestiae distinctio veniam ratione ex provident ipsa, soluta suscipit quam eos velit autem iste!</p>
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Amet aliquam voluptatibus ad obcaecati magnam, esse numquam nisi ut adipisci in?</p>
+          <div class="meal-details-content">
+            <!-- content injected by food.js -->
           </div>
-          <div class = "recipe-meal-img">
-            <img src = "food.jpg" alt = "">
-          </div>
-          <div class = "recipe-link">
-            <a href = "#" target = "_blank">Watch Video</a>
-          </div> -->
         </div>
       </div>
     </div>
-  </div>
- 
+</div>
 
-
-
-  <script src = "{% static 'food.js' %}"></script>
-
-</body>
-</html>
+<script src="{% static 'food.js' %}"></script>
 {% endblock %}

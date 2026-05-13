@@ -1,39 +1,27 @@
-{%extends 'base.html' %}
-
-{%block title%} Welcome to BLOGS {%endblock%}
-
-{%block content%}
-
-
+{% extends 'base.html' %}
 {% load static %}
 
-<link rel="stylesheet" type="text/css" href="{% static 'about.css' %}">
+{% block title %} About Us - BLOGS {% endblock %}
 
-<body>
-    <section class="hero">
-        <div class="heading">
-            <h1>About us</h1>
+{% block content %}
+<div class="container" style="padding: 8rem 0;">
+    <div class="row display-flex align-items-center">
+        <div class="col s12 l6">
+            <h1 style="font-family: var(--font-heading); font-size: 4rem; margin-bottom: 2rem;">About Us</h1>
+            <h4 style="font-family: var(--font-heading); color: var(--primary); margin-bottom: 1.5rem;">Welcome to Our Story</h4>
+            <p style="font-size: 1.1rem; line-height: 1.8; color: #475569; margin-bottom: 1.5rem;">
+                Welcome to our blogsite! We're passionate about sharing knowledge, insights, and experiences on topics ranging from technology and science to lifestyle and culture.
+            </p>
+            <p style="font-size: 1.1rem; line-height: 1.8; color: #475569;">
+                Our mission is to provide valuable content that informs, inspires, and entertains our readers. Whether you're looking for practical advice, thought-provoking analysis, or just a good read, we've got you covered.
+            </p>
         </div>
-        <div class="container">
-            <div class="hero-content">
-                <h2>Welcome To Our Website</h2>
-                <p>Welcome to our blogsite! We're passionate about sharing knowledge, insights, and experiences on topics ranging from technology and science to lifestyle and culture</p>
-                <p>Our mission is to provide valuable content that informs, inspires, and entertains our readers. Whether you're looking for practical advice, thought-provoking analysis, or just a good read, we've got you covered.</p>
-    
-
-              
-            </div>
-            <div class="hero-image">
-             
-                <img src="{% static 'images/about.jpg' %}" alt="Description">
-
-
-               
-
+        <div class="col s12 l6">
+            <div style="position: relative; padding: 20px;">
+                <div style="position: absolute; top: 0; right: 0; width: 80%; height: 80%; background: var(--primary); border-radius: var(--border-radius); opacity: 0.1; z-index: -1;"></div>
+                <img src="{% static 'images/about.jpg' %}" alt="About Us" class="responsive-img" style="border-radius: var(--border-radius); box-shadow: var(--shadow-lg);">
             </div>
         </div>
-
-    </section>
-</body>
-</html>
+    </div>
+</div>
 {% endblock %}
