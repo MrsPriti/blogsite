@@ -1,0 +1,14 @@
+.socialicons{
+    display: flex;
+    color: black;
+    opacity: 0.9;
+
+}
+.socialicons a:hover{
+    background-color: #111;
+    transition: 0.5s;
+}
+.socialicons a:hover{
+    color: white;
+    transition: 0.5s;
+}
