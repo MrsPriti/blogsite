@@ -1,4 +1,11 @@
-*.webm
-*.mp4
-*.m4v
+static/images/hero-2.webm
+static/images/video-3.webm
+static/images/hero-2.m4v
+static/images/video-3.mp4
+static/images/video-2.webm
+static/images/video-2.mp4
+static/images/video1.mp4
+static/images/video-1.webm
 media/
+manage.py
+db.sqlite3
