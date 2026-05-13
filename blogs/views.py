@@ -10,6 +10,9 @@ from django.contrib.auth import authenticate, login
 from django.contrib.auth import logout
 from django.contrib import messages
 from django.views.generic import ListView,DetailView
+from .models import Like
+from django.http import JsonResponse
+from django.contrib.auth.decorators import login_required
 
 def login_view(request):
     if request.method == 'POST':
@@ -19,7 +22,8 @@ def login_view(request):
         if user is not None:
             login(request, user)
             messages.success(request, f'Welcome back, {user.username}!')
-            return redirect('home') 
+            next_url = request.GET.get('next', 'home')
+            return redirect(next_url) 
         else:
             messages.error(request, 'Invalid username or password. Please try again.')
             return render(request, 'login.html')
@@ -60,7 +64,21 @@ def home(request):
 def post(request,url):
     post= Post.objects.get(url=url)
     cats = Category.objects.all()
-    return render(request,'post.html',{'post':post,'cats':cats})
+    comments = Comment.objects.filter(content_type=ContentType.objects.get_for_model(Post), object_id=post.post_id)
+    
+    is_liked = False
+    if request.user.is_authenticated:
+        is_liked = Like.objects.filter(user=request.user, post=post).exists()
+    
+    data = {
+        'post': post,
+        'cats': cats,
+        'comments': comments,
+        'is_liked': is_liked,
+        'like_count': post.likes.count(),
+        'content_type_id': ContentType.objects.get_for_model(Post).id
+    }
+    return render(request,'post.html', data)
 
 def category(request, url):
     cat = Category.objects.get(url=url)
@@ -107,25 +125,40 @@ def search_view(request):
 
 
 #comment section
+@login_required
 def add_comment(request, content_type_id, object_id):
     content_type = get_object_or_404(ContentType, id=content_type_id)
     content_object = get_object_or_404(content_type.model_class(), id=object_id)
     
     if request.method == 'POST':
-        form = CommentForm(request.POST)
-        if form.is_valid():
-            comment = form.save(commit=False)
-            comment.user = request.user
-            comment.content_type = content_type
-            comment.object_id = object_id
-            comment.save()
-            return redirect(request.path)
+        content = request.POST.get('content')
+        if content:
+            Comment.objects.create(
+                user=request.user,
+                content_type=content_type,
+                object_id=object_id,
+                content=content
+            )
+            messages.success(request, 'Comment added!')
+    
+    return redirect(request.META.get('HTTP_REFERER', 'home'))
+
+@login_required
+def like_post(request, post_id):
+    post = get_object_or_404(Post, post_id=post_id)
+    like_qs = Like.objects.filter(user=request.user, post=post)
+    
+    if like_qs.exists():
+        like_qs.delete()
+        liked = False
     else:
-        form = CommentForm()
-    
-    comments = Comment.objects.filter(content_type=content_type, object_id=object_id)
-    
-    return render(request, 'comments.html', {'content_object': content_object, 'comments': comments, 'form': form})
+        Like.objects.create(user=request.user, post=post)
+        liked = True
+        
+    return JsonResponse({
+        'liked': liked,
+        'count': post.likes.count()
+    })
 
 
 
