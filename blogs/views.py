@@ -128,7 +128,7 @@ def search_view(request):
 @login_required
 def add_comment(request, content_type_id, object_id):
     content_type = get_object_or_404(ContentType, id=content_type_id)
-    content_object = get_object_or_404(content_type.model_class(), id=object_id)
+    content_object = get_object_or_404(content_type.model_class(), pk=object_id)
     
     if request.method == 'POST':
         content = request.POST.get('content')
