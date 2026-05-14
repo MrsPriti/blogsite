@@ -9,118 +9,123 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Swiper/6.7.5/swiper-bundle.min.css" />
 
 <div class="travel-wrapper" style="font-family: var(--font-main);">
-    <header class="header" id="header" style="padding-top: 0;">
-      <div class="swiper-container slider-1">
-        <div class="swiper-wrapper">
-          <div class="swiper-slide"><img src="{% static './images/pic-1.jpg' %}" alt="" /></div>
-          <div class="swiper-slide"><img src="{% static './images/pic-5.jpg' %}" alt="" /></div>
-          <div class="swiper-slide">
-            <video muted loop autoplay style="width: 100%; height: 100%; object-fit: cover;">
-              <source src="{% static './images/video-2.mp4' %}" type="video/mp4" />
-            </video>
-          </div>
-          <div class="swiper-slide"><img src="{% static './images/pic-6.jpg' %}" alt="" /></div>
-          <div class="swiper-slide">
-            <video muted loop autoplay style="width: 100%; height: 100%; object-fit: cover;">
-              <source src="{% static './images/video-3.mp4' %}" type="video/mp4" />
-            </video>
-          </div>
-          <div class="swiper-slide"><img src="{% static './images/hero-3.jpg' %}" alt="" /></div>
-          <div class="swiper-slide">
-            <video muted loop autoplay style="width: 100%; height: 100%; object-fit: cover;">
-              <source src="{% static './images/video-1.mp4' %}" type="video/mp4" />
-            </video>
-          </div>
+  <header class="header" id="header" style="padding-top: 0;">
+    <div class="swiper-container slider-1">
+      <div class="swiper-wrapper">
+        <div class="swiper-slide"><img src="{% static './images/pic-1.jpg' %}" alt="" /></div>
+        <div class="swiper-slide"><img src="{% static './images/pic-5.jpg' %}" alt="" /></div>
+        <div class="swiper-slide">
+          <video muted loop autoplay style="width: 100%; height: 100%; object-fit: cover;">
+            <source src="{% static './images/video-2.mp4' %}" type="video/mp4" />
+          </video>
+        </div>
+        <div class="swiper-slide"><img src="{% static './images/pic-6.jpg' %}" alt="" /></div>
+        <div class="swiper-slide">
+          <video muted loop autoplay style="width: 100%; height: 100%; object-fit: cover;">
+            <source src="{% static './images/video-3.mp4' %}" type="video/mp4" />
+          </video>
+        </div>
+        <div class="swiper-slide"><img src="{% static './images/hero-3.jpg' %}" alt="" /></div>
+        <div class="swiper-slide">
+          <video muted loop autoplay style="width: 100%; height: 100%; object-fit: cover;">
+            <source src="{% static './images/video-1.mp4' %}" type="video/mp4" />
+          </video>
         </div>
       </div>
+    </div>
 
-      <div class="hero-overlay" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.4); z-index: 5;"></div>
-      <div class="content fade-up" style="z-index: 10; position: absolute; top: 55%; left: 50%; transform: translate(-50%, -50%); width: 80%; text-align: center;">
-        <h1 style="font-family: var(--font-heading); font-size: 5.5rem; color: white; text-shadow: 0 4px 10px rgba(0,0,0,0.3); margin-bottom: 30px;">Journey Through <br /> The Extraordinary</h1>
-        <a href="#about" class="travel-btn" style="padding: 18px 45px; font-size: 1.2rem;">Get Started <i class="material-icons right">explore</i></a>
-      </div>
+    <div class="hero-overlay"></div>
+    <div class="content fade-up" style="z-index: 10;">
+      <h1 style="font-family: var(--font-heading); font-size: 5rem; color: white;">Travel <br /> Lifetime Journey</h1>
+      <a href="#about" class="btn bg-primary">Get Started</a>
+    </div>
 
-      <div class="arrows d-flex">
-        <div class="swiper-prev d-flex"><i class="bx bx-chevron-left swiper-icon"></i></div>
-        <div class="swiper-next d-flex"><i class="bx bx-chevron-right swiper-icon"></i></div>
-      </div>
-    </header>
+    <div class="arrows d-flex">
+      <div class="swiper-prev d-flex"><i class="bx bx-chevron-left swiper-icon"></i></div>
+      <div class="swiper-next d-flex"><i class="bx bx-chevron-right swiper-icon"></i></div>
+    </div>
+  </header>
 
-    <main class="main">
-      <section class="section about" id="about" style="padding: 5rem 0;">
-        <div class="row container">
-          <div class="col s12 m6 travel-card" style="padding: 40px;">
-            <div class="title">
-              <h1 style="font-family: var(--font-heading);">About Us</h1>
-            </div>
-            <p style="font-size: 1.1rem; line-height: 1.8;">
-              A travel blog is a place where an individual can share thoughts about, experiences with and tips on travel.
-              Join our community of explorers!
-            </p>
+  <main class="main">
+    <section class="section about" id="about" style="padding: 5rem 0;">
+      <div class="row container">
+        <div class="col s12 m6 travel-card" style="padding: 40px;">
+          <div class="title">
+            <h1 style="font-family: var(--font-heading);">About Us</h1>
           </div>
-          <div class="col s12 m6">
-            <div class="swiper-container slider-2">
-              <div class="swiper-wrapper">
-                <div class="swiper-slide"><img src="{% static './images/pic-5.jpg' %}" alt="" /></div>
-                <div class="swiper-slide">
-                    <video muted loop autoplay style="width: 100%; height: 100%; object-fit: cover;">
-                        <source src="{% static './images/video-3.mp4' %}" type="video/mp4" />
-                    </video>
-                </div>
+          <p style="font-size: 1.1rem; line-height: 1.8;">
+            A travel blog is a place where an individual can share thoughts about, experiences with and tips on travel.
+            Join our community of explorers!
+          </p>
+        </div>
+        <div class="col s12 m6">
+          <div class="swiper-container slider-2">
+            <div class="swiper-wrapper">
+              <div class="swiper-slide"><img src="{% static './images/pic-5.jpg' %}" alt="" /></div>
+              <div class="swiper-slide">
+                <video muted loop autoplay style="width: 100%; height: 100%; object-fit: cover;">
+                  <source src="{% static './images/video-3.mp4' %}" type="video/mp4" />
+                </video>
               </div>
             </div>
           </div>
         </div>
-      </section>
+      </div>
+    </section>
 
-      <section class="section service" id="service" style="padding: 5rem 0; background: #f8fafc;">
-        <div class="row container d-flex" style="flex-wrap: wrap; gap: 40px; align-items: center;">
-          <div class="col s12 m5">
-            <img src="{% static './images/pic-1.jpg' %}" class="responsive-img" style="border-radius: var(--border-radius); box-shadow: var(--shadow-lg); width: 100%;">
-          </div>
-          <div class="col s12 m6 travel-card" style="padding: 50px; background: white; border-radius: 30px; box-shadow: var(--shadow-sm); flex: 1; border: 1px solid #f1f5f9;">
-            <div class="title">
-              <h2 style="font-family: var(--font-heading); margin-top: 0; color: #1e293b; font-size: 2.5rem;">How to Spend a Weekend?</h2>
-            </div>
-            <p style="font-size: 1.15rem; line-height: 1.8; color: #64748b; margin-bottom: 30px;">
-              Travel blogs often feature posts about how to spend a weekend, offering readers inspiration and detailed itineraries for short trips.
-            </p>
-            <a href="#" class="travel-btn" style="background: #0f172a; color: white;">Plan My Weekend</a>
-          </div>
+    <section class="section service" id="service" style="padding: 5rem 0; background: #f8fafc;">
+      <div class="row container d-flex" style="flex-wrap: wrap; gap: 40px; align-items: center;">
+        <div class="col s12 m5">
+          <img src="{% static './images/pic-1.jpg' %}" class="responsive-img"
+            style="border-radius: var(--border-radius); box-shadow: var(--shadow-lg); width: 100%;">
         </div>
-      </section>
+        <div class="col s12 m6 travel-card"
+          style="padding: 40px; background: white; border-radius: 30px; box-shadow: var(--shadow-sm); flex: 1;">
+          <div class="title">
+            <h1 style="font-family: var(--font-heading); margin-top: 0;">How to Spend a Weekend?</h1>
+          </div>
+          <p style="font-size: 1.1rem; line-height: 1.8; color: #64748b;">
+            Travel blogs often feature posts about how to spend a weekend, offering readers inspiration and detailed
+            itineraries for short trips.
+          </p>
+        </div>
+      </div>
+    </section>
 
-      <section class="section trip" id="trips" style="padding: 5rem 0;">
-        <div class="title center-align">
-          <h1 style="font-family: var(--font-heading);">Plan Your Trip With Us</h1>
-          <p style="max-width: 800px; margin: auto;">We love connecting with fellow travelers! Follow us on social media and join our forums.</p>
-        </div>
-        <div class="row container">
-          <div class="swiper-container slider-3">
-            <div class="swiper-wrapper">
-              <div class="swiper-slide"><img src="{% static './images/vert-1.jpg' %}" alt="" /></div>
-              <div class="swiper-slide"><img src="{% static './images/vert-2.jpg' %}" alt="" /></div>
-              <div class="swiper-slide"><img src="{% static './images/vert-3.jpg' %}" alt="" /></div>
-            </div>
+    <section class="section trip" id="trips" style="padding: 5rem 0;">
+      <div class="title center-align">
+        <h1 style="font-family: var(--font-heading);">Plan Your Trip With Us</h1>
+        <p style="max-width: 800px; margin: auto;">We love connecting with fellow travelers! Follow us on social media
+          and join our forums.</p>
+      </div>
+      <div class="row container">
+        <div class="swiper-container slider-3">
+          <div class="swiper-wrapper">
+            <div class="swiper-slide"><img src="{% static './images/vert-1.jpg' %}" alt="" /></div>
+            <div class="swiper-slide"><img src="{% static './images/vert-2.jpg' %}" alt="" /></div>
+            <div class="swiper-slide"><img src="{% static './images/vert-3.jpg' %}" alt="" /></div>
           </div>
         </div>
-      </section>
+      </div>
+    </section>
 
-      <section class="section more" style="padding: 5rem 0; background: #f1f5f9;">
-        <div class="row container">
-          <div class="col s12 m6">
-            <h1 style="font-family: var(--font-heading);">More Places for Your Next Travel</h1>
-            <div class="box travel-card" style="margin-top: 30px; padding: 20px; text-align: center;">
-                <img src="{% static './images/pic-2.jpg' %}" class="responsive-img" style="border-radius: var(--border-radius);">
-                <h3 style="font-weight: 700; margin-top: 15px;">Visit to Bali</h3>
-            </div>
-          </div>
-          <div class="col s12 m6">
-            <img src="{% static './images/pic-4.jpg' %}" class="responsive-img" style="border-radius: var(--border-radius); margin-top: 50px;">
+    <section class="section more" style="padding: 5rem 0; background: #f1f5f9;">
+      <div class="row container">
+        <div class="col s12 m6">
+          <h1 style="font-family: var(--font-heading);">More Places for Your Next Travel</h1>
+          <div class="box travel-card" style="margin-top: 30px; padding: 20px; text-align: center;">
+            <img src="{% static './images/pic-2.jpg' %}" class="responsive-img"
+              style="border-radius: var(--border-radius);">
+            <h3 style="font-weight: 700; margin-top: 15px;">Visit to Bali</h3>
           </div>
         </div>
-      </section>
-    </main>
+        <div class="col s12 m6">
+          <img src="{% static './images/pic-4.jpg' %}" class="responsive-img"
+            style="border-radius: var(--border-radius); margin-top: 50px;">
+        </div>
+      </div>
+    </section>
+  </main>
 </div>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/6.7.5/swiper-bundle.min.js"></script>
