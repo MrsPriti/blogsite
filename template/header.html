@@ -14,10 +14,19 @@
         <ul class="right hide-on-med-and-down">
           <li><a href="/home">HOME</a></li>
           <li><a href="/about">ABOUT</a></li>
-          <li><a href="/admin">ADMIN</a></li>
+          {% if request.user.is_authenticated %}
+            {% if request.user.is_staff or request.user.is_superuser %}
+            <li><a href="/admin">ADMIN</a></li>
+            {% endif %}
+          {% endif %}
           <li><a href="/contact">CONTACT</a></li>
           <!-- Dropdown Trigger -->
           <li><a class="dropdown-trigger" href="#!" data-target="dropdown1">CATEGORIES<i class="material-icons right">arrow_drop_down</i></a></li>
+          {% if request.user.is_authenticated %}
+            <li><a href="{% url 'logout' %}" class="btn red z-depth-0" style="margin-left: 15px; border-radius: 8px;">LOGOUT</a></li>
+          {% else %}
+            <li><a href="{% url 'login' %}" class="btn blue z-depth-0" style="margin-left: 15px; border-radius: 8px;">LOGIN</a></li>
+          {% endif %}
         </ul>
       </div>
     </div>

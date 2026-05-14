@@ -34,7 +34,8 @@
         </div>
       </div>
 
-      <div class="content" style="z-index: 10;">
+      <div class="hero-overlay"></div>
+      <div class="content fade-up" style="z-index: 10;">
         <h1 style="font-family: var(--font-heading); font-size: 5rem; color: white;">Travel <br /> Lifetime Journey</h1>
         <a href="#about" class="btn bg-primary">Get Started</a>
       </div>
@@ -48,7 +49,7 @@
     <main class="main">
       <section class="section about" id="about" style="padding: 5rem 0;">
         <div class="row container">
-          <div class="col s12 m6">
+          <div class="col s12 m6 travel-card" style="padding: 40px;">
             <div class="title">
               <h1 style="font-family: var(--font-heading);">About Us</h1>
             </div>
@@ -77,11 +78,11 @@
           <div class="col s12 m6">
             <img src="{% static './images/pic-1.jpg' %}" class="responsive-img" style="border-radius: var(--border-radius); box-shadow: var(--shadow-lg);">
           </div>
-          <div class="col s12 m6" style="padding-left: 30px;">
+          <div class="col s12 m6 travel-card" style="padding: 40px; margin-left: 30px;">
             <div class="title">
               <h1 style="font-family: var(--font-heading);">How to Spend a Weekend?</h1>
             </div>
-            <p>
+            <p style="font-size: 1.1rem; line-height: 1.8;">
               Travel blogs often feature posts about how to spend a weekend, offering readers inspiration and detailed itineraries for short trips.
             </p>
           </div>
@@ -108,9 +109,9 @@
         <div class="row container">
           <div class="col s12 m6">
             <h1 style="font-family: var(--font-heading);">More Places for Your Next Travel</h1>
-            <div class="box" style="margin-top: 20px;">
+            <div class="box travel-card" style="margin-top: 30px; padding: 20px; text-align: center;">
                 <img src="{% static './images/pic-2.jpg' %}" class="responsive-img" style="border-radius: var(--border-radius);">
-                <h3>Visit to Bali</h3>
+                <h3 style="font-weight: 700; margin-top: 15px;">Visit to Bali</h3>
             </div>
           </div>
           <div class="col s12 m6">

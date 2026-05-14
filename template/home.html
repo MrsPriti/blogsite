@@ -27,7 +27,7 @@
     </div>
 </div>
 <div class="container-custom">
-    
+
     <!-- Set up your HTML -->
     <div class="owl-carousel">
 
@@ -37,19 +37,25 @@
 
             <div class="img-container">
                 {% if cat.image %}
-                <img src="/static/{{ cat.image.name }}" class="responsive-img" style="height: 220px; width:100%; object-fit:cover;" alt="">
+                <img src="/static/{{ cat.image.name }}" class="responsive-img"
+                    style="height: 220px; width:100%; object-fit:cover;" alt="">
                 {% else %}
-                    {% if cat.title == 'Travel' %}
-                    <img src="{% static 'images/pic-1.jpg' %}" class="responsive-img" style="height: 220px; width:100%; object-fit:cover;">
-                    {% elif cat.title == 'Food' %}
-                    <img src="{% static 'images/pic-6.jpg' %}" class="responsive-img" style="height: 220px; width:100%; object-fit:cover;">
-                    {% elif cat.title == 'Photography' %}
-                    <img src="{% static 'images/p1.jpg' %}" class="responsive-img" style="height: 220px; width:100%; object-fit:cover;">
-                    {% elif cat.title == 'Fitness' %}
-                    <img src="{% static 'images/blog-1.jpg' %}" class="responsive-img" style="height: 220px; width:100%; object-fit:cover;">
-                    {% else %}
-                    <img src="{% static 'images/banner.jpg' %}" class="responsive-img" style="height: 220px; width:100%; object-fit:cover;">
-                    {% endif %}
+                {% if cat.title == 'Travel' %}
+                <img src="{% static 'images/pic-1.jpg' %}" class="responsive-img"
+                    style="height: 220px; width:100%; object-fit:cover;">
+                {% elif cat.title == 'Food' %}
+                <img src="{% static 'images/pic-6.jpg' %}" class="responsive-img"
+                    style="height: 220px; width:100%; object-fit:cover;">
+                {% elif cat.title == 'Photography' %}
+                <img src="{% static 'images/p1.jpg' %}" class="responsive-img"
+                    style="height: 220px; width:100%; object-fit:cover;">
+                {% elif cat.title == 'Fitness' %}
+                <img src="{% static 'images/blog-1.jpg' %}" class="responsive-img"
+                    style="height: 220px; width:100%; object-fit:cover;">
+                {% else %}
+                <img src="{% static 'images/banner.jpg' %}" class="responsive-img"
+                    style="height: 220px; width:100%; object-fit:cover;">
+                {% endif %}
                 {% endif %}
             </div>
             <div class="card-content">
@@ -57,7 +63,7 @@
                 <div class="card-title">
                     {{ cat.title }}
                 </div>
-                
+
                 <p class="truncate">{{ cat.description }}</p>
                 <div class="center-align mt20">
                     {% if cat.title == 'Travel' %}
@@ -71,8 +77,8 @@
                     {% else %}
                     <a href="/category/{{ cat.url }}" class="btn bg-primary">VIEW</a>
                     {% endif %}
-                </div>      
-           </div>
+                </div>
+            </div>
 
         </div>
 
@@ -114,5 +120,4 @@
     </div>
 
 </div>
-
 {% endblock %}
