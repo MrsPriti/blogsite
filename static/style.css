@@ -292,3 +292,55 @@ nav ul a:hover {
 .owl-item {
     padding: 20px 10px;
 }
+
+.owl-nav {
+    position: absolute;
+    top: 50%;
+    width: 100%;
+    transform: translateY(-50%);
+    display: flex;
+    justify-content: space-between;
+    pointer-events: none;
+    z-index: 10;
+}
+
+.owl-nav button {
+    width: 50px;
+    height: 50px;
+    background: white !important;
+    border-radius: 50% !important;
+    box-shadow: var(--shadow-lg) !important;
+    display: flex !important;
+    align-items: center;
+    justify-content: center;
+    color: var(--primary) !important;
+    transition: all 0.3s ease !important;
+    pointer-events: auto;
+    margin: 0 -25px !important;
+}
+
+.owl-nav button:hover {
+    background: var(--primary) !important;
+    color: white !important;
+    transform: scale(1.1);
+}
+
+.owl-nav button span {
+    font-size: 2.5rem;
+    line-height: 1;
+}
+
+/* Hide default nav dots if needed */
+.owl-dots {
+    margin-top: 30px;
+}
+
+.owl-dots .owl-dot span {
+    background: #cbd5e1 !important;
+    transition: all 0.3s ease;
+}
+
+.owl-dots .owl-dot.active span {
+    background: var(--primary) !important;
+    width: 30px;
+}

@@ -74,27 +74,21 @@
       $(".owl-carousel").owlCarousel(
       {
         loop: true,
-    
-          autoplay: true,
-    
-          nav: false,
-          responsiveClass: true,
+        autoplay: true,
+        nav: true,
+        navText: ["<span>&lsaquo;</span>", "<span>&rsaquo;</span>"],
+        responsiveClass: true,
         responsive:{
             0:{
                 items:1,
-                nav:true
             },
             600:{
-                items:3,
-                nav:false
+                items:2,
             },
             1000:{
                 items:3,
-                nav:true,
-                loop:false
             }
         }
-    
       }
       );
     });
