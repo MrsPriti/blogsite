@@ -4,7 +4,7 @@ from blogs.models import Post,Category
 from .models import Person
 from django.contrib.contenttypes.models import ContentType
 from .models import Comment
-from .forms import CommentForm
+from .forms import CommentForm, PostForm
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login
 from django.contrib.auth import logout
@@ -13,6 +13,8 @@ from django.views.generic import ListView,DetailView
 from .models import Like
 from django.http import JsonResponse
 from django.contrib.auth.decorators import login_required
+from django.utils.text import slugify
+import uuid
 
 def login_view(request):
     if request.method == 'POST':
@@ -168,9 +170,32 @@ def like_post(request, post_id):
         liked = True
         
     return JsonResponse({
-        'liked': liked,
         'count': post.likes.count()
     })
+
+@login_required
+def add_post(request):
+    if request.method == 'POST':
+        form = PostForm(request.POST, request.FILES)
+        if form.is_valid():
+            post = form.save(commit=False)
+            
+            # Generate unique URL slug
+            base_slug = slugify(post.title)
+            unique_slug = base_slug
+            num = 1
+            while Post.objects.filter(url=unique_slug).exists():
+                unique_slug = f'{base_slug}-{num}'
+                num += 1
+            
+            post.url = unique_slug
+            post.save()
+            messages.success(request, 'Blog post published successfully!')
+            return redirect('post', url=post.url)
+    else:
+        form = PostForm()
+    
+    return render(request, 'add_post.html', {'form': form})
 
 
 

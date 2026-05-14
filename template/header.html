@@ -15,6 +15,7 @@
           <li><a href="/home">HOME</a></li>
           <li><a href="/about">ABOUT</a></li>
           {% if request.user.is_authenticated %}
+            <li><a href="{% url 'add_post' %}" style="font-weight: 700; color: #fbbf24 !important;"><i class="material-icons left">add_circle</i>CREATE POST</a></li>
             {% if request.user.is_staff or request.user.is_superuser %}
             <li><a href="/admin">ADMIN</a></li>
             {% endif %}

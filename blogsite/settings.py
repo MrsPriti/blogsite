@@ -157,6 +157,9 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
+# Auth Redirects
+LOGIN_URL = 'login'
+
 MATERIAL_ADMIN_SITE = {
     'HEADER':  ('Blogs Admin Login'),  # Admin site header
     'TITLE':  ('Blogs'),  # Admin site title
