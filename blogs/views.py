@@ -179,6 +179,7 @@ def add_post(request):
         form = PostForm(request.POST, request.FILES)
         if form.is_valid():
             post = form.save(commit=False)
+            post.author = request.user  # Set the author
             
             # Generate unique URL slug
             base_slug = slugify(post.title)
@@ -196,6 +197,39 @@ def add_post(request):
         form = PostForm()
     
     return render(request, 'add_post.html', {'form': form})
+
+@login_required
+def edit_post(request, url):
+    post = get_object_or_404(Post, url=url)
+    
+    # Permission check: Only author or staff can edit
+    if post.author != request.user and not request.user.is_staff:
+        messages.error(request, "You don't have permission to edit this post.")
+        return redirect('post', url=url)
+        
+    if request.method == 'POST':
+        form = PostForm(request.POST, request.FILES, instance=post)
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Post updated successfully!')
+            return redirect('post', url=post.url)
+    else:
+        form = PostForm(instance=post)
+    
+    return render(request, 'edit_post.html', {'form': form, 'post': post})
+
+@login_required
+def delete_post(request, post_id):
+    post = get_object_or_404(Post, post_id=post_id)
+    
+    # Permission check: Only author or staff can delete
+    if post.author != request.user and not request.user.is_staff:
+        messages.error(request, "You don't have permission to delete this post.")
+        return redirect('post', url=post.url)
+        
+    post.delete()
+    messages.success(request, 'Post deleted successfully!')
+    return redirect('home')
 
 
 

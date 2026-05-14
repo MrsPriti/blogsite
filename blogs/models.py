@@ -33,6 +33,8 @@ class Post(models.Model):
     url=models.CharField(max_length=255,unique=True)
     cat=models.ForeignKey(Category,on_delete=models.CASCADE)
     image=models.ImageField(upload_to='post/')
+    author=models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True)
+    created_at=models.DateTimeField(auto_now_add=True, null=True)
 
    
 

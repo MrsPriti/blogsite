@@ -2,7 +2,7 @@
 from django.urls import path,include
 from django.conf.urls.static import static
 from django.conf import settings
-from .views import home,about,post,category,login_view,logout_view,contact,travel,food,photography,fitness,terms,register,forgot_password,add_comment,delete_comment,like_post,add_post
+from .views import home,about,post,category,login_view,logout_view,contact,travel,food,photography,fitness,terms,register,forgot_password,add_comment,delete_comment,like_post,add_post,edit_post,delete_post
 from .views import search_view
 
 
@@ -25,6 +25,8 @@ urlpatterns = [
     path('add_comment/<int:content_type_id>/<int:object_id>/', add_comment, name='add_comment'),
     path('delete_comment/<int:comment_id>/', delete_comment, name='delete_comment'),
     path('add-post/', add_post, name='add_post'),
+    path('edit-post/<str:url>/', edit_post, name='edit_post'),
+    path('delete-post/<int:post_id>/', delete_post, name='delete_post'),
     path('like_post/<int:post_id>/', like_post, name='like_post')
     
    

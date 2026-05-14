@@ -51,11 +51,18 @@
                     <a href="https://api.whatsapp.com/send?text={{ post.title }}%20{{ request.build_absolute_uri }}" target="_blank" class="btn-floating btn-small waves-effect waves-light green"><i class="fa-brands fa-whatsapp"></i></a>
                 </div>
 
-                <!-- Admin Shortcuts -->
-                {% if user.is_staff %}
-                <div style="margin-left: 20px; border-left: 1px solid #e2e8f0; padding-left: 20px;">
-                    <a href="/admin/blogs/post/{{ post.post_id }}/change/" class="btn-flat grey-text"><i class="material-icons left">edit</i> Edit</a>
-                </div>
+                <!-- Admin/Author Shortcuts -->
+                {% if user.is_authenticated %}
+                    {% if user == post.author or user.is_staff %}
+                    <div style="margin-left: auto; display: flex; gap: 10px;">
+                        <a href="{% url 'edit_post' post.url %}" class="btn-flat grey-text" style="font-weight: 600;">
+                            <i class="material-icons left">edit</i> Edit Post
+                        </a>
+                        <a href="#deletePostModal" class="btn-flat red-text modal-trigger" style="font-weight: 600;">
+                            <i class="material-icons left">delete</i> Delete Post
+                        </a>
+                    </div>
+                    {% endif %}
                 {% endif %}
             </div>
 
@@ -97,6 +104,18 @@
                 </div>
             </div>
 
+
+    <!-- Delete Post Confirmation Modal -->
+    <div id="deletePostModal" class="modal" style="border-radius: 20px; max-width: 400px;">
+        <div class="modal-content">
+            <h4 style="font-weight: 800; font-size: 1.5rem;">Delete Post?</h4>
+            <p style="color: #64748b;">Are you sure you want to permanently delete <b>"{{ post.title }}"</b>? This action cannot be undone.</p>
+        </div>
+        <div class="modal-footer" style="background: #f8fafc; padding: 10px 20px;">
+            <a href="#!" class="modal-close waves-effect waves-grey btn-flat" style="font-weight: 600;">Cancel</a>
+            <a href="{% url 'delete_post' post.post_id %}" class="waves-effect waves-light btn red darken-1" style="border-radius: 10px; font-weight: 600;">Yes, Delete</a>
+        </div>
+    </div>
 
     <!-- Delete Comment Confirmation Modal -->
     <div id="deleteCommentModal" class="modal" style="border-radius: 20px; max-width: 400px;">
@@ -148,7 +167,7 @@
 
                 <div class="img-container">
 
-                    <img src="/static/{{ cat.image.name }}" class="responsive-img" alt="">
+                    <img src="{{ cat.image.url }}" class="responsive-img" alt="">
 
                 </div>
                 <div class="card-content">

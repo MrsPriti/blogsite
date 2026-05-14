@@ -1,14 +1,87 @@
 {% extends 'base.html' %}
 
-{% block title %}Edit Post{% endblock %}
+{% block title %} Edit Post - {{ post.title }} {% endblock %}
 
 {% block content %}
-<div class="container">
-    <h2>Edit Post</h2>
-    <form method="post" enctype="multipart/form-data">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit" class="btn btn-primary">Save changes</button>
-    </form>
+<div class="add-post-wrapper" style="padding: 100px 0; background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%); min-height: 90vh;">
+    <div class="container">
+        <div class="row">
+            <div class="col s12 m10 offset-m1 l8 offset-l2">
+                <div class="card glass-morphism fade-up" style="border-radius: 30px; overflow: hidden; box-shadow: var(--shadow-lg); border: 1px solid rgba(255,255,255,0.5);">
+                    <div class="card-content" style="padding: 50px;">
+                        <h3 class="center-align" style="font-weight: 900; margin-bottom: 10px; color: #1e293b;">Edit Your Story</h3>
+                        <p class="center-align" style="color: #64748b; margin-bottom: 40px;">Refine your perspective and share your updates.</p>
+                        
+                        <form method="post" enctype="multipart/form-data">
+                            {% csrf_token %}
+                            
+                            <div class="input-field" style="margin-bottom: 30px;">
+                                <i class="material-icons prefix" style="color: var(--primary);">title</i>
+                                {{ form.title }}
+                                <label for="{{ form.title.id_for_label }}">Post Title</label>
+                            </div>
+
+                            <div class="input-field" style="margin-bottom: 30px;">
+                                <i class="material-icons prefix" style="color: var(--primary);">category</i>
+                                {{ form.cat }}
+                                <small style="color: #94a3b8; display: block; margin-top: 5px;">Change the category if needed.</small>
+                            </div>
+
+                            <div class="input-field" style="margin-bottom: 30px;">
+                                <i class="material-icons prefix" style="color: var(--primary);">description</i>
+                                {{ form.content }}
+                                <label for="{{ form.content.id_for_label }}">Content</label>
+                            </div>
+
+                            <div class="current-image" style="margin-bottom: 20px;">
+                                <p style="color: #64748b; font-weight: 600;">Current Image:</p>
+                                <img src="{{ post.image.url }}" style="height: 100px; border-radius: 10px; box-shadow: var(--shadow-sm);">
+                            </div>
+
+                            <div class="file-field input-field" style="margin-bottom: 40px;">
+                                <div class="btn bg-primary" style="border-radius: 12px;">
+                                    <span><i class="material-icons left">image</i> Replace Image</span>
+                                    {{ form.image }}
+                                </div>
+                                <div class="file-path-wrapper">
+                                    <input class="file-path validate" type="text" placeholder="Upload a new cover image (optional)">
+                                </div>
+                            </div>
+
+                            <div class="center-align">
+                                <button type="submit" class="btn-large bg-primary waves-effect waves-light" style="width: 100%; border-radius: 15px; font-weight: 800; height: 60px; line-height: 60px; font-size: 1.2rem; box-shadow: 0 10px 20px rgba(79, 70, 229, 0.3);">
+                                    Update Post <i class="material-icons right">save</i>
+                                </button>
+                                <a href="{% url 'post' post.url %}" class="btn-flat grey-text" style="margin-top: 20px; font-weight: 600;">Cancel and return to post</a>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
+
+<style>
+    .glass-morphism {
+        background: rgba(255, 255, 255, 0.8) !important;
+        backdrop-filter: blur(20px);
+        -webkit-backdrop-filter: blur(20px);
+    }
+    
+    .input-field input:focus + label, 
+    .input-field textarea:focus + label {
+        color: var(--primary) !important;
+    }
+    
+    .input-field input:focus, 
+    .input-field textarea:focus {
+        border-bottom: 2px solid var(--primary) !important;
+        box-shadow: 0 1px 0 0 var(--primary) !important;
+    }
+
+    .select-wrapper input.select-dropdown {
+        border-bottom: 1px solid #e2e8f0;
+    }
+</style>
 {% endblock %}
