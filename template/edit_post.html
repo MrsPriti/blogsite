@@ -72,6 +72,13 @@
 </div>
 
 <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const djangoImageInput = document.querySelector('input[name="image"]');
+        if (djangoImageInput) {
+            djangoImageInput.removeAttribute('required');
+        }
+    });
+
     document.getElementById('postForm').addEventListener('submit', async function(e) {
         const imageInput = document.getElementById('imageInput');
         const djangoImageInput = document.querySelector('input[name="image"]');

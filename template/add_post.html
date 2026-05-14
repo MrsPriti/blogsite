@@ -36,7 +36,7 @@
                             <div class="file-field input-field" style="margin-bottom: 40px;">
                                 <div class="btn bg-primary" style="border-radius: 12px;">
                                     <span><i class="material-icons left">image</i> Featured Image</span>
-                                    <input type="file" id="imageInput" accept="image/*">
+                                    <input type="file" id="imageInput" accept="image/*" required>
                                 </div>
                                 <div class="file-path-wrapper">
                                     <input class="file-path validate" type="text" placeholder="Upload a stunning cover image">
@@ -65,8 +65,14 @@
         </div>
     </div>
 </div>
-
 <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const djangoImageInput = document.querySelector('input[name="image"]');
+        if (djangoImageInput) {
+            djangoImageInput.removeAttribute('required');
+        }
+    });
+
     document.getElementById('postForm').addEventListener('submit', async function(e) {
         const imageInput = document.getElementById('imageInput');
         const djangoImageInput = document.querySelector('input[name="image"]');
