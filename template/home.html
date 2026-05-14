@@ -117,7 +117,10 @@
                             <a href="/blog/{{p.url}}" class="btn-flat" style="color: var(--primary); font-weight: 800; padding: 0; text-transform: none; display: flex; align-items: center;">
                                 Read Full Story <i class="material-icons right" style="margin-left: 5px;">arrow_forward</i>
                             </a>
-                            <span style="color: #cbd5e1; font-size: 0.85rem;">{{ p.created_at|date:"M d, Y" }}</span>
+                            <div style="text-align: right;">
+                                <span style="display: block; color: #1e293b; font-size: 0.9rem; font-weight: 700;">By {{ p.author.username|default:"Admin" }}</span>
+                                <span style="color: #cbd5e1; font-size: 0.85rem;">{{ p.created_at|date:"M d, Y" }}</span>
+                            </div>
                         </div>
                     </div>
 
