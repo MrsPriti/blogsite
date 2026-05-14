@@ -144,6 +144,18 @@ def add_comment(request, content_type_id, object_id):
     return redirect(request.META.get('HTTP_REFERER', 'home'))
 
 @login_required
+def delete_comment(request, comment_id):
+    comment = get_object_or_404(Comment, id=comment_id)
+    # Check if the user is the author or a staff member
+    if request.user == comment.user or request.user.is_staff:
+        comment.delete()
+        messages.success(request, 'Comment deleted successfully.')
+    else:
+        messages.error(request, 'You do not have permission to delete this comment.')
+    
+    return redirect(request.META.get('HTTP_REFERER', 'home'))
+
+@login_required
 def like_post(request, post_id):
     post = get_object_or_404(Post, post_id=post_id)
     like_qs = Like.objects.filter(user=request.user, post=post)

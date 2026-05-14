@@ -1,0 +1,5 @@
+__pycache__/
+*.py[cod]
+*$py.class
+vercel_output.html
+.DS_Store
