@@ -97,7 +97,9 @@ def travel(request):
     return render(request,'travel.html')
 
 def food(request):
-    return render(request,'food.html')
+    cat = Category.objects.filter(title='Food').first()
+    posts = Post.objects.filter(cat=cat) if cat else []
+    return render(request,'food.html', {'posts': posts})
 
 def photography(request):
     return render(request,'photography.html')
