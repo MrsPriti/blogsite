@@ -12,7 +12,7 @@
                         <h3 class="center-align" style="font-weight: 900; margin-bottom: 10px; color: #1e293b;">Share Your Story</h3>
                         <p class="center-align" style="color: #64748b; margin-bottom: 40px;">Inspire the world with your unique perspective.</p>
                         
-                        <form method="post" enctype="multipart/form-data">
+                        <form id="postForm" method="post" enctype="multipart/form-data">
                             {% csrf_token %}
                             
                             <div class="input-field" style="margin-bottom: 30px;">
@@ -36,17 +36,26 @@
                             <div class="file-field input-field" style="margin-bottom: 40px;">
                                 <div class="btn bg-primary" style="border-radius: 12px;">
                                     <span><i class="material-icons left">image</i> Featured Image</span>
-                                    {{ form.image }}
+                                    <input type="file" id="imageInput" accept="image/*">
                                 </div>
                                 <div class="file-path-wrapper">
                                     <input class="file-path validate" type="text" placeholder="Upload a stunning cover image">
                                 </div>
                             </div>
+                            
+                            <!-- Hidden original input that Django expects -->
+                            <div style="display:none;">
+                                {{ form.image }}
+                            </div>
 
                             <div class="center-align">
-                                <button type="submit" class="btn-large bg-primary waves-effect waves-light" style="width: 100%; border-radius: 15px; font-weight: 800; height: 60px; line-height: 60px; font-size: 1.2rem; box-shadow: 0 10px 20px rgba(79, 70, 229, 0.3);">
+                                <button type="submit" id="submitBtn" class="btn-large bg-primary waves-effect waves-light" style="width: 100%; border-radius: 15px; font-weight: 800; height: 60px; line-height: 60px; font-size: 1.2rem; box-shadow: 0 10px 20px rgba(79, 70, 229, 0.3);">
                                     Publish Post <i class="material-icons right">send</i>
                                 </button>
+                                <div id="compressingMsg" style="display:none; margin-top:10px; color:var(--primary); font-weight:600;">
+                                    <div class="progress"><div class="indeterminate"></div></div>
+                                    Optimizing your image...
+                                </div>
                                 <a href="{% url 'home' %}" class="btn-flat grey-text" style="margin-top: 20px; font-weight: 600;">Cancel and return home</a>
                             </div>
                         </form>
@@ -56,6 +65,83 @@
         </div>
     </div>
 </div>
+
+<script>
+    document.getElementById('postForm').addEventListener('submit', async function(e) {
+        const imageInput = document.getElementById('imageInput');
+        const djangoImageInput = document.querySelector('input[name="image"]');
+        
+        if (imageInput.files.length > 0) {
+            e.preventDefault(); // Stop form submission to compress
+            
+            const submitBtn = document.getElementById('submitBtn');
+            const msg = document.getElementById('compressingMsg');
+            submitBtn.style.display = 'none';
+            msg.style.display = 'block';
+
+            const file = imageInput.files[0];
+            
+            try {
+                const compressedFile = await compressImage(file);
+                
+                // Create a DataTransfer to set files on the original Django input
+                const dataTransfer = new DataTransfer();
+                dataTransfer.items.add(compressedFile);
+                djangoImageInput.files = dataTransfer.files;
+                
+                // Now submit the form
+                this.submit();
+            } catch (error) {
+                console.error('Compression failed:', error);
+                this.submit(); // Submit anyway if compression fails
+            }
+        }
+    });
+
+    function compressImage(file) {
+        return new Promise((resolve, reject) => {
+            const reader = new FileReader();
+            reader.readAsDataURL(file);
+            reader.onload = event => {
+                const img = new Image();
+                img.src = event.target.result;
+                img.onload = () => {
+                    const canvas = document.createElement('canvas');
+                    let width = img.width;
+                    let height = img.height;
+                    const max_size = 1200; // Max dimension
+
+                    if (width > height) {
+                        if (width > max_size) {
+                            height *= max_size / width;
+                            width = max_size;
+                        }
+                    } else {
+                        if (height > max_size) {
+                            width *= max_size / height;
+                            height = max_size;
+                        }
+                    }
+
+                    canvas.width = width;
+                    canvas.height = height;
+                    const ctx = canvas.getContext('2d');
+                    ctx.drawImage(img, 0, 0, width, height);
+
+                    canvas.toBlob(blob => {
+                        const newFile = new File([blob], file.name, {
+                            type: 'image/jpeg',
+                            lastModified: Date.now()
+                        });
+                        resolve(newFile);
+                    }, 'image/jpeg', 0.8); // 80% quality
+                };
+                img.onerror = error => reject(error);
+            };
+            reader.onerror = error => reject(error);
+        });
+    }
+</script>
 
 <style>
     .glass-morphism {
