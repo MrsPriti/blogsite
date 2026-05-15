@@ -94,7 +94,9 @@ def contact(request):
     return render(request,'contact.html')
 
 def travel(request):
-    return render(request,'travel.html')
+    cat = Category.objects.filter(title__iexact='Travel').first()
+    posts = Post.objects.filter(cat=cat) if cat else []
+    return render(request,'travel.html', {'posts': posts})
 
 def food(request):
     cat = Category.objects.filter(title='Food').first()
