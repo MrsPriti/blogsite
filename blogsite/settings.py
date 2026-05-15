@@ -10,8 +10,15 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.1/ref/settings/
 """
 
-from pathlib import Path
 import os
+from pathlib import Path
+try:
+    from dotenv import load_dotenv
+    load_dotenv()
+except ImportError:
+    pass
+
+import dj_database_url
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -21,10 +28,10 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = "django-insecure-v$ie5*dgq1&ocw#+jnp9v+brl+$opz0_f8wc3)v#swj*mjlvwp"
+SECRET_KEY = os.environ.get('SECRET_KEY', "django-insecure-v$ie5*dgq1&ocw#+jnp9v+brl+$opz0_f8wc3)v#swj*mjlvwp")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = os.environ.get('DEBUG', 'True') == 'True'
 
 ALLOWED_HOSTS = ['*']
 
@@ -99,14 +106,10 @@ WSGI_APPLICATION = "blogsite.wsgi.application"
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
 
 DATABASES = {
-    "default": {
-        "ENGINE": "django.db.backends.postgresql",
-        "NAME": "postgres",
-        "USER": "postgres.dzoamkdtjpeqsehtsdvm",
-        "PASSWORD": "MyBlog@123%",
-        "HOST": "aws-1-ap-south-1.pooler.supabase.com",
-        "PORT": "6543",
-    }
+    'default': dj_database_url.config(
+        default=os.environ.get('DATABASE_URL', 'postgres://postgres.dzoamkdtjpeqsehtsdvm:MyBlog@123%@aws-1-ap-south-1.pooler.supabase.com:6543/postgres'),
+        conn_max_age=600
+    )
 }
 
 
@@ -156,9 +159,6 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 # Cloudinary Storage Configuration
 DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
-
-from dotenv import load_dotenv
-load_dotenv(os.path.join(BASE_DIR, '.env'))
 
 # Cloudinary requires CLOUDINARY_URL to be present in the environment or directly in settings.
 # Because load_dotenv pushes it to the environment, django-cloudinary-storage will automatically detect it.
