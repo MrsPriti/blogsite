@@ -24,11 +24,20 @@
         <div class="section-title">
             <h2>Featured <span>Galleries</span></h2>
         </div>
+
+        <div class="portfolio-menu">
+            <ul>
+                <li data-filter="*" class="active">All</li>
+                <li data-filter=".nature">Nature</li>
+                <li data-filter=".fashion">Fashion</li>
+            </ul>
+        </div>
         
         <div class="photo-grid">
+            <!-- Dynamic Posts from Database -->
             {% if posts %}
                 {% for p in posts %}
-                <a href="/blog/{{ p.url }}" class="photo-card">
+                <a href="/blog/{{ p.url }}" class="photo-card all nature">
                     <img src="{{ p.image.url }}" alt="{{ p.title }}" class="photo-card-img">
                     <div class="photo-card-overlay">
                         <span class="photo-author">By {{ p.author.username|default:"Globetrotter" }}</span>
@@ -36,13 +45,56 @@
                     </div>
                 </a>
                 {% endfor %}
-            {% else %}
-                <div class="empty-gallery">
-                    <i class="fa fa-picture-o"></i>
-                    <h3>No galleries published yet</h3>
-                    <p>Check back soon for inspiring photography.</p>
-                </div>
             {% endif %}
+
+            <!-- Requested Static Pexels Images (Formatted with the new Advanced Design) -->
+            <a href="#" class="photo-card all nature">
+                <img src="{% static 'images/pexels-lucasallmann-612891.jpg' %}" alt="Mountain Landscape" class="photo-card-img">
+                <div class="photo-card-overlay">
+                    <span class="photo-author">By Lucas Allmann</span>
+                    <h3 class="photo-title">Serene Mountain Peaks</h3>
+                </div>
+            </a>
+
+            <a href="#" class="photo-card all fashion">
+                <img src="{% static 'images/pexels-kelly-1179532-2918152.jpg' %}" alt="City Streets" class="photo-card-img">
+                <div class="photo-card-overlay">
+                    <span class="photo-author">By Kelly</span>
+                    <h3 class="photo-title">Urban Discoveries</h3>
+                </div>
+            </a>
+
+            <a href="#" class="photo-card all nature">
+                <img src="{% static 'images/pexels-nandhukumar-450441.jpg' %}" alt="Nature Trails" class="photo-card-img">
+                <div class="photo-card-overlay">
+                    <span class="photo-author">By Nandhu Kumar</span>
+                    <h3 class="photo-title">Forest Escapes</h3>
+                </div>
+            </a>
+            
+            <a href="#" class="photo-card all fashion">
+                <img src="{% static 'images/p1.jpg' %}" alt="Photography" class="photo-card-img">
+                <div class="photo-card-overlay">
+                    <span class="photo-author">By Globetrotter</span>
+                    <h3 class="photo-title">Capturing the Light</h3>
+                </div>
+            </a>
+            
+            <a href="#" class="photo-card all nature">
+                <img src="{% static 'images/p2.jpg' %}" alt="Photography" class="photo-card-img">
+                <div class="photo-card-overlay">
+                    <span class="photo-author">By Globetrotter</span>
+                    <h3 class="photo-title">A New Perspective</h3>
+                </div>
+            </a>
+            
+            <a href="#" class="photo-card all fashion">
+                <img src="{% static 'images/p3.jpg' %}" alt="Photography" class="photo-card-img">
+                <div class="photo-card-overlay">
+                    <span class="photo-author">By Globetrotter</span>
+                    <h3 class="photo-title">Moments in Time</h3>
+                </div>
+            </a>
         </div>
 
         <div class="gear-partners">
@@ -56,6 +108,44 @@
         </div>
     </section>
 </div>
+
+<style>
+    @keyframes fadeInGrid {
+        from { opacity: 0; transform: scale(0.95); }
+        to { opacity: 1; transform: scale(1); }
+    }
+</style>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        const filterBtns = document.querySelectorAll('.portfolio-menu li');
+        const cards = document.querySelectorAll('.photo-card');
+
+        filterBtns.forEach(btn => {
+            btn.addEventListener('click', function() {
+                // Remove active class from all buttons
+                filterBtns.forEach(b => b.classList.remove('active'));
+                this.classList.add('active');
+
+                // Get filter value
+                const filter = this.getAttribute('data-filter');
+
+                cards.forEach(card => {
+                    // Check if card should be shown
+                    if (filter === '*' || card.classList.contains(filter.substring(1))) {
+                        card.style.display = 'block';
+                        // Retrigger animation for premium feel
+                        card.style.animation = 'none';
+                        card.offsetHeight; // trigger reflow
+                        card.style.animation = 'fadeInGrid 0.5s ease forwards';
+                    } else {
+                        card.style.display = 'none';
+                    }
+                });
+            });
+        });
+    });
+</script>
 
 <!-- Removed Isotope JS and old jQuery to prevent grid breaking -->
 {% endblock %}
