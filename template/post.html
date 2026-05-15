@@ -1,253 +1,277 @@
 {% extends 'base.html' %}
 
-{% block title %} POST {% endblock %}
+{% block title %} {{ post.title }} - BLOGS {% endblock %}
 
 {% block content %}
+<style>
+    .post-container .container {
+        width: 95% !important;
+        max-width: 1500px !important;
+    }
+    .post-container {
+        padding-top: 60px;
+        padding-bottom: 100px;
+        background-color: #f8fafc;
+    }
+    .post-header {
+        margin-bottom: 50px;
+    }
+    .post-title {
+        font-family: 'Playfair Display', serif;
+        font-weight: 900;
+        font-size: 3.5rem;
+        line-height: 1.2;
+        color: #1e293b;
+        margin-bottom: 25px;
+    }
+    .post-meta {
+        display: flex;
+        align-items: center;
+        gap: 15px;
+        flex-wrap: wrap;
+    }
+    .post-content-body {
+        font-family: 'Inter', sans-serif;
+        font-size: 1.15rem;
+        line-height: 2;
+        color: #334155;
+        font-weight: 400;
+        text-align: justify;
+        margin-top: 50px;
+        letter-spacing: -0.01em;
+    }
+    .post-main-img {
+        width: 100%;
+        border-radius: 30px;
+        box-shadow: 0 20px 50px rgba(0,0,0,0.1);
+        margin-bottom: 50px;
+    }
+    .sidebar-card {
+        border-radius: 20px;
+        overflow: hidden;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+        border: 1px solid #f1f5f9;
+        margin-bottom: 30px;
+        transition: transform 0.3s ease;
+    }
+    .sidebar-card:hover {
+        transform: translateY(-5px);
+    }
+    .sidebar-img {
+        height: 180px;
+        overflow: hidden;
+    }
+    .sidebar-img img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+    @media (max-width: 992px) {
+        .post-title { font-size: 2.5rem; }
+    }
+</style>
 
-
-<div class="container-custom">
-    <div class="row">
-        <div class="col s12 l9 m8">
-
-
-            <h3>{{post.title}}</h3>
-
-            <p style="margin-bottom: 30px; display: flex; align-items: center; gap: 15px;">
-                <span class="bg-primary" style="padding: 4px 12px; border-radius: 50px; color: white; font-size: 0.8rem; font-weight: 700;">{{ post.cat.title }}</span>
-                <span style="color: #64748b; font-size: 0.9rem; font-weight: 600;">By {{ post.author.username|default:"Admin" }}</span>
-                <span style="color: #cbd5e1; font-size: 0.9rem;">•</span>
-                <span style="color: #94a3b8; font-size: 0.9rem;">{{ post.created_at|date:"M d, Y" }}</span>
-            </p>
-            
-
-            <img src="{{ post.image.url }}" class="responsive-img" alt=""><br>
-            {% if post.cat.title == 'Food' %}
-            <div id="recipe-section" style="margin-top: 40px; padding: 30px; background: #fffbeb; border: 2px dashed #f59e0b; border-radius: 20px;">
-                <h4 style="font-weight: 800; color: #b45309; margin-top: 0;">👨‍🍳 Secret Recipe for {{ post.title }}</h4>
-                <div id="recipe-content">
-                    <p style="color: #d97706;">Click the button below to reveal the cooking instructions and ingredients!</p>
-                    <button onclick="fetchRecipe('{{ post.title }}')" class="btn bg-primary" style="margin-top: 15px;">Show Recipe Details</button>
-                </div>
-            </div>
-
-            <script>
-                async function fetchRecipe(dish) {
-                    const content = document.getElementById('recipe-content');
-                    content.innerHTML = '<div class="progress"><div class="indeterminate"></div></div><p>Searching for the perfect recipe...</p>';
+<div class="post-container">
+    <div class="container">
+        <div class="row">
+            <!-- Main Content Area -->
+            <div class="col s12 l9" style="padding-right: 20px;">
+                <article class="post-header">
+                    <span style="background: #ea580c; color: white; padding: 6px 18px; border-radius: 50px; font-weight: 800; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 1px;">{{ post.cat.title }}</span>
+                    <h1 class="post-title">{{ post.title }}</h1>
                     
-                    try {
-                        const response = await fetch(`https://www.themealdb.com/api/json/v1/1/search.php?s=${dish}`);
-                        const data = await response.json();
-                        
-                        if (data.meals && data.meals[0]) {
-                            const meal = data.meals[0];
-                            content.innerHTML = `
-                                <div style="display: flex; gap: 20px; flex-wrap: wrap; margin-top: 20px;">
-                                    <img src="${meal.strMealThumb}" style="width: 200px; border-radius: 15px; box-shadow: var(--shadow-sm);">
-                                    <div style="flex: 1; min-width: 250px;">
-                                        <h5 style="font-weight: 700;">Ingredients:</h5>
-                                        <ul id="ingredients-list" style="columns: 2;"></ul>
-                                    </div>
-                                </div>
-                                <div style="margin-top: 30px;">
-                                    <h5 style="font-weight: 700;">Instructions:</h5>
-                                    <p style="white-space: pre-line; line-height: 1.6; color: #4b5563;">${meal.strInstructions}</p>
-                                </div>
-                                <div class="mt20">
-                                    <a href="${meal.strYoutube}" target="_blank" class="btn red darken-1"><i class="material-icons left">play_circle</i> Watch Tutorial</a>
-                                </div>
-                            `;
-                            
-                            const list = document.getElementById('ingredients-list');
-                            for (let i = 1; i <= 20; i++) {
-                                if (meal[`strIngredient${i}`]) {
-                                    const li = document.createElement('li');
-                                    li.style.marginBottom = '5px';
-                                    li.innerHTML = `<b>${meal[`strMeasure${i}`]}</b> ${meal[`strIngredient${i}`]}`;
-                                    list.appendChild(li);
-                                }
-                            }
-                        } else {
-                            content.innerHTML = '<p style="color: #ef4444;">Oops! We couldn\'t find a specific recipe for this title. Try searching on our <a href="/food">Recipes page</a>!</p>';
-                        }
-                    } catch (error) {
-                        content.innerHTML = '<p>Something went wrong. Please try again later.</p>';
-                    }
-                }
-            </script>
-            {% endif %}
-            {% if post.cat.title == 'Travel' %}
-            <iframe width="200" height="100" src="https://www.youtube.com/embed/0yeFjV26uSg?si=0MPI2capgSHhA2fi" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
-            {% endif %}
-            {% if post.cat.title == 'Fitness' %}
-            <iframe width="200" height="100" src="https://www.youtube.com/embed/dmif_yP7cZw?si=YRFAFywiIG93rEGb" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
-            {% endif %}
-            {% if post.cat.title == 'Photography' %}
-            <iframe width="200" height="100" src="https://www.youtube.com/embed/rzP0BpDpXY4?si=tYulYWuMZ5B0mXPt" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
-            {% endif %}
-            <br>
-            <p>
-                {{post.content|safe}}
-            </p>
+                    <div class="post-meta">
+                        <div style="display: flex; align-items: center; gap: 10px;">
+                            <div style="width: 40px; height: 40px; background: #e2e8f0; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 800; color: #64748b;">
+                                {{ post.author.username|first|upper }}
+                            </div>
+                            <div>
+                                <span style="display: block; font-weight: 700; color: #1e293b; font-size: 1rem;">{{ post.author.username|default:"Priti Padma" }}</span>
+                                <span style="font-size: 0.85rem; color: #94a3b8;">Published on {{ post.created_at|date:"M d, Y" }}</span>
+                            </div>
+                        </div>
+                    </div>
+                </article>
 
-            <hr style="margin: 40px 0; opacity: 0.1;">
+                <img src="{{ post.image.url }}" class="post-main-img" alt="{{ post.title }}">
 
-            <!------------------- Social Actions -------------------------->
-            <div class="social-actions" style="display: flex; align-items: center; gap: 20px; margin-bottom: 30px;">
-                <!-- Like Button -->
-                <button id="like-btn" class="btn-flat" style="display: flex; align-items: center; gap: 8px; font-weight: 600; color: {% if is_liked %}#ef4444{% else %}#64748b{% endif %};">
-                    <i class="material-icons">{% if is_liked %}favorite{% else %}favorite_border{% endif %}</i>
-                    <span id="like-count">{{ like_count }}</span> Likes
-                </button>
-
-                <!-- Share Buttons -->
-                <div style="display: flex; gap: 10px; align-items: center; margin-left: auto;">
-                    <span style="font-size: 0.9rem; color: #64748b;">Share:</span>
-                    <a href="https://www.facebook.com/sharer/sharer.php?u={{ request.build_absolute_uri }}" target="_blank" class="btn-floating btn-small waves-effect waves-light blue darken-4"><i class="fa-brands fa-facebook"></i></a>
-                    <a href="https://twitter.com/intent/tweet?url={{ request.build_absolute_uri }}&text={{ post.title }}" target="_blank" class="btn-floating btn-small waves-effect waves-light blue"><i class="fa-brands fa-twitter"></i></a>
-                    <a href="https://api.whatsapp.com/send?text={{ post.title }}%20{{ request.build_absolute_uri }}" target="_blank" class="btn-floating btn-small waves-effect waves-light green"><i class="fa-brands fa-whatsapp"></i></a>
+                <!-- Recipe Section (Only for Food) -->
+                {% if post.cat.title == 'Food' %}
+                <div id="recipe-section" style="margin: 50px 0; padding: 40px; background: #fff7ed; border-radius: 30px; border: 1px solid #fed7aa; box-shadow: 0 10px 25px rgba(234, 88, 12, 0.05);">
+                    <h4 style="font-family: 'Playfair Display', serif; font-weight: 900; color: #ea580c; margin-top: 0; display: flex; align-items: center; gap: 15px;">
+                        <i class="material-icons" style="font-size: 2.5rem;">restaurant_menu</i> Special Recipe Instructions
+                    </h4>
+                    <div id="recipe-content">
+                        <p style="color: #64748b; font-size: 1.1rem; line-height: 1.6;">Want to cook this yourself? Click the button below to get the full list of ingredients and step-by-step instructions!</p>
+                        <button onclick="fetchRecipe('{{ post.title }}')" class="btn-large orange darken-3" style="border-radius: 50px; text-transform: none; font-weight: 700; padding: 0 40px; margin-top: 10px;">Reveal Secret Recipe</button>
+                    </div>
                 </div>
 
-                <!-- Admin/Author Shortcuts -->
-                {% if user.is_authenticated %}
-                    {% if user == post.author or user.is_staff %}
-                    <div style="margin-left: auto; display: flex; gap: 10px;">
-                        <a href="{% url 'edit_post' post.url %}" class="btn-flat grey-text" style="font-weight: 600;">
-                            <i class="material-icons left">edit</i> Edit Post
-                        </a>
-                        <a href="#deletePostModal" class="btn-flat red-text modal-trigger" style="font-weight: 600;">
-                            <i class="material-icons left">delete</i> Delete Post
-                        </a>
+                <script>
+                    async function fetchRecipe(dish) {
+                        const content = document.getElementById('recipe-content');
+                        content.innerHTML = '<div class="progress orange lighten-4"><div class="indeterminate orange darken-3"></div></div><p class="center-align">Preparing your secret recipe...</p>';
+                        
+                        try {
+                            const response = await fetch(`https://www.themealdb.com/api/json/v1/1/search.php?s=${dish}`);
+                            const data = await response.json();
+                            
+                            if (data.meals && data.meals[0]) {
+                                const meal = data.meals[0];
+                                content.innerHTML = `
+                                    <div style="display: flex; gap: 30px; flex-wrap: wrap; margin-top: 30px;">
+                                        <img src="${meal.strMealThumb}" style="width: 220px; height: 220px; object-fit: cover; border-radius: 24px; box-shadow: 0 15px 35px rgba(0,0,0,0.1);">
+                                        <div style="flex: 1; min-width: 250px;">
+                                            <h5 style="font-weight: 800; color: #1e293b; margin-top: 0; margin-bottom: 20px;">Ingredients Needed:</h5>
+                                            <ul id="ingredients-list" style="columns: 1; margin: 0; padding: 0; list-style: none;"></ul>
+                                        </div>
+                                    </div>
+                                    <div style="margin-top: 40px;">
+                                        <h5 style="font-weight: 800; color: #1e293b; margin-bottom: 20px;">Cooking Instructions:</h5>
+                                        <p style="white-space: pre-line; line-height: 1.8; color: #475569; font-size: 1.1rem; background: white; padding: 30px; border-radius: 20px;">${meal.strInstructions}</p>
+                                    </div>
+                                `;
+                                
+                                const list = document.getElementById('ingredients-list');
+                                for (let i = 1; i <= 20; i++) {
+                                    if (meal[`strIngredient${i}`]) {
+                                        const li = document.createElement('li');
+                                        li.style.marginBottom = '12px';
+                                        li.style.color = '#475569';
+                                        li.style.display = 'flex';
+                                        li.style.alignItems = 'center';
+                                        li.style.gap = '10px';
+                                        li.innerHTML = `<i class="material-icons" style="color: #ea580c; font-size: 1.2rem;">check_circle</i> <span><b>${meal[`strMeasure${i}`]}</b> ${meal[`strIngredient${i}`]}</span>`;
+                                        list.appendChild(li);
+                                    }
+                                }
+                            } else {
+                                content.innerHTML = '<p style="color: #ef4444; font-weight: 700;">Sorry! No automatic recipe found for this name. Check out our main recipes page for more!</p>';
+                            }
+                        } catch (error) {
+                            content.innerHTML = '<p class="red-text">Failed to load recipe. Please try again later.</p>';
+                        }
+                    }
+                </script>
+                {% endif %}
+
+                <div class="post-content-body">
+                    {{ post.content|safe }}
+                </div>
+
+                <div style="margin: 60px 0; border-top: 1px solid #e2e8f0; padding-top: 40px;">
+                    <div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 20px;">
+                        <div style="display: flex; align-items: center; gap: 15px;">
+                            <button id="like-btn" class="btn-flat" style="background: white; border: 1px solid #e2e8f0; border-radius: 50px; padding: 0 25px; display: flex; align-items: center; gap: 10px; font-weight: 700; color: {% if is_liked %}#ef4444{% else %}#64748b{% endif %}; transition: all 0.3s ease;">
+                                <i class="material-icons">{% if is_liked %}favorite{% else %}favorite_border{% endif %}</i>
+                                <span id="like-count">{{ like_count }}</span> Likes
+                            </button>
+                        </div>
+                        
+                        <div style="display: flex; align-items: center; gap: 12px;">
+                            <span style="font-weight: 700; color: #64748b; font-size: 0.9rem;">SHARE POST:</span>
+                            <a href="https://api.whatsapp.com/send?text={{ post.title }}%20{{ request.build_absolute_uri }}" target="_blank" class="btn-floating green"><i class="fa-brands fa-whatsapp"></i></a>
+                            <a href="https://twitter.com/intent/tweet?url={{ request.build_absolute_uri }}" target="_blank" class="btn-floating blue"><i class="fa-brands fa-twitter"></i></a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Admin Controls -->
+                {% if user.is_authenticated and user == post.author or user.is_staff %}
+                <div style="background: white; padding: 25px; border-radius: 20px; border: 1px solid #fee2e2; margin-bottom: 50px; display: flex; align-items: center; justify-content: space-between;">
+                    <span style="font-weight: 700; color: #991b1b;">Admin Panel:</span>
+                    <div style="display: flex; gap: 15px;">
+                        <a href="{% url 'edit_post' post.url %}" class="btn-flat blue-text text-darken-2" style="font-weight: 800;">EDIT</a>
+                        <a href="#deletePostModal" class="btn-flat red-text modal-trigger" style="font-weight: 800;">DELETE</a>
+                    </div>
+                </div>
+                {% endif %}
+
+                <!-- Comments Section -->
+                <div id="comments" style="background: white; padding: 40px; border-radius: 30px; box-shadow: 0 10px 40px rgba(0,0,0,0.03);">
+                    <h3 style="font-family: 'Playfair Display', serif; font-weight: 900; margin-bottom: 30px; color: #1e293b;">Thoughts ({{ comments.count }})</h3>
+                    
+                    {% if user.is_authenticated %}
+                    <form action="{% url 'add_comment' content_type_id post.post_id %}" method="post" style="margin-bottom: 50px;">
+                        {% csrf_token %}
+                        <div class="input-field">
+                            <textarea name="content" class="materialize-textarea" placeholder="Share your thoughts..." required style="padding: 20px; border: 1px solid #e2e8f0; border-radius: 15px;"></textarea>
+                        </div>
+                        <button type="submit" class="btn-large bg-primary" style="border-radius: 50px; text-transform: none; font-weight: 700; padding: 0 35px;">Post Comment</button>
+                    </form>
+                    {% else %}
+                    <div style="background: #f1f5f9; padding: 20px; border-radius: 15px; text-align: center; margin-bottom: 40px;">
+                        <p style="color: #475569; margin: 0;">Please <a href="{% url 'login' %}" style="color: #ea580c; font-weight: 700;">Login</a> to join the conversation.</p>
                     </div>
                     {% endif %}
-                {% endif %}
+
+                    <div class="comment-list">
+                        {% for comment in comments %}
+                        <div style="padding: 25px 0; border-bottom: 1px solid #f1f5f9;">
+                            <div style="display: flex; justify-content: space-between; margin-bottom: 10px;">
+                                <span style="font-weight: 800; color: #1e293b; font-size: 1.1rem;">{{ comment.user.username }}</span>
+                                <span style="color: #94a3b8; font-size: 0.85rem;">{{ comment.created_at|timesince }} ago</span>
+                            </div>
+                            <p style="color: #475569; font-size: 1.05rem; line-height: 1.6; margin: 0;">{{ comment.content }}</p>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
             </div>
 
-            <!------------------- Comment Section -------------------------->
-            <div class="comments-section" style="background: white; padding: 30px; border-radius: 20px; box-shadow: var(--shadow);">
-                <h5 style="font-weight: 800; margin-bottom: 25px;">Comments ({{ comments.count }})</h5>
-                
-                <!-- Add Comment Form -->
-                {% if user.is_authenticated %}
-                <form action="{% url 'add_comment' content_type_id post.post_id %}" method="post" style="margin-bottom: 40px;">
-                    {% csrf_token %}
-                    <div class="input-field">
-                        <textarea name="content" class="materialize-textarea" placeholder="Write a comment..." required style="border: 1px solid #e2e8f0; border-radius: 12px; padding: 15px;"></textarea>
-                    </div>
-                    <button type="submit" class="btn bg-primary">Post Comment</button>
-                </form>
-                {% else %}
-                <p style="margin-bottom: 30px; color: #64748b;">Please <a href="{% url 'login' %}?next={{ request.path }}">login</a> to leave a comment.</p>
-                {% endif %}
-
-                <!-- Comment List -->
-                <div class="comment-list">
-                    {% for comment in comments %}
-                    <div class="comment-item" style="padding: 20px 0; border-top: 1px solid #f1f5f9;">
-                        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
-                            <span style="font-weight: 700; color: #1e293b;">{{ comment.user.username }}</span>
-                            <span style="font-size: 0.8rem; color: #94a3b8;">{{ comment.created_at|timesince }} ago</span>
-                            {% if user == comment.user or user.is_staff %}
-                            <a href="#deleteCommentModal" class="modal-trigger grey-text text-lighten-1" onclick="setDeleteCommentUrl('{% url 'delete_comment' comment.id %}')" style="margin-left: 15px;">
-                                <i class="material-icons tiny">delete</i>
-                            </a>
-                            {% endif %}
+            <!-- Sidebar -->
+            <div class="col s12 l3">
+                <div style="position: sticky; top: 100px; padding-right: 0; margin-right: 0;">
+                    <h5 style="font-weight: 900; color: #1e293b; margin-bottom: 25px; font-family: 'Playfair Display', serif;">More Categories</h5>
+                    {% for cat in cats %}
+                    <div class="sidebar-card">
+                        <div class="sidebar-img">
+                            <img src="{{ cat.image.url }}" alt="{{ cat.title }}">
                         </div>
-                        <p style="margin: 0; color: #475569;">{{ comment.content }}</p>
+                        <div style="padding: 20px; text-align: center;">
+                            <h6 style="font-weight: 800; color: #1e293b; margin: 0 0 15px 0;">{{ cat.title }}</h6>
+                            <a href="/category/{{ cat.url }}" class="btn-small bg-primary" style="border-radius: 50px; text-transform: none; font-weight: 700;">EXPLORE</a>
+                        </div>
                     </div>
-                    {% empty %}
-                    <p style="color: #94a3b8; text-align: center; padding: 20px;">No comments yet. Be the first to comment!</p>
                     {% endfor %}
                 </div>
             </div>
-
-
-    <!-- Delete Post Confirmation Modal -->
-    <div id="deletePostModal" class="modal" style="border-radius: 20px; max-width: 400px;">
-        <div class="modal-content">
-            <h4 style="font-weight: 800; font-size: 1.5rem;">Delete Post?</h4>
-            <p style="color: #64748b;">Are you sure you want to permanently delete <b>"{{ post.title }}"</b>? This action cannot be undone.</p>
-        </div>
-        <div class="modal-footer" style="background: #f8fafc; padding: 10px 20px;">
-            <a href="#!" class="modal-close waves-effect waves-grey btn-flat" style="font-weight: 600;">Cancel</a>
-            <a href="{% url 'delete_post' post.post_id %}" class="waves-effect waves-light btn red darken-1" style="border-radius: 10px; font-weight: 600;">Yes, Delete</a>
         </div>
     </div>
-
-    <!-- Delete Comment Confirmation Modal -->
-    <div id="deleteCommentModal" class="modal" style="border-radius: 20px; max-width: 400px;">
-        <div class="modal-content">
-            <h4 style="font-weight: 800; font-size: 1.5rem;">Delete Comment?</h4>
-            <p style="color: #64748b;">Are you sure you want to delete this comment? This action cannot be undone.</p>
-        </div>
-        <div class="modal-footer" style="background: #f8fafc; padding: 10px 20px;">
-            <a href="#!" class="modal-close waves-effect waves-grey btn-flat" style="font-weight: 600;">Cancel</a>
-            <a id="confirmDeleteBtn" href="#!" class="waves-effect waves-light btn red darken-1" style="border-radius: 10px; font-weight: 600;">Delete</a>
-        </div>
-    </div>
-
-    <script>
-        function setDeleteCommentUrl(url) {
-            document.getElementById('confirmDeleteBtn').setAttribute('href', url);
-        }
-
-        document.addEventListener('DOMContentLoaded', function() {
-            var elems = document.querySelectorAll('.modal');
-            var instances = M.Modal.init(elems);
-        });
-
-        document.getElementById('like-btn')?.addEventListener('click', function() {
-                    fetch("{% url 'like_post' post.post_id %}")
-                        .then(response => response.json())
-                        .then(data => {
-                            const icon = this.querySelector('i');
-                            const count = document.getElementById('like-count');
-                            if (data.liked) {
-                                icon.innerText = 'favorite';
-                                this.style.color = '#ef4444';
-                            } else {
-                                icon.innerText = 'favorite_border';
-                                this.style.color = '#64748b';
-                            }
-                            count.innerText = data.count;
-                        });
-                });
-            </script>
-        </div>
-
-        <div class="col s12 l3 m4">
-
-
-            {% for cat in cats %}
-
-            <div class="card item" style="margin-left:10px;">
-
-                <div class="img-container">
-
-                    <img src="{{ cat.image.url }}" class="responsive-img" alt="">
-
-                </div>
-                <div class="card-content">
-
-                    <b>
-                        {{cat.title}}
-                    </b>
-
-                    <p class="truncate">{{cat.description}}</p>
-                    <div class="container center-align mt20">
-                        <a href="/category/{{ cat.url }}" class="btn bg-primary">VIEW</a>
-                    </div>
-
-                </div>
-
-
-            </div>
-
-            {%endfor%}
-
-
-        </div>
-    </div>
-
 </div>
+
+<!-- Delete Modals -->
+<div id="deletePostModal" class="modal" style="border-radius: 30px; max-width: 450px;">
+    <div class="modal-content" style="padding: 40px; text-align: center;">
+        <i class="material-icons" style="font-size: 5rem; color: #ef4444; margin-bottom: 20px;">report_problem</i>
+        <h4 style="font-weight: 900; margin: 0;">Delete Post?</h4>
+        <p style="color: #64748b; font-size: 1.1rem; margin-top: 15px;">This action is permanent and cannot be undone. Are you sure you want to delete "{{ post.title }}"?</p>
+    </div>
+    <div class="modal-footer" style="padding: 20px 40px; border-top: 1px solid #f1f5f9; display: flex; justify-content: center; gap: 15px;">
+        <a href="#!" class="modal-close btn-flat grey-text" style="font-weight: 800;">CANCEL</a>
+        <a href="{% url 'delete_post' post.post_id %}" class="btn red accent-4" style="border-radius: 50px; font-weight: 800; padding: 0 30px;">DELETE PERMANENTLY</a>
+    </div>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        var modals = document.querySelectorAll('.modal');
+        M.Modal.init(modals);
+
+        const likeBtn = document.getElementById('like-btn');
+        if (likeBtn) {
+            likeBtn.addEventListener('click', function() {
+                fetch("{% url 'like_post' post.post_id %}")
+                .then(res => res.json())
+                .then(data => {
+                    const icon = this.querySelector('i');
+                    const count = document.getElementById('like-count');
+                    icon.innerText = data.liked ? 'favorite' : 'favorite_border';
+                    this.style.color = data.liked ? '#ef4444' : '#64748b';
+                    count.innerText = data.count;
+                });
+            });
+        }
+    });
+</script>
 {% endblock %}
