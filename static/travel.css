@@ -90,10 +90,11 @@
     display: flex;
     align-items: center;
     gap: 4rem;
+    flex-wrap: wrap; /* Allow wrapping on smaller screens to prevent squishing */
 }
 
 .about-text {
-    flex: 1;
+    flex: 1 1 400px; /* Grow, shrink, but prefer 400px minimum before wrapping */
 }
 
 .about-text h2 {
@@ -113,15 +114,19 @@
     line-height: 1.8;
     color: #64748b;
     margin-bottom: 2rem;
+    word-break: break-word;
 }
 
 .about-image {
-    flex: 1;
+    flex: 1 1 400px; /* Allow image container to take equal space but wrap if too tight */
     position: relative;
+    display: flex;
+    justify-content: center;
 }
 
 .about-image img {
     width: 100%;
+    max-width: 600px; /* Restrict max size so it doesn't crush the text */
     border-radius: 20px;
     box-shadow: 0 20px 40px -10px rgba(0,0,0,0.15);
     transition: transform 0.5s ease;
