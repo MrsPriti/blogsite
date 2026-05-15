@@ -1,372 +1,247 @@
-* {
-	padding: 0;
-	margin: 0;
-	box-sizing: border-box;
+/* Premium Photography Styles */
+
+.photography-wrapper {
+    background-color: #0f172a; /* Sleek dark background */
+    color: #f8fafc;
+    font-family: var(--font-main, 'Inter', sans-serif);
+    min-height: 100vh;
 }
 
-body {
-	scroll-behavior: smooth;
-	overflow-x: hidden;
+/* Premium Header with subtle parallax */
+.photo-header {
+    height: 70vh;
+    background-image: url('images/banner1.jpg'); /* Default fallback */
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
 }
 
-header {
-	width: 100vw;
-	height: 90vh;
-	background: linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.8)), url('images/banner1.jpg');
-	background-size: cover;
-	position: relative;
-	background-attachment: fixed;
+.photo-header::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, rgba(15, 23, 42, 0.95) 0%, rgba(15, 23, 42, 0.5) 100%);
 }
 
-nav {
-	width: 100%;
-	height: 80px;
-	background: white;
-	color: black;
-	display: flex;
-	justify-content: space-between;
-	align-items: center;
-	padding: 0px 80px;
-	position: fixed;
-	top: 0;
-	background: white;
-	z-index: 1;
-	border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+.header-content {
+    z-index: 10;
+    max-width: 800px;
+    padding: 0 20px;
 }
 
-.logo {
-	font-family: sans-serif;
-	font-size: 2.5em;
+.header-content i {
+    font-size: 4.5rem;
+    color: #38bdf8;
+    margin-bottom: 25px;
+    text-shadow: 0 0 30px rgba(56, 189, 248, 0.6);
+    animation: float 6s ease-in-out infinite;
 }
 
-.logo span {
-	color: #e74c3c;
+@keyframes float {
+    0% { transform: translateY(0px); }
+    50% { transform: translateY(-10px); }
+    100% { transform: translateY(0px); }
 }
 
-.menu a {
-	text-decoration: none;
-	color: black;
-	font-size: 20px;
-
-	padding: 10px 20px;
-	font-family: sans-serif;
-
+.header-content h1 {
+    font-family: var(--font-heading, 'Outfit', sans-serif);
+    font-size: 4.5rem;
+    font-weight: 800;
+    line-height: 1.2;
+    background: linear-gradient(to right, #ffffff, #94a3b8);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin-bottom: 20px;
 }
 
-.menu a:first-child {
-	color: #e74c3c;
+.header-content p {
+    font-size: 1.3rem;
+    color: #cbd5e1;
+    font-weight: 300;
+    letter-spacing: 1px;
 }
 
-.menu a:hover {
-	color: #e74c3c;
-	transition: 0.4s;
+/* Modern Gallery Grid */
+.gallery-section {
+    padding: 6rem 2rem;
+    max-width: 1400px;
+    margin: 0 auto;
 }
 
-.icon i {
-	font-size: 20px;
+.section-title {
+    text-align: center;
+    margin-bottom: 4rem;
 }
 
-.icon i:hover {
-	color: #e74c3c;
+.section-title h2 {
+    font-family: var(--font-heading, 'Outfit', sans-serif);
+    font-size: 3rem;
+    font-weight: 800;
+    color: #f8fafc;
+    letter-spacing: -1px;
 }
 
-.icon a {
-	padding: 10px 20px;
-	background: #e74c3c;
-	color: white;
-	text-decoration: none;
-	margin-left: 30px;
-	border-radius: 5px;
+.section-title span {
+    color: #38bdf8;
 }
 
-.icon a:hover {
-	background: transparent;
-	border: 1px solid #e74c3c;
-	color: black;
-	transition: 0.4s ease;
+/* CSS Grid approach for the gallery */
+.photo-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(380px, 1fr));
+    gap: 30px;
+    grid-auto-rows: minmax(400px, auto);
 }
 
-.h-text {
-	max-width: 700px;
-	position: absolute;
-	top: 50%;
-	left: 50%;
-	transform: translate(-50%, -50%);
-	color: white;
-	text-align: center;
+.photo-card {
+    position: relative;
+    border-radius: 16px;
+    overflow: hidden;
+    cursor: pointer;
+    box-shadow: 0 15px 35px -5px rgba(0,0,0,0.6);
+    background: #1e293b;
+    height: 450px;
+    display: block;
+    text-decoration: none;
 }
 
-#camera {
-	font-size: 40px;
-	margin-bottom: 10px;
+.photo-card-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94), filter 0.5s ease;
+    filter: brightness(0.85);
 }
 
-.h-text h1 {
-	font-family: sans-serif;
-	font-size: 3em;
-	line-height: 1.5em;
+.photo-card:hover .photo-card-img {
+    transform: scale(1.08);
+    filter: brightness(1.05);
 }
 
-.h-text input {
-	width: 60%;
-	padding: 20px;
-	border-radius: 8px;
-	font-size: 20px;
-	border: none;
-	outline: none;
+/* Glassmorphism Overlay */
+.photo-card-overlay {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 40px 30px 30px;
+    background: linear-gradient(to top, rgba(15,23,42,0.95) 0%, rgba(15,23,42,0.7) 50%, transparent 100%);
+    color: white;
+    transform: translateY(15px);
+    transition: transform 0.5s cubic-bezier(0.2, 0.8, 0.2, 1), opacity 0.5s ease;
+    opacity: 0.95;
 }
 
-.h-text button {
-	width: 30%;
-	padding: 20px;
-	background: #e74c3c;
-	font-size: 20px;
-	border: none;
-	outline: none;
-	color: white;
-	border-radius: 8px;
-	margin-top: 30px;
+.photo-card:hover .photo-card-overlay {
+    transform: translateY(0);
 }
 
-
-.filter-gallery {
-	padding: 100px;
-
+.photo-author {
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    color: #38bdf8;
+    font-weight: 700;
+    display: block;
+    margin-bottom: 12px;
+    opacity: 0.8;
+    transform: translateY(10px);
+    transition: all 0.5s ease 0.1s;
 }
 
-
-.portfolio-menu {
-	text-align: center;
-	margin-bottom: 20px;
+.photo-card:hover .photo-author {
+    opacity: 1;
+    transform: translateY(0);
 }
 
-.portfolio-menu ul li {
-	list-style: none;
-	display: inline-block;
-	margin: 20px 0px;
-	font-size: 20px;
-	font-weight: bold;
-	font-family: sans-serif;
-	padding: 10px 20px;
-	cursor: pointer;
-	transition: 0.5s ease;
-	text-align: center;
-
-
+.photo-title {
+    font-size: 1.8rem;
+    font-family: var(--font-heading, 'Outfit', sans-serif);
+    font-weight: 700;
+    margin: 0;
+    color: #ffffff;
+    text-shadow: 0 4px 10px rgba(0,0,0,0.8);
+    line-height: 1.2;
 }
 
-.portfolio-menu ul li:hover {
-	background: #e74c3c;
-	color: white;
-	border-radius: 8px;
+/* Empty State */
+.empty-gallery {
+    text-align: center;
+    padding: 8rem 0;
+    grid-column: 1 / -1;
+    background: rgba(30, 41, 59, 0.5);
+    border-radius: 20px;
+    border: 1px dashed #334155;
 }
 
-li.active {
-	background: #e74c3c;
-	color: white;
-	border-radius: 8px;
+.empty-gallery i {
+    font-size: 5rem;
+    color: #334155;
+    margin-bottom: 1.5rem;
 }
 
-.portfolio-item {
-	width: 100%;
+.empty-gallery h3 {
+    font-size: 2.5rem;
+    color: #cbd5e1;
+    font-family: var(--font-heading, 'Outfit', sans-serif);
 }
 
-.portfolio-item .item {
-	width: 360px;
-	height: 360px;
-	float: left;
-	margin-bottom: 20px;
-	margin-right: 20px;
+.empty-gallery p {
+    color: #64748b;
+    font-size: 1.2rem;
 }
 
-.portfolio-item .item img {
-	width: 100%;
-	height: 100%;
-	border-radius: 8px;
+/* Gear Partners */
+.gear-partners {
+    margin-top: 4rem;
+    text-align: center;
+    padding: 4rem 0;
+    border-top: 1px solid rgba(51, 65, 85, 0.5);
 }
 
-.members {
-
-	font-family: sans-serif;
-	width: 100%;
-
-	padding: 20px 100px;
+.gear-partners h3 {
+    font-family: var(--font-heading, 'Outfit', sans-serif);
+    font-size: 1.5rem;
+    color: #94a3b8;
+    margin-bottom: 3rem;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    font-weight: 600;
 }
 
-.member-info {
-	text-align: center;
-
+.gear-icons {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 4rem;
+    flex-wrap: wrap;
 }
 
-.member-info h1 {
-	font-size: 2.5em;
-
+.gear-icons img {
+    height: 45px;
+    width: auto;
+    filter: grayscale(100%) brightness(150%) opacity(0.4);
+    transition: all 0.4s ease;
 }
 
-.member-info h1 span {
-	color: #e74c3c;
+.gear-icons img:hover {
+    filter: grayscale(0%) brightness(100%) opacity(1);
+    transform: translateY(-5px) scale(1.1);
 }
 
-.member-card {
-	text-align: center;
-	padding-top: 50px;
-	width: 50%;
-	margin: auto;
-}
-
-.member-card p {
-	margin: 20px 0px;
-	line-height: 2em;
-}
-
-.member-card h2 {
-	margin: 20px 0px;
-}
-
-.m-images {
-	width: 100%;
-	display: flex;
-	margin: 20px 0px;
-	overflow: hidden;
-}
-
-.m-images img {
-	width: 200px;
-	height: 200px;
-	cursor: pointer;
-
-	transition: 0.4s ease-in-out;
-}
-
-.m-images img:hover {
-	transform: scale(1.5);
-}
-
-
-footer {
-	background: #262626;
-	color: white;
-	width: 100%;
-
-	padding: 50px 100px;
-}
-
-.newsletter {
-	width: 100%;
-	display: flex;
-	justify-content: space-between;
-	align-items: center;
-	padding: 30px;
-	border: 1px solid rgba(255, 255, 255, 0.2);
-}
-
-.newsletter>div {
-	flex-basis: 50%;
-}
-
-.n-text {
-
-	text-align: right;
-}
-
-.newsletter h2 {
-	font-size: 2em;
-	font-family: sans-serif;
-}
-
-.newsletter p {
-	font-size: 20px;
-	margin-top: 10px;
-}
-
-.newsletter label {
-	position: relative;
-
-}
-
-.newsletter input {
-	padding: 20px;
-	width: 70%;
-	border-radius: 8px;
-	border: none;
-	outline: none;
-	font-family: sans-serif;
-}
-
-.newsletter button {
-	position: absolute;
-	right: 0;
-	padding: 20px;
-	width: 30%;
-	background: #e74c3c;
-	color: white;
-	border: none;
-	outline: none;
-	border-radius: 0 8px 8px 0;
-}
-
-.f-contact {
-	width: 100%;
-	display: flex;
-	justify-content: space-between;
-	align-items: flex-start;
-	margin-top: 3em;
-	border-bottom: 1px solid rgba(255, 255, 255, 0.2);
-}
-
-.f-contact>div {
-	flex-basis: 20%;
-
-
-}
-
-.f-contact p {
-	line-height: 2em;
-	font-size: 20px;
-	color: grey;
-	cursor: pointer;
-}
-
-.f-contact p:hover {
-	color: white;
-}
-
-.f-contact i {
-	background: white;
-	color: black;
-	padding: 10px;
-	font-size: 16px;
-	margin: 20px 5px;
-	border-radius: 50%;
-	transition: .4s ease;
-}
-
-.f-contact i:hover {
-	background: transparent;
-	border: 1px solid white;
-	color: white;
-}
-
-.item {
-	position: relative;
-}
-
-.like-button {
-	position: absolute;
-	bottom: 10px;
-	right: 10px;
-	background-color: rgba(255, 255, 255, 0.7);
-	border: none;
-	cursor: pointer;
-	padding: 5px 10px;
-	font-size: 14px;
-	border-radius: 5px;
-}
-
-.like-button i {
-	margin-right: 5px;
-}
-
-.like-button:hover {
-	background-color: rgba(255, 255, 255, 1);
+@media (max-width: 768px) {
+    .header-content h1 {
+        font-size: 3rem;
+    }
+    .photo-grid {
+        grid-template-columns: 1fr;
+    }
+    .photo-card {
+        height: 350px;
+    }
 }

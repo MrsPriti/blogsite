@@ -1,89 +1,61 @@
 {% extends 'base.html' %}
 {% load static %}
 
-{% block title %} Photography - BLOGS {% endblock %}
+{% block title %} Photography - GLOBETROTTER {% endblock %}
 
 {% block content %}
+<!-- Preconnect for fonts -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=Outfit:wght@400;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" type="text/css" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 <link rel="stylesheet" type="text/css" href="{% static 'photography.css' %}">
-<link rel="stylesheet" type="text/css"
-    href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-<link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
 
-<div class="photography-wrapper" style="font-family: var(--font-main);">
-    <header class="header"
-        style="height: 60vh; background-size: cover; background-position: center; display: flex; align-items: center; justify-content: center; position: relative;">
-        <div class="h-text center-align" style="z-index: 10; color: white;">
-            <i class="fa fa-camera" style="font-size: 3rem; margin-bottom: 20px;"></i>
-            <h1 data-aos="zoom-in-down" style="font-family: var(--font-heading); font-size: 3.5rem; max-width: 800px;">
-                Capturing the moments that captivate your heart.</h1>
+<div class="photography-wrapper">
+    <header class="photo-header" style="background-image: url('{% static 'images/banner1.jpg' %}');">
+        <div class="header-content">
+            <i class="fa fa-camera-retro"></i>
+            <h1>Capturing Moments That Captivate Hearts</h1>
+            <p>Explore the world through our lens. Handpicked photo stories from our global community.</p>
         </div>
-        <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.4);"></div>
     </header>
 
-    <section class="filter-gallery" style="padding: 5rem 0; background-color: #f8fafc;">
-        <div class="container">
-            <div class="center-align" style="margin-bottom: 3rem;">
-                <h2 style="font-family: var(--font-heading); font-size: 3rem; color: #1e293b;">Featured Galleries</h2>
-                <p style="color: #64748b; font-size: 1.1rem; max-width: 600px; margin: 0 auto;">Explore the world through our lens. Handpicked photo stories from our community.</p>
-            </div>
-            <div class="portfolio-item row">
-                {% if posts %}
-                    {% for p in posts %}
-                    <div class="item col s12 m6 l4" data-aos="fade-up" style="margin-bottom: 30px;">
-                        <div class="card" style="border-radius: var(--border-radius); box-shadow: var(--shadow); overflow: hidden; transition: transform 0.3s ease;">
-                            <a href="/blog/{{ p.url }}" style="display: block; position: relative;">
-                                <div class="card-image" style="height: 350px; overflow: hidden; background-color: #e2e8f0;">
-                                    <img src="{{ p.image.url }}" style="width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s ease;" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">
-                                </div>
-                                <div style="position: absolute; bottom: 0; left: 0; right: 0; background: linear-gradient(transparent, rgba(0,0,0,0.8)); padding: 20px; color: white;">
-                                    <span style="font-size: 0.8rem; text-transform: uppercase; font-weight: bold; letter-spacing: 1px; color: #cbd5e1;">By {{ p.author.username|default:"Admin" }}</span>
-                                    <h5 style="margin: 5px 0 0; font-weight: 700; font-size: 1.3rem;">{{ p.title }}</h5>
-                                </div>
-                            </a>
-                        </div>
+    <section class="gallery-section">
+        <div class="section-title">
+            <h2>Featured <span>Galleries</span></h2>
+        </div>
+        
+        <div class="photo-grid">
+            {% if posts %}
+                {% for p in posts %}
+                <a href="/blog/{{ p.url }}" class="photo-card">
+                    <img src="{{ p.image.url }}" alt="{{ p.title }}" class="photo-card-img">
+                    <div class="photo-card-overlay">
+                        <span class="photo-author">By {{ p.author.username|default:"Globetrotter" }}</span>
+                        <h3 class="photo-title">{{ p.title }}</h3>
                     </div>
-                    {% endfor %}
-                {% else %}
-                    <div class="col s12 center-align" style="padding: 5rem 0;">
-                        <i class="fa fa-picture-o" style="font-size: 4rem; color: #cbd5e1; margin-bottom: 20px;"></i>
-                        <h4 style="color: #64748b; font-family: var(--font-heading);">No photo galleries published yet.</h4>
-                        <p style="color: #94a3b8;">Check back soon for inspiring photography.</p>
-                    </div>
-                {% endif %}
-            </div>
+                </a>
+                {% endfor %}
+            {% else %}
+                <div class="empty-gallery">
+                    <i class="fa fa-picture-o"></i>
+                    <h3>No galleries published yet</h3>
+                    <p>Check back soon for inspiring photography.</p>
+                </div>
+            {% endif %}
+        </div>
 
-            <!-- Member Cards Section (Keep for visual consistency if desired, or repurpose) -->
-            <div class="member-card center-align" data-aos="zoom-in-down"
-                style="margin-top: 5rem; display: flex; justify-content: center; gap: 30px; flex-wrap: wrap;">
-                <h3 style="width: 100%; font-family: var(--font-heading); font-size: 2rem; color: #1e293b; margin-bottom: 20px;">Our Gear Partners</h3>
-                <img src="{% static 'images/icon1.png' %}" width="80" style="opacity: 0.7; transition: opacity 0.3s; cursor: pointer;" onmouseover="this.style.opacity='1'" onmouseout="this.style.opacity='0.7'">
-                <img src="{% static 'images/icon2.png' %}" width="80" style="opacity: 0.7; transition: opacity 0.3s; cursor: pointer;" onmouseover="this.style.opacity='1'" onmouseout="this.style.opacity='0.7'">
-                <img src="{% static 'images/icon3.png' %}" width="80" style="opacity: 0.7; transition: opacity 0.3s; cursor: pointer;" onmouseover="this.style.opacity='1'" onmouseout="this.style.opacity='0.7'">
-                <img src="{% static 'images/icon4.png' %}" width="80" style="opacity: 0.7; transition: opacity 0.3s; cursor: pointer;" onmouseover="this.style.opacity='1'" onmouseout="this.style.opacity='0.7'">
+        <div class="gear-partners">
+            <h3>Our Gear Partners</h3>
+            <div class="gear-icons">
+                <img src="{% static 'images/icon1.png' %}" alt="Gear Partner 1">
+                <img src="{% static 'images/icon2.png' %}" alt="Gear Partner 2">
+                <img src="{% static 'images/icon3.png' %}" alt="Gear Partner 3">
+                <img src="{% static 'images/icon4.png' %}" alt="Gear Partner 4">
             </div>
         </div>
     </section>
 </div>
 
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script src="https://unpkg.com/isotope-layout@3/dist/isotope.pkgd.min.js"></script>
-<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-<script>
-	$(document).ready(function(){
-		$('.portfolio-item').isotope({
-			itemSelector: '.item',
-			layoutMode: 'fitRows'
-		});
-		$('.portfolio-menu ul li').click(function(){
-			$('.portfolio-menu ul li').removeClass('active');
-			$(this).addClass('active');
-			var selector = $(this).attr('data-filter');
-			$('.portfolio-item').isotope({
-				filter: selector
-			});
-			return false;
-		});
-		AOS.init();
-	});
-</script>
+<!-- Removed Isotope JS and old jQuery to prevent grid breaking -->
 {% endblock %}
