@@ -1,72 +1,306 @@
 {% extends 'base.html' %}
+{% load static %}
 
 {% block title %} Create New Post {% endblock %}
 
 {% block content %}
-<div class="add-post-wrapper" style="padding: 100px 0; background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%); min-height: 90vh;">
+<style>
+    .add-post-section {
+        padding: 6rem 0;
+        background: linear-gradient(135deg, #e0e7ff 0%, #f1f5f9 50%, #fae8ff 100%);
+        min-height: 100vh;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .add-post-section::before {
+        content: '';
+        position: absolute;
+        top: -10%;
+        left: -5%;
+        width: 600px;
+        height: 600px;
+        background: var(--primary);
+        filter: blur(180px);
+        opacity: 0.05;
+        border-radius: 50%;
+    }
+
+    .form-card {
+        background: rgba(255, 255, 255, 0.95);
+        backdrop-filter: blur(20px);
+        -webkit-backdrop-filter: blur(20px);
+        border-radius: 30px;
+        padding: 3rem;
+        box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.08);
+        border: 1px solid rgba(255, 255, 255, 0.8);
+    }
+
+    .add-post-title {
+        font-family: var(--font-heading);
+        font-size: 3.5rem;
+        font-weight: 900;
+        margin-bottom: 0.5rem;
+        color: #1e293b;
+        letter-spacing: -2px;
+    }
+
+    .section-tag {
+        display: inline-block;
+        padding: 8px 20px;
+        background: #e0e7ff;
+        color: var(--primary);
+        border-radius: 100px;
+        font-weight: 800;
+        font-size: 0.8rem;
+        text-transform: uppercase;
+        letter-spacing: 1.5px;
+        margin-bottom: 1.5rem;
+    }
+
+    .custom-input-field {
+        margin-bottom: 2rem !important;
+    }
+
+    .custom-input-field input, 
+    .custom-input-field textarea {
+        border: 2px solid #e2e8f0 !important;
+        border-radius: 16px !important;
+        padding: 0 20px !important;
+        height: 60px !important;
+        box-sizing: border-box !important;
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+        background: #f8fafc !important;
+        font-size: 1.05rem !important;
+    }
+
+    .custom-input-field textarea {
+        height: 180px !important;
+        padding-top: 20px !important;
+    }
+
+    .custom-input-field input:focus, 
+    .custom-input-field textarea:focus {
+        border-color: var(--primary) !important;
+        background: white !important;
+        box-shadow: 0 10px 15px -3px rgba(79, 70, 229, 0.1) !important;
+    }
+
+    .upload-btn-wrapper {
+        border: 2px dashed #cbd5e1;
+        border-radius: 20px;
+        padding: 2.5rem;
+        text-align: center;
+        transition: all 0.3s ease;
+        cursor: pointer;
+        margin-bottom: 2rem;
+        background: #f1f5f9;
+    }
+
+    .upload-btn-wrapper:hover {
+        border-color: var(--primary);
+        background: #eff6ff;
+    }
+
+    .lottie-side-container {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        height: 100%;
+        padding-left: 3rem;
+    }
+
+    /* Modal / Preview Styles */
+    #previewModal {
+        max-width: 800px;
+        border-radius: 24px;
+        overflow: hidden;
+    }
+
+    .blog-preview-card {
+        background: #fff;
+    }
+
+    .preview-img-container {
+        height: 350px;
+        overflow: hidden;
+        background: #f1f5f9;
+    }
+
+    .preview-img-container img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+
+    .preview-badge {
+        display: inline-block;
+        padding: 6px 14px;
+        background: #eff6ff;
+        color: #3b82f6;
+        border-radius: 100px;
+        font-size: 0.75rem;
+        font-weight: 700;
+        margin-bottom: 15px;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+    }
+</style>
+
+<div class="add-post-section">
     <div class="container">
         <div class="row">
-            <div class="col s12 m10 offset-m1 l8 offset-l2">
-                <div class="card glass-morphism fade-up" style="border-radius: 30px; overflow: hidden; box-shadow: var(--shadow-lg); border: 1px solid rgba(255,255,255,0.5);">
-                    <div class="card-content" style="padding: 50px;">
-                        <h3 class="center-align" style="font-weight: 900; margin-bottom: 10px; color: #1e293b;">Share Your Story</h3>
-                        <p class="center-align" style="color: #64748b; margin-bottom: 40px;">Inspire the world with your unique perspective.</p>
+            <div class="col s12 center-align">
+                <span class="section-tag">Content Creator</span>
+                <h1 class="add-post-title">Share Your Thoughts</h1>
+                <p style="color: #64748b; font-size: 1.2rem; margin-bottom: 4rem;">Create a post that captures the imagination of your readers.</p>
+            </div>
+        </div>
+
+        <div class="row display-flex">
+            <!-- Form Side -->
+            <div class="col s12 l7">
+                <div class="form-card">
+                    <form id="postForm" method="post" enctype="multipart/form-data">
+                        {% csrf_token %}
                         
-                        <form id="postForm" method="post" enctype="multipart/form-data">
-                            {% csrf_token %}
-                            
-                            <div class="input-field" style="margin-bottom: 30px;">
-                                <i class="material-icons prefix" style="color: var(--primary);">title</i>
-                                {{ form.title }}
-                                <label for="{{ form.title.id_for_label }}">Post Title</label>
-                            </div>
+                        <div class="input-field custom-input-field">
+                            {{ form.title }}
+                            <label for="{{ form.title.id_for_label }}">Title of your story</label>
+                        </div>
 
-                            <div class="input-field" style="margin-bottom: 30px;">
-                                <i class="material-icons prefix" style="color: var(--primary);">category</i>
-                                {{ form.cat }}
-                                <small style="color: #94a3b8; display: block; margin-top: 5px;">Choose the best category for your story.</small>
-                            </div>
+                        <div class="input-field custom-input-field">
+                            {{ form.cat }}
+                            <p style="margin-top: 5px; color: #94a3b8; font-size: 0.85rem; padding-left: 5px;">Choose a category</p>
+                        </div>
 
-                            <div class="input-field" style="margin-bottom: 30px;">
-                                <i class="material-icons prefix" style="color: var(--primary);">description</i>
-                                {{ form.content }}
-                                <label for="{{ form.content.id_for_label }}">Content</label>
-                            </div>
+                        <div class="input-field custom-input-field">
+                            {{ form.content }}
+                            <label for="{{ form.content.id_for_label }}">What's on your mind?</label>
+                        </div>
 
-                            <div class="file-field input-field" style="margin-bottom: 40px;">
-                                <div class="btn bg-primary" style="border-radius: 12px;">
-                                    <span><i class="material-icons left">image</i> Featured Image</span>
-                                    <input type="file" id="imageInput" accept="image/*" required>
-                                </div>
-                                <div class="file-path-wrapper">
-                                    <input class="file-path validate" type="text" placeholder="Upload a stunning cover image">
-                                </div>
-                            </div>
-                            
-                            <!-- Hidden original input that Django expects -->
-                            <div style="display:none;">
-                                {{ form.image }}
-                            </div>
+                        <div class="upload-btn-wrapper" onclick="document.getElementById('imageInput').click();">
+                            <i class="material-icons" style="font-size: 3rem; color: var(--primary); opacity: 0.5; margin-bottom: 1rem;">add_photo_alternate</i>
+                            <h6 style="font-weight: 800; margin-bottom: 5px; color: #1e293b;">Featured Image</h6>
+                            <p style="color: #64748b; font-size: 0.95rem;">Tap to select your cover image</p>
+                            <input type="file" id="imageInput" accept="image/*" required style="display:none;" onchange="handleImage(this)">
+                            <div id="imageStatus" style="margin-top: 10px; font-weight: 700; color: var(--primary); display: none;"></div>
+                        </div>
+                        
+                        <div style="display:none;">
+                            {{ form.image }}
+                        </div>
 
-                            <div class="center-align">
-                                <button type="submit" id="submitBtn" class="btn-large bg-primary waves-effect waves-light" style="width: 100%; border-radius: 15px; font-weight: 800; height: 60px; line-height: 60px; font-size: 1.2rem; box-shadow: 0 10px 20px rgba(79, 70, 229, 0.3);">
-                                    Publish Post <i class="material-icons right">send</i>
+                        <div class="row" style="margin-top: 2rem;">
+                            <div class="col s6">
+                                <button type="button" class="btn waves-effect waves-light modal-trigger" data-target="previewModal" style="width: 100%; height: 60px; line-height: 60px; border-radius: 15px; font-weight: 800; background: #f1f5f9; color: #475569; text-transform: none; border: 1px solid #e2e8f0; box-shadow: none;" onclick="updatePreview()">
+                                    Preview Post <i class="material-icons right">visibility</i>
                                 </button>
-                                <div id="compressingMsg" style="display:none; margin-top:10px; color:var(--primary); font-weight:600;">
-                                    <div class="progress"><div class="indeterminate"></div></div>
-                                    Optimizing your image...
-                                </div>
-                                <a href="{% url 'home' %}" class="btn-flat grey-text" style="margin-top: 20px; font-weight: 600;">Cancel and return home</a>
                             </div>
-                        </form>
+                            <div class="col s6">
+                                <button type="submit" id="submitBtn" class="btn bg-primary waves-effect waves-light" style="width: 100%; height: 60px; line-height: 60px; border-radius: 15px; font-weight: 800; text-transform: none; box-shadow: 0 10px 20px -5px rgba(79, 70, 229, 0.4);">
+                                    Publish Story <i class="material-icons right">publish</i>
+                                </button>
+                            </div>
+                            <div class="col s12">
+                                <div id="compressingMsg" style="display:none; margin-top:20px;">
+                                    <div class="progress" style="background-color: #e2e8f0; border-radius: 10px; height: 10px;">
+                                        <div class="indeterminate" style="background-color: var(--primary);"></div>
+                                    </div>
+                                    <p class="center-align" style="color: var(--primary); font-weight: 700; margin-top: 10px;">Optimizing your content...</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="center-align" style="margin-top: 1.5rem;">
+                            <a href="{% url 'home' %}" class="btn-flat grey-text text-darken-1" style="text-transform: none; font-weight: 600;">Discard and return home</a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            
+            <!-- Animation Side -->
+            <div class="col s12 l5 hide-on-med-and-down lottie-side-container">
+                <lottie-player src="{% static 'lottie/blog.json' %}" background="transparent" speed="1" loop autoplay style="width: 100%;"></lottie-player>
+                <div class="tip-card" style="margin-top: 2rem; background: white; padding: 2.5rem; border-radius: 24px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); border: 1px solid #f1f5f9;">
+                    <div style="display: flex; align-items: center; margin-bottom: 1rem;">
+                        <div style="background: #fffbeb; padding: 10px; border-radius: 12px; margin-right: 15px;">
+                            <i class="material-icons" style="color: #fbbf24;">lightbulb</i>
+                        </div>
+                        <h6 style="font-weight: 800; margin: 0; color: #1e293b;">Writing Tip</h6>
                     </div>
+                    <p style="color: #64748b; font-size: 1rem; line-height: 1.6;">
+                        High-quality featured images get 94% more views on average. Ensure your title is punchy and describes your story well.
+                    </p>
                 </div>
             </div>
         </div>
     </div>
 </div>
+
+<!-- Preview Modal -->
+<div id="previewModal" class="modal">
+    <div class="modal-content" style="padding: 0;">
+        <div class="blog-preview-card">
+            <div class="preview-img-container">
+                <img id="previewImage" src="https://images.unsplash.com/photo-1499750310107-5fef28a66643?auto=format&fit=crop&q=80&w=1200" alt="Preview">
+            </div>
+            <div style="padding: 40px;">
+                <span class="preview-badge" id="previewCat">Category</span>
+                <h3 id="previewTitle" style="font-weight: 900; margin-top: 0; margin-bottom: 20px; color: #0f172a; font-size: 2.5rem; line-height: 1.2;">Your Story Title</h3>
+                <div id="previewContent" style="color: #64748b; font-size: 1.1rem; line-height: 1.7; margin-bottom: 40px; min-height: 100px;">
+                    Your story content will appear here...
+                </div>
+                <div style="display: flex; align-items: center; justify-content: space-between; border-top: 1px solid #f1f5f9; padding-top: 30px;">
+                    <div style="color: var(--primary); font-weight: 800; display: flex; align-items: center;">
+                        Read Full Story <i class="material-icons right" style="margin-left: 10px;">arrow_forward</i>
+                    </div>
+                    <div style="text-align: right; background: #f8fafc; padding: 12px 20px; border-radius: 12px; border: 1px solid #e2e8f0;">
+                        <span style="display: block; color: var(--primary); font-size: 1rem; font-weight: 900; text-transform: uppercase;">By {{ user.username|default:"Admin" }}</span>
+                        <span style="color: #94a3b8; font-size: 0.8rem; font-weight: 600;">Today</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer" style="padding: 10px 20px; height: auto;">
+        <a href="#!" class="modal-close btn-flat" style="font-weight: 700; color: #64748b;">Close Preview</a>
+    </div>
+</div>
+
 <script>
+    function handleImage(input) {
+        const status = document.getElementById('imageStatus');
+        const preview = document.getElementById('previewImage');
+        
+        if (input.files && input.files[0]) {
+            const file = input.files[0];
+            status.textContent = "✓ " + file.name;
+            status.style.display = 'block';
+            
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                preview.src = e.target.result;
+            }
+            reader.readAsDataURL(file);
+        }
+    }
+
+    function updatePreview() {
+        const title = document.querySelector('input[name="title"]').value;
+        const content = document.querySelector('textarea[name="content"]').value;
+        const catSelect = document.querySelector('select[name="cat"]');
+        const catText = catSelect.options[catSelect.selectedIndex].text;
+
+        document.getElementById('previewTitle').textContent = title || "Untitled Story";
+        document.getElementById('previewContent').textContent = content || "No content provided yet.";
+        document.getElementById('previewCat').textContent = catText;
+    }
+
     document.addEventListener('DOMContentLoaded', function() {
+        // Initialize Materialize Modal
+        var elems = document.querySelectorAll('.modal');
+        var instances = M.Modal.init(elems);
+
         const djangoImageInput = document.querySelector('input[name="image"]');
         if (djangoImageInput) {
             djangoImageInput.removeAttribute('required');
@@ -78,7 +312,7 @@
         const djangoImageInput = document.querySelector('input[name="image"]');
         
         if (imageInput.files.length > 0) {
-            e.preventDefault(); // Stop form submission to compress
+            e.preventDefault();
             
             const submitBtn = document.getElementById('submitBtn');
             const msg = document.getElementById('compressingMsg');
@@ -89,17 +323,13 @@
             
             try {
                 const compressedFile = await compressImage(file);
-                
-                // Create a DataTransfer to set files on the original Django input
                 const dataTransfer = new DataTransfer();
                 dataTransfer.items.add(compressedFile);
                 djangoImageInput.files = dataTransfer.files;
-                
-                // Now submit the form
                 this.submit();
             } catch (error) {
                 console.error('Compression failed:', error);
-                this.submit(); // Submit anyway if compression fails
+                this.submit();
             }
         }
     });
@@ -115,32 +345,19 @@
                     const canvas = document.createElement('canvas');
                     let width = img.width;
                     let height = img.height;
-                    const max_size = 1200; // Max dimension
-
+                    const max_size = 1200;
                     if (width > height) {
-                        if (width > max_size) {
-                            height *= max_size / width;
-                            width = max_size;
-                        }
+                        if (width > max_size) { height *= max_size / width; width = max_size; }
                     } else {
-                        if (height > max_size) {
-                            width *= max_size / height;
-                            height = max_size;
-                        }
+                        if (height > max_size) { width *= max_size / height; height = max_size; }
                     }
-
-                    canvas.width = width;
-                    canvas.height = height;
+                    canvas.width = width; canvas.height = height;
                     const ctx = canvas.getContext('2d');
                     ctx.drawImage(img, 0, 0, width, height);
-
                     canvas.toBlob(blob => {
-                        const newFile = new File([blob], file.name, {
-                            type: 'image/jpeg',
-                            lastModified: Date.now()
-                        });
+                        const newFile = new File([blob], file.name, { type: 'image/jpeg', lastModified: Date.now() });
                         resolve(newFile);
-                    }, 'image/jpeg', 0.8); // 80% quality
+                    }, 'image/jpeg', 0.8);
                 };
                 img.onerror = error => reject(error);
             };
@@ -148,27 +365,4 @@
         });
     }
 </script>
-
-<style>
-    .glass-morphism {
-        background: rgba(255, 255, 255, 0.8) !important;
-        backdrop-filter: blur(20px);
-        -webkit-backdrop-filter: blur(20px);
-    }
-    
-    .input-field input:focus + label, 
-    .input-field textarea:focus + label {
-        color: var(--primary) !important;
-    }
-    
-    .input-field input:focus, 
-    .input-field textarea:focus {
-        border-bottom: 2px solid var(--primary) !important;
-        box-shadow: 0 1px 0 0 var(--primary) !important;
-    }
-
-    .select-wrapper input.select-dropdown {
-        border-bottom: 1px solid #e2e8f0;
-    }
-</style>
 {% endblock %}

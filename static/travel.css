@@ -1,294 +1,333 @@
-/* Premium Travel Page Styles */
+/* =========== Travel Premium Design System ============ */
+
+:root {
+  --travel-primary: #0ea5e9;
+  --travel-bg: #f8fafc;
+  --travel-text-main: #0f172a;
+  --travel-text-muted: #64748b;
+  --travel-white: #ffffff;
+  --font-heading: 'Outfit', sans-serif;
+  --font-main: 'Inter', sans-serif;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: var(--font-main);
+  background-color: var(--travel-bg);
+  color: var(--travel-text-main);
+}
 
 .travel-wrapper {
-    background-color: #f8fafc; /* Light, airy background */
-    color: #334155;
-    font-family: var(--font-main, 'Inter', sans-serif);
-    min-height: 100vh;
+  overflow-x: hidden;
 }
 
-/* Stunning Hero Section */
-.travel-hero {
-    height: 80vh;
-    background-image: url('images/hero-1.jpg'); /* Beautiful travel hero */
-    background-size: cover;
-    background-position: center;
-    background-attachment: fixed;
-    position: relative;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-    overflow: hidden;
+/* Utilities */
+.travel-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 2rem;
 }
 
-.travel-hero::after {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(to bottom, rgba(15, 23, 42, 0.4) 0%, rgba(15, 23, 42, 0.8) 100%);
+.travel-container-fluid {
+  max-width: 1600px;
+  margin: 0 auto;
+  padding: 0 2rem;
 }
 
-.hero-content {
-    z-index: 10;
-    max-width: 900px;
-    padding: 0 20px;
-    animation: fadeInUp 1s ease forwards;
+.travel-grid-2 {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+  gap: 4rem;
 }
 
-@keyframes fadeInUp {
-    from { opacity: 0; transform: translateY(30px); }
-    to { opacity: 1; transform: translateY(0); }
+.align-center {
+  align-items: center;
 }
 
-.hero-content h1 {
-    font-family: var(--font-heading, 'Outfit', sans-serif);
-    font-size: 5rem;
-    font-weight: 800;
-    color: #ffffff;
-    line-height: 1.1;
-    margin-bottom: 20px;
-    text-shadow: 0 4px 20px rgba(0,0,0,0.4);
+.center-align {
+  text-align: center;
 }
 
-.hero-content p {
-    font-size: 1.5rem;
-    color: #e2e8f0;
-    font-weight: 300;
-    margin-bottom: 40px;
-    letter-spacing: 1px;
+.section {
+  padding: 8rem 0;
 }
 
-.travel-btn-primary {
-    display: inline-block;
-    padding: 18px 45px;
-    font-size: 1.2rem;
-    font-weight: 600;
-    color: #ffffff;
-    background-color: #0ea5e9; /* Ocean Blue */
-    border-radius: 50px;
-    text-decoration: none;
-    transition: all 0.3s ease;
-    box-shadow: 0 10px 20px rgba(14, 165, 233, 0.3);
+img, video {
+  max-width: 100%;
+  border-radius: 20px;
 }
 
-.travel-btn-primary:hover {
-    background-color: #0284c7;
-    transform: translateY(-3px);
-    box-shadow: 0 15px 25px rgba(14, 165, 233, 0.4);
+.title h2 {
+  font-family: var(--font-heading);
+  font-size: 3.5rem;
+  font-weight: 800;
+  color: var(--travel-text-main);
+  margin-bottom: 1.5rem;
+  line-height: 1.2;
 }
 
-/* About Section */
-.travel-about {
-    padding: 8rem 2rem;
-    background: #ffffff;
+.title p {
+  font-size: 1.2rem;
+  color: var(--travel-text-muted);
+  line-height: 1.8;
+  max-width: 800px;
+  margin: 0 auto;
 }
 
-.about-container {
-    max-width: 1200px;
-    margin: 0 auto;
-    display: flex;
-    align-items: center;
-    gap: 4rem;
-    flex-wrap: wrap; /* Allow wrapping on smaller screens to prevent squishing */
+/* Buttons */
+.travel-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  background: var(--travel-text-main);
+  color: var(--travel-white);
+  padding: 16px 36px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  border-radius: 50px;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  box-shadow: 0 10px 20px rgba(15, 23, 42, 0.15);
+  margin-top: 20px;
 }
 
-.about-text {
-    flex: 1 1 400px; /* Grow, shrink, but prefer 400px minimum before wrapping */
+.travel-btn.outline {
+  background: transparent;
+  color: var(--travel-text-main);
+  border: 2px solid var(--travel-text-main);
+  box-shadow: none;
 }
 
-.about-text h2 {
-    font-family: var(--font-heading, 'Outfit', sans-serif);
-    font-size: 3.5rem;
-    font-weight: 800;
-    color: #0f172a;
-    margin-bottom: 1.5rem;
+.travel-btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 15px 25px rgba(15, 23, 42, 0.25);
+  background: var(--travel-primary);
+  color: var(--travel-white);
+  border-color: var(--travel-primary);
 }
 
-.about-text h2 span {
-    color: #0ea5e9;
+/* Premium Cards */
+.premium-card {
+  background: var(--travel-white);
+  border-radius: 30px;
+  padding: 3rem;
+  box-shadow: 0 20px 40px -10px rgba(0, 0, 0, 0.05);
+  border: 1px solid rgba(0,0,0,0.02);
 }
 
-.about-text p {
-    font-size: 1.2rem;
-    line-height: 1.8;
-    color: #64748b;
-    margin-bottom: 2rem;
-    word-break: break-word;
+.premium-card p {
+  font-size: 1.1rem;
+  line-height: 1.8;
+  color: var(--travel-text-muted);
 }
 
-.about-image {
-    flex: 1 1 400px; /* Allow image container to take equal space but wrap if too tight */
-    position: relative;
-    display: flex;
-    justify-content: center;
+/* =========== Header / Hero ============ */
+.header {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  padding-top: 80px; /* Offset for global fixed navbar */
+  overflow: hidden;
 }
 
-.about-image img {
-    width: 100%;
-    max-width: 600px; /* Restrict max size so it doesn't crush the text */
-    border-radius: 20px;
-    box-shadow: 0 20px 40px -10px rgba(0,0,0,0.15);
-    transition: transform 0.5s ease;
+.header .swiper-container {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 1;
 }
 
-.about-image img:hover {
-    transform: scale(1.02);
+.header .swiper-slide img,
+.header .swiper-slide video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 0;
 }
 
-.about-image::before {
-    content: '';
-    position: absolute;
-    top: -20px;
-    left: -20px;
-    width: 100%;
-    height: 100%;
-    border: 3px solid #0ea5e9;
-    border-radius: 20px;
-    z-index: -1;
+.hero-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(to bottom, rgba(15, 23, 42, 0.3), rgba(15, 23, 42, 0.8));
+  z-index: 2;
 }
 
-/* Dynamic Posts Grid */
-.travel-destinations {
-    padding: 8rem 2rem;
-    max-width: 1400px;
-    margin: 0 auto;
+.header .content {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 10;
+  text-align: center;
+  width: 90%;
+  max-width: 900px;
 }
 
-.section-header {
-    text-align: center;
-    margin-bottom: 5rem;
+.header .content h1 {
+  font-family: var(--font-heading);
+  font-size: 6rem;
+  font-weight: 800;
+  color: var(--travel-white);
+  line-height: 1.1;
+  text-shadow: 0 10px 30px rgba(0,0,0,0.5);
+  margin-bottom: 2rem;
 }
 
-.section-header h2 {
-    font-family: var(--font-heading, 'Outfit', sans-serif);
-    font-size: 3rem;
-    font-weight: 800;
-    color: #0f172a;
+.header .arrows {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  z-index: 10;
+  display: flex;
 }
 
-.travel-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
-    gap: 40px;
+.header .swiper-prev,
+.header .swiper-next {
+  width: 80px;
+  height: 80px;
+  background: var(--travel-white);
+  color: var(--travel-text-main);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
 }
 
-.travel-card {
-    background: #ffffff;
-    border-radius: 24px;
-    overflow: hidden;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.05);
-    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-    text-decoration: none;
-    display: block;
-    border: 1px solid #f1f5f9;
+.header .swiper-prev:hover,
+.header .swiper-next:hover {
+  background: var(--travel-primary);
+  color: var(--travel-white);
 }
 
-.travel-card:hover {
-    transform: translateY(-15px);
-    box-shadow: 0 20px 40px rgba(14, 165, 233, 0.15);
+/* =========== About Section ============ */
+.about .travel-media-wrapper .swiper-container {
+  height: 500px;
+  border-radius: 30px;
+  overflow: hidden;
+  box-shadow: 0 20px 40px rgba(0,0,0,0.1);
 }
 
-.travel-card-img {
-    height: 250px;
-    width: 100%;
-    overflow: hidden;
-    position: relative;
+.about .swiper-slide img,
+.about .swiper-slide video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 
-.travel-card-img img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    transition: transform 0.6s ease;
+/* =========== Service / Weekend Section ============ */
+.service {
+  background: var(--travel-white);
 }
 
-.travel-card:hover .travel-card-img img {
-    transform: scale(1.1);
+.editorial-image {
+  position: relative;
 }
 
-.travel-badge {
-    position: absolute;
-    top: 20px;
-    right: 20px;
-    background: rgba(255,255,255,0.9);
-    color: #0ea5e9;
-    padding: 8px 16px;
-    border-radius: 20px;
-    font-weight: 700;
-    font-size: 0.8rem;
-    letter-spacing: 1px;
-    text-transform: uppercase;
-    backdrop-filter: blur(5px);
+.editorial-image img {
+  width: 100%;
+  height: 600px;
+  object-fit: cover;
+  border-radius: 40px;
+  box-shadow: 0 30px 60px -15px rgba(0,0,0,0.2);
 }
 
-.travel-card-content {
-    padding: 30px;
+.editorial-text {
+  position: relative;
+  left: -50px;
+  z-index: 5;
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(10px);
 }
 
-.travel-card-content h3 {
-    font-family: var(--font-heading, 'Outfit', sans-serif);
-    font-size: 1.5rem;
-    font-weight: 700;
-    color: #0f172a;
-    margin-bottom: 15px;
-    line-height: 1.3;
-}
-
-.travel-author {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    color: #64748b;
-    font-size: 0.9rem;
-    font-weight: 500;
-}
-
-.travel-author i {
-    color: #0ea5e9;
-}
-
-/* Empty State */
-.empty-travel {
-    grid-column: 1 / -1;
-    text-align: center;
-    padding: 6rem 0;
-    background: #ffffff;
-    border-radius: 24px;
-    border: 2px dashed #cbd5e1;
-}
-
-.empty-travel i {
-    font-size: 4rem;
-    color: #94a3b8;
-    margin-bottom: 1rem;
-}
-
-.empty-travel h3 {
-    font-family: var(--font-heading, 'Outfit', sans-serif);
-    font-size: 2rem;
-    color: #475569;
-}
-
-/* Responsive */
 @media (max-width: 992px) {
-    .about-container {
-        flex-direction: column;
-        text-align: center;
-    }
-    .about-image::before {
-        display: none;
-    }
-    .hero-content h1 {
-        font-size: 3.5rem;
-    }
+  .editorial-text {
+    left: 0;
+    top: -50px;
+    margin: 0 20px;
+  }
 }
 
+/* =========== Trips Section ============ */
+.trip {
+  background: var(--travel-bg);
+}
+
+.trip .title {
+  margin-bottom: 4rem;
+}
+
+.slider-3 {
+  padding-bottom: 60px;
+}
+
+.premium-slide {
+  width: 350px !important;
+  height: 500px;
+  border-radius: 30px;
+  overflow: hidden;
+  box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+  transition: all 0.4s ease;
+}
+
+.premium-slide img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 0;
+  transition: transform 0.6s ease;
+}
+
+.premium-slide:hover {
+  transform: translateY(-15px);
+  box-shadow: 0 25px 45px rgba(14, 165, 233, 0.2);
+}
+
+.premium-slide:hover img {
+  transform: scale(1.05);
+}
+
+/* =========== More Places ============ */
+.more .box {
+  margin-top: 2rem;
+  text-align: center;
+  transition: transform 0.3s ease;
+}
+
+.more .box:hover {
+  transform: translateY(-10px);
+}
+
+.more .box img {
+  height: 300px;
+  width: 100%;
+  object-fit: cover;
+  border-radius: 20px;
+}
+
+.more .box h3 {
+  font-family: var(--font-heading);
+  font-size: 1.8rem;
+  margin-top: 1.5rem;
+  color: var(--travel-text-main);
+}
+
+/* Responsive Overrides */
 @media (max-width: 768px) {
-    .travel-grid {
-        grid-template-columns: 1fr;
-    }
-    .hero-content h1 {
-        font-size: 2.8rem;
-    }
+  .header .content h1 {
+    font-size: 3.5rem;
+  }
+  .title h2 {
+    font-size: 2.5rem;
+  }
+  .editorial-image img {
+    height: 400px;
+  }
 }

@@ -4,57 +4,203 @@
 {% block title %} Contact Us - BLOGS {% endblock %}
 
 {% block content %}
-<div class="container" style="padding: 5rem 0;">
-    <div class="row">
-        <div class="col s12 center-align" style="margin-bottom: 4rem;">
-            <h1 style="font-family: var(--font-heading); font-size: 4rem;">Get In Touch</h1>
-            <p style="font-size: 1.2rem; color: #64748b; max-width: 600px; margin: auto; font-family: var(--font-alt);">
-                We'd love to hear from you! Whether you have a question, feedback, or just want to say hello.
-            </p>
-        </div>
+<style>
+    .contact-hero {
+        background: linear-gradient(135deg, #f8fafc 0%, #eff6ff 100%);
+        padding: 8rem 0 4rem 0;
+        position: relative;
+        overflow: hidden;
+    }
+    .contact-hero::before {
+        content: '';
+        position: absolute;
+        top: -10%;
+        right: -5%;
+        width: 400px;
+        height: 400px;
+        background: var(--primary);
+        filter: blur(150px);
+        opacity: 0.05;
+        border-radius: 50%;
+    }
+    .contact-title {
+        font-family: var(--font-heading);
+        font-size: 5rem;
+        font-weight: 900;
+        line-height: 1.1;
+        margin-bottom: 1.5rem;
+        background: linear-gradient(to right, #1e293b, var(--primary));
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+    }
+    .contact-subtitle {
+        font-size: 1.25rem;
+        color: #64748b;
+        max-width: 500px;
+        font-family: var(--font-alt);
+        margin-bottom: 2rem;
+    }
+    .premium-card-contact {
+        background: white;
+        padding: 2.5rem;
+        border-radius: var(--border-radius);
+        box-shadow: var(--shadow-lg);
+        border: 1px solid rgba(0, 0, 0, 0.02);
+        transition: transform 0.3s ease;
+    }
+    .premium-card-contact:hover {
+        transform: translateY(-5px);
+    }
+    .info-circle {
+        width: 60px;
+        height: 60px;
+        background: rgba(79, 70, 229, 0.1);
+        border-radius: 20px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-bottom: 1.5rem;
+        color: var(--primary);
+    }
+    .form-control-custom {
+        border: 2px solid #f1f5f9 !important;
+        border-radius: 12px !important;
+        padding: 0 15px !important;
+        height: 55px !important;
+        box-sizing: border-box !important;
+        transition: all 0.3s ease !important;
+        margin-bottom: 1rem !important;
+    }
+    .form-control-custom:focus {
+        border-color: var(--primary) !important;
+        box-shadow: 0 0 0 4px rgba(79, 70, 229, 0.1) !important;
+        background: white !important;
+    }
+    .textarea-custom {
+        height: 150px !important;
+        padding: 15px !important;
+    }
+    label.active {
+        transform: translateY(-20px) scale(0.8) !important;
+        color: var(--primary) !important;
+    }
+    .map-wrapper {
+        margin-top: 4rem;
+        border-radius: var(--border-radius);
+        overflow: hidden;
+        box-shadow: var(--shadow-lg);
+        height: 400px;
+    }
+</style>
 
-        <div class="col s12 m5">
-            <div class="contact-info" style="background: white; padding: 40px; border-radius: var(--border-radius); box-shadow: var(--shadow-lg);">
-                <div class="info-item" style="margin-bottom: 30px;">
-                    <i class="material-icons" style="color: var(--primary); font-size: 2.5rem;">phone</i>
-                    <h5 style="margin: 10px 0 5px;">Phone</h5>
-                    <p style="color: #64748b;">+91 9337594103</p>
+<div class="contact-hero">
+    <div class="container">
+        <div class="row valign-wrapper">
+            <div class="col s12 l7">
+                <span style="text-transform: uppercase; letter-spacing: 3px; font-weight: 700; color: var(--primary); font-size: 0.9rem; display: block; margin-bottom: 1rem;">Contact Us</span>
+                <h1 class="contact-title">Let's Start a <br>Conversation.</h1>
+                <p class="contact-subtitle">
+                    Have a vision in mind? Or just want to say hi? Our team is ready to connect and explore the possibilities with you.
+                </p>
+                <div class="hide-on-med-and-up center-align" style="margin-bottom: 2rem;">
+                    <lottie-player src="{% static 'lottie/contact-us.json' %}" background="transparent" speed="1" loop autoplay style="width: 100%; max-width: 300px; margin: auto;"></lottie-player>
                 </div>
-                <div class="info-item" style="margin-bottom: 30px;">
-                    <i class="material-icons" style="color: var(--primary); font-size: 2.5rem;">email</i>
-                    <h5 style="margin: 10px 0 5px;">E-mail</h5>
-                    <p style="color: #64748b;">pritipadmapadhi3@gmail.com</p>
+                <div class="row" style="margin-top: 3rem;">
+                    <div class="col s12 m6">
+                        <div style="display: flex; align-items: center; margin-bottom: 1.5rem;">
+                            <div class="info-circle" style="margin-bottom: 0; margin-right: 1.5rem;">
+                                <i class="material-icons">email</i>
+                            </div>
+                            <div>
+                                <span style="display: block; color: #64748b; font-size: 0.8rem; font-weight: 600;">EMAIL US</span>
+                                <span style="font-weight: 700; font-size: 1.1rem;">hello@blogsite.com</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col s12 m6">
+                        <div style="display: flex; align-items: center; margin-bottom: 1.5rem;">
+                            <div class="info-circle" style="margin-bottom: 0; margin-right: 1.5rem;">
+                                <i class="material-icons">phone</i>
+                            </div>
+                            <div>
+                                <span style="display: block; color: #64748b; font-size: 0.8rem; font-weight: 600;">CALL US</span>
+                                <span style="font-weight: 700; font-size: 1.1rem;">+91 9337594103</span>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <div class="info-item">
-                    <i class="material-icons" style="color: var(--primary); font-size: 2.5rem;">place</i>
-                    <h5 style="margin: 10px 0 5px;">Location</h5>
-                    <p style="color: #64748b;">Infocity Road, Bhubaneswar, Odisha, India</p>
+            </div>
+            <div class="col s12 l5 hide-on-small-only">
+                <div style="position: relative;">
+                    <div style="position: absolute; top: 10%; right: 10%; width: 80%; height: 80%; background: var(--primary); filter: blur(100px); opacity: 0.1; z-index: 0;"></div>
+                    <lottie-player src="{% static 'lottie/contact-us.json' %}" background="transparent" speed="1" loop autoplay style="width: 100%; position: relative; z-index: 1;"></lottie-player>
                 </div>
             </div>
         </div>
+    </div>
+</div>
 
-        <div class="col s12 m7">
-            <div class="contact-form-wrapper" style="background: white; padding: 40px; border-radius: var(--border-radius); box-shadow: var(--shadow-lg);">
+<div class="container" style="margin-top: -3rem; position: relative; z-index: 10; margin-bottom: 5rem;">
+    <div class="row">
+        <div class="col s12 l4">
+            <div class="premium-card-contact" style="height: 100%;">
+                <h4 style="margin-top: 0; margin-bottom: 2rem;">Visit Us</h4>
+                <div class="info-item" style="margin-bottom: 2rem;">
+                    <p style="color: #64748b; font-weight: 500;">Headquarters</p>
+                    <p style="font-size: 1.2rem; font-weight: 600;">Infocity Road, Bhubaneswar, Odisha, India 751024</p>
+                </div>
+                <div class="info-item" style="margin-bottom: 2rem;">
+                    <p style="color: #64748b; font-weight: 500;">Office Hours</p>
+                    <p style="font-size: 1.2rem; font-weight: 600;">Mon - Fri: 9:00 AM - 6:00 PM</p>
+                </div>
+                <div class="social-links" style="margin-top: 3rem;">
+                    <p style="color: #64748b; font-weight: 500; margin-bottom: 1rem;">Follow Our Journey</p>
+                    <div style="display: flex; gap: 1rem;">
+                        <a href="#" class="info-circle" style="width: 45px; height: 45px; margin-bottom: 0;"><i class='bx bxl-instagram' style="font-size: 1.5rem;"></i></a>
+                        <a href="#" class="info-circle" style="width: 45px; height: 45px; margin-bottom: 0;"><i class='bx bxl-twitter' style="font-size: 1.5rem;"></i></a>
+                        <a href="#" class="info-circle" style="width: 45px; height: 45px; margin-bottom: 0;"><i class='bx bxl-linkedin' style="font-size: 1.5rem;"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col s12 l8">
+            <div class="premium-card-contact">
+                <h4 style="margin-top: 0; margin-bottom: 2rem;">Send a Message</h4>
                 <form>
-                    <div class="input-field" style="margin-bottom: 30px;">
-                        <input type="text" id="full_name" required style="border-bottom: 2px solid #e2e8f0;">
-                        <label for="full_name">Full Name</label>
+                    <div class="row">
+                        <div class="input-field col s12 m6">
+                            <input type="text" id="full_name" class="form-control-custom" required>
+                            <label for="full_name" style="left: 25px;">Full Name</label>
+                        </div>
+                        <div class="input-field col s12 m6">
+                            <input type="email" id="email" class="form-control-custom" required>
+                            <label for="email" style="left: 25px;">Email Address</label>
+                        </div>
                     </div>
-                    <div class="input-field" style="margin-bottom: 30px;">
-                        <input type="email" id="email" required style="border-bottom: 2px solid #e2e8f0;">
-                        <label for="email">E-mail Address</label>
+                    <div class="row">
+                        <div class="input-field col s12">
+                            <input type="text" id="subject" class="form-control-custom">
+                            <label for="subject" style="left: 25px;">Subject (Optional)</label>
+                        </div>
                     </div>
-                    <div class="input-field" style="margin-bottom: 30px;">
-                        <textarea id="message" class="materialize-textarea" style="border-bottom: 2px solid #e2e8f0;"></textarea>
-                        <label for="message">Your Message</label>
+                    <div class="row">
+                        <div class="input-field col s12">
+                            <textarea id="message" class="materialize-textarea form-control-custom textarea-custom"></textarea>
+                            <label for="message" style="left: 25px;">How can we help you?</label>
+                        </div>
                     </div>
-                    <button type="submit" class="btn bg-primary" style="width: 100%; height: 50px;">Send Message</button>
+                    <div style="text-align: right; margin-top: 1rem;">
+                        <button type="submit" class="btn bg-primary" style="height: 55px; line-height: 55px; padding: 0 40px; font-size: 1.1rem;">
+                            Send Message <i class="material-icons right">send</i>
+                        </button>
+                    </div>
                 </form>
             </div>
-            <div class="map-container" style="margin-top: 30px; border-radius: var(--border-radius); overflow: hidden; box-shadow: var(--shadow);">
-                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3740.9687670093326!2d85.8046495734101!3d20.342908910984914!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3a1908e285d3747b%3A0x2a1b91dde2df954b!2sInfocity%20Square!5e0!3m2!1sen!2sin!4v1716778960385!5m2!1sen!2sin" width="100%" height="250" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
-            </div>
         </div>
+    </div>
+
+    <div class="map-wrapper">
+        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3740.9687670093326!2d85.8046495734101!3d20.342908910984914!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3a1908e285d3747b%3A0x2a1b91dde2df954b!2sInfocity%20Square!5e0!3m2!1sen!2sin!4v1716778960385!5m2!1sen!2sin" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
     </div>
 </div>
 {% endblock %}

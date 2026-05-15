@@ -1,117 +1,158 @@
 {% extends 'base.html' %}
 {% load static %}
 
-{% block title %} Travel - GLOBETROTTER {% endblock %}
+{% block title %} Travel - BLOGS {% endblock %}
 
 {% block content %}
-<!-- Preconnect for fonts -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Outfit:wght@400;600;700;800&display=swap" rel="stylesheet">
-<link rel="stylesheet" type="text/css" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-<link rel="stylesheet" href="{% static 'travel.css' %}?v=2.0" />
+<link rel="stylesheet" href="{% static 'travel.css' %}?v=5.0" />
+<link href="https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css" rel="stylesheet" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Swiper/6.7.5/swiper-bundle.min.css" />
 
 <div class="travel-wrapper">
-    <!-- Stunning Hero Section -->
-    <header class="travel-hero" id="header" style="background-image: url('{% static 'images/hero-1.jpg' %}');">
-        <div class="hero-content">
-            <h1>Journey Through The Extraordinary</h1>
-            <p>Discover breathtaking destinations, curated itineraries, and insider tips from global explorers.</p>
-            <a href="#about" class="travel-btn-primary">Get Started <i class="fa fa-compass" style="margin-left: 8px;"></i></a>
+  <header class="header" id="header">
+    <div class="swiper-container slider-1">
+      <div class="swiper-wrapper">
+        <div class="swiper-slide"><img src="{% static './images/pic-1.jpg' %}" alt="" /></div>
+        <div class="swiper-slide"><img src="{% static './images/pic-5.jpg' %}" alt="" /></div>
+        <div class="swiper-slide">
+          <video muted loop autoplay>
+            <source src="{% static './images/video-2.mp4' %}" type="video/mp4" />
+          </video>
         </div>
-    </header>
+        <div class="swiper-slide"><img src="{% static './images/pic-6.jpg' %}" alt="" /></div>
+        <div class="swiper-slide">
+          <video muted loop autoplay>
+            <source src="{% static './images/video-3.mp4' %}" type="video/mp4" />
+          </video>
+        </div>
+        <div class="swiper-slide"><img src="{% static './images/hero-3.jpg' %}" alt="" /></div>
+        <div class="swiper-slide">
+          <video muted loop autoplay>
+            <source src="{% static './images/video-1.mp4' %}" type="video/mp4" />
+          </video>
+        </div>
+      </div>
+    </div>
 
-    <!-- About Section (Fixed Layout) -->
-    <section class="travel-about" id="about">
-        <div class="about-container">
-            <div class="about-text">
-                <h2>About <span>Us</span></h2>
-                <p>A travel blog is a place where an individual can share thoughts about, experiences with, and tips on travel. We believe that traveling is not just about seeing new places, but about immersing yourself in new cultures and creating lifelong memories.</p>
-                <p>Join our community of explorers as we traverse the globe, seeking out hidden gems and sharing our adventures to inspire your next great escape!</p>
-            </div>
-            <div class="about-image">
-                <img src="{% static 'images/pic-5.jpg' %}" alt="Travel Explorers">
-            </div>
+    <div class="hero-overlay"></div>
+    <div class="content fade-up">
+      <h1>Journey Through <br /> The Extraordinary</h1>
+      <a href="#about" class="travel-btn">Get Started <i class="bx bx-compass"></i></a>
+    </div>
+
+    <div class="arrows d-flex">
+      <div class="swiper-prev d-flex"><i class="bx bx-chevron-left swiper-icon"></i></div>
+      <div class="swiper-next d-flex"><i class="bx bx-chevron-right swiper-icon"></i></div>
+    </div>
+  </header>
+
+  <main class="main">
+    <!-- About Us Section -->
+    <section class="section about" id="about">
+      <div class="travel-container travel-grid-2">
+        <div class="travel-card-wrapper premium-card">
+          <div class="title">
+            <h2>About Us</h2>
+          </div>
+          <p>
+            A travel blog is a place where an individual can share thoughts about, experiences with and tips on travel.
+            Join our community of explorers!
+          </p>
         </div>
+        <div class="travel-media-wrapper">
+          <div class="swiper-container slider-2">
+            <div class="swiper-wrapper">
+              <div class="swiper-slide"><img src="{% static './images/pic-5.jpg' %}" alt="" /></div>
+              <div class="swiper-slide">
+                <video muted loop autoplay>
+                  <source src="{% static './images/video-3.mp4' %}" type="video/mp4" />
+                </video>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </section>
 
-    <!-- Dynamic Travel Destinations Grid -->
-    <section class="travel-destinations" id="destinations">
-        <div class="section-header">
-            <h2>Our Latest <span>Adventures</span></h2>
+    <!-- Service / Weekend Section -->
+    <section class="section service" id="service">
+      <div class="travel-container travel-grid-2 align-center">
+        <div class="travel-media-wrapper editorial-image">
+          <img src="{% static './images/pic-1.jpg' %}" alt="Weekend Getaway">
         </div>
-
-        <div class="travel-grid">
-            <!-- Dynamic Posts from Database -->
-            {% if posts %}
-                {% for p in posts %}
-                <a href="/blog/{{ p.url }}" class="travel-card">
-                    <div class="travel-card-img">
-                        <img src="{{ p.image.url }}" alt="{{ p.title }}">
-                        <div class="travel-badge">Featured</div>
-                    </div>
-                    <div class="travel-card-content">
-                        <h3>{{ p.title }}</h3>
-                        <div class="travel-author">
-                            <i class="fa fa-user-circle"></i>
-                            <span>By {{ p.author.username|default:"Globetrotter" }}</span>
-                        </div>
-                    </div>
-                </a>
-                {% endfor %}
-            {% else %}
-                <div class="empty-travel">
-                    <i class="fa fa-map-signs"></i>
-                    <h3>No travel adventures published yet</h3>
-                    <p style="color: #64748b; margin-top: 10px;">Check back soon for new itineraries and stories.</p>
-                </div>
-            {% endif %}
-
-            <!-- Static Fallback Cards (Just to showcase the beautiful layout immediately) -->
-            <a href="#" class="travel-card">
-                <div class="travel-card-img">
-                    <img src="{% static 'images/pic-1.jpg' %}" alt="Weekend Getaway">
-                    <div class="travel-badge">Guide</div>
-                </div>
-                <div class="travel-card-content">
-                    <h3>How to Spend a Perfect Weekend in Bali</h3>
-                    <div class="travel-author">
-                        <i class="fa fa-user-circle"></i>
-                        <span>By Globetrotter</span>
-                    </div>
-                </div>
-            </a>
-
-            <a href="#" class="travel-card">
-                <div class="travel-card-img">
-                    <img src="{% static 'images/pic-4.jpg' %}" alt="Mountain Hike">
-                    <div class="travel-badge">Adventure</div>
-                </div>
-                <div class="travel-card-content">
-                    <h3>Conquering the Highest Peaks of Europe</h3>
-                    <div class="travel-author">
-                        <i class="fa fa-user-circle"></i>
-                        <span>By Alex Explorer</span>
-                    </div>
-                </div>
-            </a>
-
-            <a href="#" class="travel-card">
-                <div class="travel-card-img">
-                    <img src="{% static 'images/country-2.jpg' %}" alt="City Escape">
-                    <div class="travel-badge">City Break</div>
-                </div>
-                <div class="travel-card-content">
-                    <h3>The Ultimate 48-Hour Guide to Paris</h3>
-                    <div class="travel-author">
-                        <i class="fa fa-user-circle"></i>
-                        <span>By Globetrotter</span>
-                    </div>
-                </div>
-            </a>
+        <div class="travel-card-wrapper premium-card editorial-text">
+          <div class="title">
+            <h2>How to Spend a Weekend?</h2>
+          </div>
+          <p>
+            Travel blogs often feature posts about how to spend a weekend, offering readers inspiration and detailed
+            itineraries for short trips. Make the most of your 48 hours.
+          </p>
+          <a href="#" class="travel-btn outline">Plan My Weekend</a>
         </div>
+      </div>
     </section>
+
+    <!-- Plan Your Trip Section -->
+    <section class="section trip" id="trips">
+      <div class="title center-align">
+        <h2>Plan Your Trip With Us</h2>
+        <p>We love connecting with fellow travelers! Follow us on social media and join our forums to discover new horizons.</p>
+      </div>
+      <div class="travel-container-fluid">
+        <div class="swiper-container slider-3">
+          <div class="swiper-wrapper">
+            <div class="swiper-slide premium-slide"><img src="{% static './images/vert-1.jpg' %}" alt="" /></div>
+            <div class="swiper-slide premium-slide"><img src="{% static './images/vert-2.jpg' %}" alt="" /></div>
+            <div class="swiper-slide premium-slide"><img src="{% static './images/vert-3.jpg' %}" alt="" /></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- New Custom Lottie Section -->
+    <section class="section">
+      <div class="travel-container travel-grid-2 align-center">
+        <div class="editorial-text premium-card">
+          <div class="title" style="margin-bottom: 20px;">
+            <h2 style="font-size: 2.5rem; margin-bottom: 10px;">Your Next Adventure Awaits</h2>
+            <p style="text-align: left;">Every journey begins with a single step. We meticulously plan and curate the finest travel experiences tailored just for you. Get ready to explore the unknown with confidence.</p>
+          </div>
+          <a href="#" class="travel-btn">Start Exploring <i class='bx bx-right-arrow-alt'></i></a>
+        </div>
+        <div class="lottie-container" style="display: flex; justify-content: center; align-items: center;">
+          <div style="width: 100%; max-width: 450px;">
+            <lottie-player src="{% static 'lottie/loading.json' %}" background="transparent" speed="1" loop autoplay></lottie-player>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- More Places Section -->
+    <section class="section more">
+      <div class="travel-container travel-grid-2">
+        <div class="more-content">
+          <h2>More Places for Your Next Travel</h2>
+          <div class="box premium-card">
+            <img src="{% static './images/pic-2.jpg' %}" alt="Bali">
+            <h3>Visit to Bali</h3>
+          </div>
+        </div>
+        <div class="more-media editorial-image">
+          <img src="{% static './images/pic-4.jpg' %}" alt="Travel More">
+        </div>
+      </div>
+    </section>
+
+  </main>
 </div>
 
-<!-- All clunky sliders and broken JS have been removed to ensure a clean, performant, and flawless premium layout -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/6.7.5/swiper-bundle.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/scrollReveal.js/4.0.9/scrollreveal.min.js"></script>
+
+<script src="{% static 'slider.js' %}"></script>
+<script src="{% static 'travel.js' %}"></script>
 {% endblock %}

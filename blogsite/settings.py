@@ -157,9 +157,21 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 # Cloudinary Storage Configuration
 DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
 
-CLOUDINARY_STORAGE = {
-    'CLOUDINARY_URL': os.environ.get('CLOUDINARY_URL'),
-}
+from dotenv import load_dotenv
+load_dotenv(os.path.join(BASE_DIR, '.env'))
+
+# Cloudinary requires CLOUDINARY_URL to be present in the environment or directly in settings.
+# Because load_dotenv pushes it to the environment, django-cloudinary-storage will automatically detect it.
+# If for some reason we still need to provide the dict fallback:
+if os.environ.get('CLOUDINARY_URL'):
+    pass # Already in env, library handles it automatically
+else:
+    # Safe fallback if completely missing so it doesn't crash
+    CLOUDINARY_STORAGE = {
+        'CLOUD_NAME': 'dummy',
+        'API_KEY': 'dummy',
+        'API_SECRET': 'dummy'
+    }
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field

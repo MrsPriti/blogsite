@@ -17,11 +17,15 @@
             </p>
         </div>
         <div class="col s12 l6">
-            <div style="position: relative; padding: 20px;">
+            <div style="position: relative; padding: 20px; display: flex; justify-content: center; align-items: center;">
                 <div style="position: absolute; top: 0; right: 0; width: 80%; height: 80%; background: var(--primary); border-radius: var(--border-radius); opacity: 0.1; z-index: -1;"></div>
-                <img src="{% static 'images/about.jpg' %}" alt="About Us" class="responsive-img" style="border-radius: var(--border-radius); box-shadow: var(--shadow-lg);">
+                <div style="width: 100%; max-width: 500px;">
+                    <lottie-player src="{% static 'lottie/Team.json' %}" background="transparent" speed="1" loop autoplay></lottie-player>
+                </div>
             </div>
         </div>
     </div>
 </div>
+
+
 {% endblock %}

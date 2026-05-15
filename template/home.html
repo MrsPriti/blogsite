@@ -7,15 +7,12 @@
     <video autoplay loop muted plays-inline>
         <source src="{% static 'images/home_blog.mp4' %}" type="video/mp4">
     </video>
-    <!-- <div class="navbar">
-        <img class="logo" src="logo.png">
-        <ul>
-            <li><a href="#">Home</a></li>
-            <li><a href="#">Travel</a></li>
-            <li><a href="#">Blogs</a></li>
-            <li><a href="#">Support</a></li>
-        </ul>
-    </div> -->
+
+    <!-- Floating Lottie Animation Overlay -->
+    <div class="banner-lottie" style="position: absolute; top: 15%; left: 5%; width: 400px; z-index: 5; pointer-events: none; filter: drop-shadow(0 10px 20px rgba(0,0,0,0.2));">
+        <lottie-player src="{% static 'lottie/priti_with_laptop.json' %}" background="transparent" speed="1" loop autoplay></lottie-player>
+    </div>
+
     <div class="content">
         <h1>EXPLORE THE WORLD</h1>
         <div class="search-container">

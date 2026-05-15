@@ -5,71 +5,133 @@
 
 {% block content %}
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" />
-<link rel="stylesheet" href="{% static 'food.css' %}" />
+<style>
+    :root {
+        --recipe-primary: #ea580c;
+        --recipe-bg: #fff7ed;
+        --font-heading: 'Playfair Display', serif;
+        --font-main: 'Inter', sans-serif;
+    }
+    .display-flex {
+        display: flex !important;
+    }
+    .align-items-center {
+        align-items: center !important;
+    }
+    .food-hero {
+        background: linear-gradient(135deg, #fff7ed 0%, #ffedd5 100%);
+        padding: 140px 0 100px 0;
+        border-radius: 0 0 100px 100px;
+        position: relative;
+        overflow: hidden;
+    }
+    .search-container {
+        background: white;
+        padding: 10px;
+        border-radius: 100px;
+        display: flex;
+        align-items: center;
+        box-shadow: 0 20px 40px rgba(234, 88, 12, 0.1);
+        border: 2px solid #fed7aa;
+        max-width: 600px;
+        margin-top: 30px;
+    }
+    .search-container i {
+        margin: 0 15px;
+        color: var(--recipe-primary);
+        font-size: 1.2rem;
+    }
+    .search-container input {
+        border: none !important;
+        margin: 0 !important;
+        height: 50px !important;
+        box-shadow: none !important;
+        font-size: 1.1rem !important;
+        flex-grow: 1;
+        outline: none !important;
+    }
+    .search-container .btn {
+        border-radius: 100px;
+        height: 50px;
+        padding: 0 30px;
+        background: var(--recipe-primary) !important;
+        text-transform: none;
+        font-weight: 700;
+        box-shadow: 0 10px 20px rgba(234, 88, 12, 0.2);
+    }
+    .recipe-card {
+        border-radius: 30px;
+        overflow: hidden;
+        background: white;
+        box-shadow: 0 15px 35px rgba(0,0,0,0.05);
+        transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        border: 1px solid #f1f5f9;
+        height: 100%;
+    }
+    .recipe-card:hover {
+        transform: translateY(-15px);
+        box-shadow: 0 25px 50px rgba(234, 88, 12, 0.1);
+    }
+    .recipe-image {
+        height: 250px;
+        overflow: hidden;
+    }
+    .recipe-image img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: transform 0.6s ease;
+    }
+    .recipe-card:hover .recipe-image img {
+        transform: scale(1.1);
+    }
+</style>
 
-<div class="food-wrapper" style="font-family: var(--font-main); padding: 5rem 0;">
-  <div class="container">
-    <div class="meal-wrapper">
-      <div class="meal-search center-align" style="margin-bottom: 4rem;">
-        <h2 class="title" style="font-family: var(--font-heading); font-size: 4rem; color: #1e293b;">Delicious Recipes
-        </h2>
-        <blockquote
-          style="border-left: 5px solid var(--primary); font-family: var(--font-alt); font-size: 1.2rem; color: #64748b;">
-          "Real food doesn't have ingredients, real food is ingredients."
-        </blockquote>
-
-        <div class="meal-search-box" style="max-width: 600px; margin: 30px auto; display: flex;">
-          <input type="text" class="search-control" placeholder="Enter an ingredient (e.g. Potato, Chicken)"
-            id="search-input"
-            style="height: 50px; border-radius: 25px 0 0 25px; border: 2px solid #e2e8f0; padding: 0 25px;">
-          <button type="submit" class="search-btn btn bg-primary" id="search-btn"
-            style="height: 50px; border-radius: 0 25px 25px 0; padding: 0 30px;">
-            <i class="fas fa-search"></i>
-          </button>
-        </div>
-      </div>
-
-      <div class="meal-result">
-        {% if posts %}
-        <h2 class="title" style="font-family: var(--font-heading); margin-bottom: 30px;">Our Latest Food Stories:</h2>
-        <div class="row">
-          {% for p in posts %}
-          <div class="col s12 m4">
-            <div class="card" style="border-radius: 20px; overflow: hidden; box-shadow: var(--shadow-sm);">
-              <div class="card-image" style="height: 200px; overflow: hidden;">
-                <img src="{{ p.image.url }}" style="height: 100%; object-fit: cover;">
-              </div>
-              <div class="card-content" style="padding: 20px;">
-                <span style="color: var(--primary); font-weight: 800; font-size: 0.8rem; text-transform: uppercase;">By {{ p.author.username|default:"Admin" }}</span>
-                <h5 style="font-weight: 700; margin: 10px 0;">{{ p.title }}</h5>
-                <a href="/blog/{{ p.url }}" class="btn-small bg-primary" style="border-radius: 10px; width: 100%;">View Recipe</a>
-              </div>
+<div class="food-hero">
+    <div class="container">
+        <div class="row display-flex align-items-center">
+            <div class="col s12 l7">
+                <span style="background: #ea580c; color: white; padding: 6px 18px; border-radius: 50px; font-weight: 800; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 1px;">Healthy & Tasty</span>
+                <h1 style="font-family: var(--font-heading); font-size: 4.5rem; font-weight: 900; color: #1e293b; margin: 20px 0; line-height: 1.1;">Discover the Secret of <span style="color: #ea580c;">Perfect Taste</span></h1>
+                <p style="font-size: 1.2rem; color: #64748b; line-height: 1.8;">Explore over 5,000 hand-picked recipes from around the world. From quick snacks to luxury dinners, find your next favorite meal here.</p>
+                
+                <div class="search-container">
+                    <i class="fas fa-search"></i>
+                    <input type="text" id="recipe-search-input" class="browser-default" placeholder="Search by ingredient (e.g. Chicken)">
+                    <button type="button" id="search-btn" class="btn">Search</button>
+                </div>
             </div>
-          </div>
-          {% endfor %}
+            <div class="col s12 l5 hide-on-med-and-down">
+                <lottie-player src="{% static 'lottie/Cooking.json' %}" background="transparent" speed="1" loop autoplay style="width: 100%;"></lottie-player>
+            </div>
         </div>
-        <hr style="border: 0; border-top: 1px solid #e2e8f0; margin: 50px 0;">
-        {% endif %}
-
-        <h2 class="title" style="font-family: var(--font-heading); margin-bottom: 30px;">Search Global Recipes:</h2>
-        <div id="meal" class="row">
-          <!-- meal items will be injected here by food.js -->
-        </div>
-      </div>
-
-      <div class="meal-details glass-morphism"
-        style="display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 2000; width: 90%; max-width: 800px; max-height: 90vh; overflow-y: auto; background: white; padding: 40px; border-radius: var(--border-radius); box-shadow: var(--shadow-lg);">
-        <button type="button" class="btn recipe-close-btn" id="recipe-close-btn"
-          style="position: absolute; top: 20px; right: 20px; background: #ef4444; border-radius: 50%; width: 40px; height: 40px; padding: 0;">
-          <i class="fas fa-times"></i>
-        </button>
-        <div class="meal-details-content">
-          <!-- content injected by food.js -->
-        </div>
-      </div>
     </div>
-  </div>
 </div>
 
-<script src="{% static 'food.js' %}"></script>
+<div class="container" style="padding-top: 80px; padding-bottom: 80px;">
+    <div class="section-title center-align" style="margin-bottom: 60px;">
+        <h2 style="font-family: var(--font-heading); font-weight: 900; color: #1e293b; font-size: 3rem;">Global Recipe Discoveries</h2>
+        <div style="width: 80px; height: 5px; background: #ea580c; margin: 20px auto; border-radius: 10px;"></div>
+    </div>
+
+    <div id="meal" class="row">
+        <!-- Content from JS -->
+    </div>
+</div>
+
+<!-- Premium Modal -->
+<div id="modalOverlay" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(15, 23, 42, 0.6); backdrop-filter: blur(8px); z-index: 9998;" onclick="closeRecipeModal()"></div>
+<div class="meal-details" style="display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 9999; width: 95%; max-width: 900px; background: white; border-radius: 40px; box-shadow: 0 40px 100px rgba(0,0,0,0.3); overflow: hidden; max-height: 90vh;">
+    <button type="button" onclick="closeRecipeModal()" style="position: absolute; top: 25px; right: 25px; background: white; border: none; width: 45px; height: 45px; border-radius: 50%; display: flex; align-items: center; justify-content: center; box-shadow: 0 5px 15px rgba(0,0,0,0.1); cursor: pointer; z-index: 10;">
+        <i class="fas fa-times" style="color: #ea580c; font-size: 1.2rem;"></i>
+    </button>
+    <div class="meal-details-content" style="padding: 0; overflow-y: auto; max-height: 90vh;"></div>
+</div>
+
+<!-- Sticky Easter Egg Animation -->
+<div id="sticky-easter-egg" style="position: fixed; bottom: 30px; right: 30px; width: 200px; height: 200px; z-index: 9990; pointer-events: none; display: none;">
+    <lottie-player id="easter-egg-player" background="transparent" speed="1" loop autoplay style="width: 100%; height: 100%;"></lottie-player>
+</div>
+
+<script src="{% static 'food.js' %}?v=1.5"></script>
 {% endblock %}
