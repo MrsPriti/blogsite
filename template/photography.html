@@ -20,84 +20,46 @@
         <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.4);"></div>
     </header>
 
-    <section class="filter-gallery" style="padding: 5rem 0;">
+    <section class="filter-gallery" style="padding: 5rem 0; background-color: #f8fafc;">
         <div class="container">
-            <div class="portfolio-menu center-align" style="margin-bottom: 3rem;">
-                <ul style="display: flex; justify-content: center; gap: 20px; list-style: none;">
-                    <li data-filter="*" class="btn active" style="border-radius: 20px;">All</li>
-                    <li data-filter=".web" class="btn" style="border-radius: 20px;">Nature</li>
-                    <li data-filter=".seo" class="btn" style="border-radius: 20px;">Fashion</li>
-                </ul>
+            <div class="center-align" style="margin-bottom: 3rem;">
+                <h2 style="font-family: var(--font-heading); font-size: 3rem; color: #1e293b;">Featured Galleries</h2>
+                <p style="color: #64748b; font-size: 1.1rem; max-width: 600px; margin: 0 auto;">Explore the world through our lens. Handpicked photo stories from our community.</p>
             </div>
             <div class="portfolio-item row">
-                <div class="item web col s12 m6 l4" data-aos="flip-left" style="margin-bottom: 20px;">
-                    <img src="{% static 'images/p1.jpg' %}" class="responsive-img"
-                        style="border-radius: var(--border-radius); box-shadow: var(--shadow);">
-                </div>
-                <div class="item web col s12 m6 l4" data-aos="flip-left" style="margin-bottom: 20px;">
-                    <img src="{% static 'images/p2.jpg' %}" class="responsive-img"
-                        style="border-radius: var(--border-radius); box-shadow: var(--shadow);">
-                </div>
-                <div class="item web col s12 m6 l4" data-aos="flip-left" style="margin-bottom: 20px;">
-                    <img src="{% static 'images/p3.jpg' %}" class="responsive-img"
-                        style="border-radius: var(--border-radius); box-shadow: var(--shadow);">
-                </div>
-                <div class="item web col s12 m6 l4" data-aos="flip-left" style="margin-bottom: 20px;">
-                    <img src="{% static 'images/p4.jpg' %}" class="responsive-img"
-                        style="border-radius: var(--border-radius); box-shadow: var(--shadow);">
-                </div>
-                <div class="item seo col s12 m6 l4" data-aos="zoom-in" style="margin-bottom: 20px;">
-                    <img src="{% static 'images/p5.jpg' %}" class="responsive-img"
-                        style="border-radius: var(--border-radius); box-shadow: var(--shadow);">
-                </div>
-                <div class="item seo col s12 m6 l4" data-aos="zoom-in" style="margin-bottom: 20px;">
-                    <img src="{% static 'images/p6.jpg' %}" class="responsive-img"
-                        style="border-radius: var(--border-radius); box-shadow: var(--shadow);">
-                </div>
-                <div class="item graphics col s12 m6 l4" data-aos="zoom-in-up" style="margin-bottom: 20px;">
-                    <img src="{% static 'images/p7.jpg' %}" class="responsive-img"
-                        style="border-radius: var(--border-radius); box-shadow: var(--shadow);">
-                </div>
-                <div class="item graphics col s12 m6 l4" data-aos="zoom-in-up" style="margin-bottom: 20px;">
-                    <img src="{% static 'images/p8.jpg' %}" class="responsive-img"
-                        style="border-radius: var(--border-radius); box-shadow: var(--shadow);">
-                </div>
-                <div class="item graphics col s12 m6 l4" data-aos="zoom-in-up" style="margin-bottom: 20px;">
-                    <img src="{% static 'images/p9.jpg' %}" class="responsive-img"
-                        style="border-radius: var(--border-radius); box-shadow: var(--shadow);">
-                </div>
-                <div class="item graphics col s12 m6 l4" data-aos="zoom-in-up" style="margin-bottom: 20px;">
-                    <img src="{% static 'images/pexels-lucasallmann-612891.jpg' %}" class="responsive-img"
-                        style="border-radius: var(--border-radius); box-shadow: var(--shadow);">
-                </div>
-                <div class="item graphics col s12 m6 l4" data-aos="zoom-in-up" style="margin-bottom: 20px;">
-                    <img src="{% static 'images/pexels-kelly-1179532-2918152.jpg' %}" class="responsive-img"
-                        style="border-radius: var(--border-radius); box-shadow: var(--shadow);">
-                </div>
-                <div class="item graphics col s12 m6 l4" data-aos="zoom-in-up" style="margin-bottom: 20px;">
-                    <img src="{% static 'images/pexels-nandhukumar-450441.jpg' %}" class="responsive-img"
-                        style="border-radius: var(--border-radius); box-shadow: var(--shadow);">
-                </div>
+                {% if posts %}
+                    {% for p in posts %}
+                    <div class="item col s12 m6 l4" data-aos="fade-up" style="margin-bottom: 30px;">
+                        <div class="card" style="border-radius: var(--border-radius); box-shadow: var(--shadow); overflow: hidden; transition: transform 0.3s ease;">
+                            <a href="/blog/{{ p.url }}" style="display: block; position: relative;">
+                                <div class="card-image" style="height: 350px; overflow: hidden; background-color: #e2e8f0;">
+                                    <img src="{{ p.image.url }}" style="width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s ease;" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">
+                                </div>
+                                <div style="position: absolute; bottom: 0; left: 0; right: 0; background: linear-gradient(transparent, rgba(0,0,0,0.8)); padding: 20px; color: white;">
+                                    <span style="font-size: 0.8rem; text-transform: uppercase; font-weight: bold; letter-spacing: 1px; color: #cbd5e1;">By {{ p.author.username|default:"Admin" }}</span>
+                                    <h5 style="margin: 5px 0 0; font-weight: 700; font-size: 1.3rem;">{{ p.title }}</h5>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                    {% endfor %}
+                {% else %}
+                    <div class="col s12 center-align" style="padding: 5rem 0;">
+                        <i class="fa fa-picture-o" style="font-size: 4rem; color: #cbd5e1; margin-bottom: 20px;"></i>
+                        <h4 style="color: #64748b; font-family: var(--font-heading);">No photo galleries published yet.</h4>
+                        <p style="color: #94a3b8;">Check back soon for inspiring photography.</p>
+                    </div>
+                {% endif %}
             </div>
 
-            <!-- Member Cards Section -->
+            <!-- Member Cards Section (Keep for visual consistency if desired, or repurpose) -->
             <div class="member-card center-align" data-aos="zoom-in-down"
                 style="margin-top: 5rem; display: flex; justify-content: center; gap: 30px; flex-wrap: wrap;">
-                <img src="{% static 'images/icon1.png' %}" width="100">
-                <img src="{% static 'images/icon2.png' %}" width="100">
-                <img src="{% static 'images/icon3.png' %}" width="100">
-                <img src="{% static 'images/icon4.png' %}" width="100">
-            </div>
-
-            <!-- More Images Section -->
-            <div class="m-images center-align" data-aos="zoom-in"
-                style="margin-top: 5rem; display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px;">
-                <img src="{% static 'images/s1.jpg' %}" class="responsive-img" style="border-radius: 10px;">
-                <img src="{% static 'images/s2.jpg' %}" class="responsive-img" style="border-radius: 10px;">
-                <img src="{% static 'images/s3.jpg' %}" class="responsive-img" style="border-radius: 10px;">
-                <img src="{% static 'images/s4.jpg' %}" class="responsive-img" style="border-radius: 10px;">
-                <img src="{% static 'images/s5.jpg' %}" class="responsive-img" style="border-radius: 10px;">
-                <img src="{% static 'images/s6.jpg' %}" class="responsive-img" style="border-radius: 10px;">
+                <h3 style="width: 100%; font-family: var(--font-heading); font-size: 2rem; color: #1e293b; margin-bottom: 20px;">Our Gear Partners</h3>
+                <img src="{% static 'images/icon1.png' %}" width="80" style="opacity: 0.7; transition: opacity 0.3s; cursor: pointer;" onmouseover="this.style.opacity='1'" onmouseout="this.style.opacity='0.7'">
+                <img src="{% static 'images/icon2.png' %}" width="80" style="opacity: 0.7; transition: opacity 0.3s; cursor: pointer;" onmouseover="this.style.opacity='1'" onmouseout="this.style.opacity='0.7'">
+                <img src="{% static 'images/icon3.png' %}" width="80" style="opacity: 0.7; transition: opacity 0.3s; cursor: pointer;" onmouseover="this.style.opacity='1'" onmouseout="this.style.opacity='0.7'">
+                <img src="{% static 'images/icon4.png' %}" width="80" style="opacity: 0.7; transition: opacity 0.3s; cursor: pointer;" onmouseover="this.style.opacity='1'" onmouseout="this.style.opacity='0.7'">
             </div>
         </div>
     </section>
